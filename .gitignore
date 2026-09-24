@@ -1,0 +1,27 @@
+# Entorno y variables
+.env
+.env.*
+!.env.example
+
+# Entornos virtuales
+.venv/
+venv/
+env/
+ENV/
+
+# Python cache y compilados
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+
+# IDEs y editores
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
