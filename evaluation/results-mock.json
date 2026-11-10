@@ -1,0 +1,1580 @@
+{
+  "mode": "mock",
+  "timestamp_utc": "2026-11-10T15:54:22.990636+00:00",
+  "dataset_sha256": "334538ef2673105b7c7e68136edd2d1ad0a5c162b82d0eaccc1dd060fb7c8f64",
+  "subset": "all",
+  "config": {
+    "index_name": "kenzie-knowledge",
+    "namespace": "devmind",
+    "top_k": 3,
+    "score_threshold": 0.4,
+    "model": "gpt-4o",
+    "temperature": null,
+    "context_chars": 10000,
+    "timeout": 15
+  },
+  "questions_evaluated": 41,
+  "metrics": {
+    "retrieval_hit_at_k": {
+      "1": {
+        "passed": 32,
+        "total": 32,
+        "rate": 1.0
+      },
+      "3": {
+        "passed": 32,
+        "total": 32,
+        "rate": 1.0
+      },
+      "5": {
+        "passed": 32,
+        "total": 32,
+        "rate": 1.0
+      }
+    },
+    "abstention_accuracy": {
+      "passed": 41,
+      "total": 41,
+      "rate": 1.0
+    },
+    "correct_rejection": {
+      "passed": 9,
+      "total": 9,
+      "rate": 1.0
+    },
+    "source_attribution": {
+      "passed": 32,
+      "total": 32,
+      "rate": 1.0
+    },
+    "expected_source_cited": {
+      "passed": 32,
+      "total": 32,
+      "rate": 1.0
+    },
+    "latency": {
+      "retrieval": {
+        "median_ms": 0.02,
+        "samples": 41
+      },
+      "generation": {
+        "median_ms": 0.15,
+        "samples": 34
+      },
+      "total": {
+        "median_ms": 0.18,
+        "samples": 41
+      }
+    },
+    "error_rate": {
+      "passed": 0,
+      "total": 41,
+      "rate": 0.0
+    }
+  },
+  "per_question": [
+    {
+      "id": 1,
+      "category": "JavaScript",
+      "type": "facil",
+      "query": "¿Cuál es la diferencia entre declarar una variable con let y con const en JavaScript moderno?",
+      "expected_sources": [
+        "GIT_LOGIC_JS/Fundamentos_JS/FE02-08-variaveis.md"
+      ],
+      "should_answer": true,
+      "status": "answered",
+      "answer": "Resposta de teste do provedor simulado.",
+      "sources": [
+        {
+          "source": "GIT_LOGIC_JS/Fundamentos_JS/FE02-08-variaveis.md",
+          "section": "Tipos de Dados Primitivos Básicos",
+          "chunk_id": 4,
+          "score": 1.0,
+          "excerpt": "## Tipos de Dados Primitivos Básicos\n\nO JavaScript infere automaticamente o tipo de dado de acordo com o valor atribuído (*tipagem dinâmica*):\n\n```javascript\n// String (Textos delimitados por aspas duplas, simples ou crases)\nconst cidade = \"Curitiba\";\n\n// Number (Inteiros e decimais de ponto flutuante)\nconst ano = 2026;\nconst temperatura = 23.5;\n\n// Boolean"
+        }
+      ],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "GIT_LOGIC_JS/Fundamentos_JS/FE02-08-variaveis.md",
+        "fixture.md"
+      ],
+      "context_sources": [
+        {
+          "source": "GIT_LOGIC_JS/Fundamentos_JS/FE02-08-variaveis.md",
+          "section": "Tipos de Dados Primitivos Básicos",
+          "chunk_id": 4,
+          "score": 1.0
+        }
+      ],
+      "latency_ms": {
+        "retrieval": 0.03697700003613136,
+        "generation": 0.568615999782196,
+        "total": 0.6371599997692101
+      },
+      "error": null
+    },
+    {
+      "id": 2,
+      "category": "JavaScript",
+      "type": "facil",
+      "query": "¿Qué es un array en JavaScript y por qué se usa en lugar de variables sueltas?",
+      "expected_sources": [
+        "GIT_LOGIC_JS/Arrays/FE02-45-introducao-a-arrays.md"
+      ],
+      "should_answer": true,
+      "status": "answered",
+      "answer": "Resposta de teste do provedor simulado.",
+      "sources": [
+        {
+          "source": "GIT_LOGIC_JS/Arrays/FE02-45-introducao-a-arrays.md",
+          "section": "Métodos Fundamentais de Inserção e Remoção",
+          "chunk_id": 3,
+          "score": 1.0,
+          "excerpt": "## Métodos Fundamentais de Inserção e Remoção\n\n| Método | Operação | Onde Atua? | Retorno do Método |\n| --- | --- | --- | --- |\n| `.push(item)` | Adiciona um ou mais itens | **No final** do array | O novo `length` do array |\n| `.pop()` | Remove o último elemento | **No final** do array | O elemento que foi removido |\n| `.unshift(item)` | Adiciona um ou mais"
+        }
+      ],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "GIT_LOGIC_JS/Arrays/FE02-45-introducao-a-arrays.md",
+        "fixture.md"
+      ],
+      "context_sources": [
+        {
+          "source": "GIT_LOGIC_JS/Arrays/FE02-45-introducao-a-arrays.md",
+          "section": "Métodos Fundamentais de Inserção e Remoção",
+          "chunk_id": 3,
+          "score": 1.0
+        }
+      ],
+      "latency_ms": {
+        "retrieval": 0.02769999991869554,
+        "generation": 0.2050359998975182,
+        "total": 0.2577229997768882
+      },
+      "error": null
+    },
+    {
+      "id": 3,
+      "category": "JavaScript",
+      "type": "facil",
+      "query": "¿Desde qué número empieza el índice de los elementos en un array?",
+      "expected_sources": [
+        "GIT_LOGIC_JS/Arrays/FE02-45-introducao-a-arrays.md"
+      ],
+      "should_answer": true,
+      "status": "answered",
+      "answer": "Resposta de teste do provedor simulado.",
+      "sources": [
+        {
+          "source": "GIT_LOGIC_JS/Arrays/FE02-45-introducao-a-arrays.md",
+          "section": "Métodos Fundamentais de Inserção e Remoção",
+          "chunk_id": 3,
+          "score": 1.0,
+          "excerpt": "## Métodos Fundamentais de Inserção e Remoção\n\n| Método | Operação | Onde Atua? | Retorno do Método |\n| --- | --- | --- | --- |\n| `.push(item)` | Adiciona um ou mais itens | **No final** do array | O novo `length` do array |\n| `.pop()` | Remove o último elemento | **No final** do array | O elemento que foi removido |\n| `.unshift(item)` | Adiciona um ou mais"
+        }
+      ],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "GIT_LOGIC_JS/Arrays/FE02-45-introducao-a-arrays.md",
+        "fixture.md"
+      ],
+      "context_sources": [
+        {
+          "source": "GIT_LOGIC_JS/Arrays/FE02-45-introducao-a-arrays.md",
+          "section": "Métodos Fundamentais de Inserção e Remoção",
+          "chunk_id": 3,
+          "score": 1.0
+        }
+      ],
+      "latency_ms": {
+        "retrieval": 0.20606899988706573,
+        "generation": 0.16652100021019578,
+        "total": 0.4180840001026809
+      },
+      "error": null
+    },
+    {
+      "id": 4,
+      "category": "JavaScript",
+      "type": "facil",
+      "query": "¿Cuándo se pueden omitir las llaves y el return en una arrow function?",
+      "expected_sources": [
+        "DOM_CSS_JS/ES6_JS_Moderno/FE03-47-arrow-function.md"
+      ],
+      "should_answer": true,
+      "status": "answered",
+      "answer": "Resposta de teste do provedor simulado.",
+      "sources": [
+        {
+          "source": "DOM_CSS_JS/ES6_JS_Moderno/FE03-47-arrow-function.md",
+          "section": "Variações de Sintaxe",
+          "chunk_id": 2,
+          "score": 1.0,
+          "excerpt": "## Variações de Sintaxe\n\n### 1. Sintaxe Completa com Bloco `{}`\nQuando a função possui múltiplas linhas e exige a palavra-chave `return`:\n\n```javascript\nconst calcularMedia = (nota1, nota2) => {\n  const soma = nota1 + nota2;\n  return soma / 2;\n};\n```\n\n### 2. Retorno Implícito de Uma Linha (Implicit Return)\nQuando a função executa apenas uma única instrução,"
+        }
+      ],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "DOM_CSS_JS/ES6_JS_Moderno/FE03-47-arrow-function.md",
+        "fixture.md"
+      ],
+      "context_sources": [
+        {
+          "source": "DOM_CSS_JS/ES6_JS_Moderno/FE03-47-arrow-function.md",
+          "section": "Variações de Sintaxe",
+          "chunk_id": 2,
+          "score": 1.0
+        }
+      ],
+      "latency_ms": {
+        "retrieval": 0.022467000235337764,
+        "generation": 0.1643749997128907,
+        "total": 0.20862200017290888
+      },
+      "error": null
+    },
+    {
+      "id": 5,
+      "category": "TypeScript",
+      "type": "facil",
+      "query": "¿Qué es un union type en TypeScript?",
+      "expected_sources": [
+        "REACT_AVANCADO/TypeScript/FE05-47-union-type.md"
+      ],
+      "should_answer": true,
+      "status": "answered",
+      "answer": "Resposta de teste do provedor simulado.",
+      "sources": [
+        {
+          "source": "REACT_AVANCADO/TypeScript/FE05-47-union-type.md",
+          "section": "Narrowing — estreitando o tipo",
+          "chunk_id": 3,
+          "score": 1.0,
+          "excerpt": "## Narrowing — estreitando o tipo\n\n```typescript\nfunction processar(valor: string | number) {\n  // typeof estreita\n  if (typeof valor === \"string\") {\n    return valor.toUpperCase(); // valor é string aqui\n  }\n  return valor.toFixed(2);       // valor é number aqui\n}\n```\n\n### Narrowing com instanceof\n\n```typescript\nif (valor instanceof Date) {\n  valor.getFull"
+        }
+      ],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "REACT_AVANCADO/TypeScript/FE05-47-union-type.md",
+        "fixture.md"
+      ],
+      "context_sources": [
+        {
+          "source": "REACT_AVANCADO/TypeScript/FE05-47-union-type.md",
+          "section": "Narrowing — estreitando o tipo",
+          "chunk_id": 3,
+          "score": 1.0
+        }
+      ],
+      "latency_ms": {
+        "retrieval": 0.057964000006904826,
+        "generation": 0.1837840000007418,
+        "total": 0.26303200002075755
+      },
+      "error": null
+    },
+    {
+      "id": 6,
+      "category": "TypeScript",
+      "type": "ambigua",
+      "query": "¿Cómo puedo restringir una variable a que solo acepte un conjunto fijo de valores de texto exactos?",
+      "expected_sources": [
+        "REACT_AVANCADO/TypeScript/FE05-47-union-type.md"
+      ],
+      "should_answer": true,
+      "status": "answered",
+      "answer": "Resposta de teste do provedor simulado.",
+      "sources": [
+        {
+          "source": "REACT_AVANCADO/TypeScript/FE05-47-union-type.md",
+          "section": "Narrowing — estreitando o tipo",
+          "chunk_id": 3,
+          "score": 1.0,
+          "excerpt": "## Narrowing — estreitando o tipo\n\n```typescript\nfunction processar(valor: string | number) {\n  // typeof estreita\n  if (typeof valor === \"string\") {\n    return valor.toUpperCase(); // valor é string aqui\n  }\n  return valor.toFixed(2);       // valor é number aqui\n}\n```\n\n### Narrowing com instanceof\n\n```typescript\nif (valor instanceof Date) {\n  valor.getFull"
+        }
+      ],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "REACT_AVANCADO/TypeScript/FE05-47-union-type.md",
+        "fixture.md"
+      ],
+      "context_sources": [
+        {
+          "source": "REACT_AVANCADO/TypeScript/FE05-47-union-type.md",
+          "section": "Narrowing — estreitando o tipo",
+          "chunk_id": 3,
+          "score": 1.0
+        }
+      ],
+      "latency_ms": {
+        "retrieval": 0.01885999972728314,
+        "generation": 0.14640200015492155,
+        "total": 0.18482599989511073
+      },
+      "error": null
+    },
+    {
+      "id": 7,
+      "category": "React",
+      "type": "facil",
+      "query": "¿Para qué sirve el hook useEffect en React?",
+      "expected_sources": [
+        "REACT_INICIO/Ciclo_De_Vida_useEffect/FE04-50-useeffect-introducao.md"
+      ],
+      "should_answer": true,
+      "status": "answered",
+      "answer": "Resposta de teste do provedor simulado.",
+      "sources": [
+        {
+          "source": "REACT_INICIO/Ciclo_De_Vida_useEffect/FE04-50-useeffect-introducao.md",
+          "section": "Por que usar useEffect e não o corpo do componente",
+          "chunk_id": 3,
+          "score": 1.0,
+          "excerpt": "## Por que usar useEffect e não o corpo do componente\n\n```jsx\n// ❌ ERRADO — fetch dispara a cada render, gera loop infinito\nfunction App() {\n  const [dados, setDados] = useState([]);\n  fetch(\"/api\").then(r => r.json()).then(setDados);\n  // setDados → re-render → fetch de novo → loop!\n\n  return <div>...</div>;\n}\n\n// ✅ CERTO — fetch uma vez, na montagem\nfuncti"
+        }
+      ],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "REACT_INICIO/Ciclo_De_Vida_useEffect/FE04-50-useeffect-introducao.md",
+        "fixture.md"
+      ],
+      "context_sources": [
+        {
+          "source": "REACT_INICIO/Ciclo_De_Vida_useEffect/FE04-50-useeffect-introducao.md",
+          "section": "Por que usar useEffect e não o corpo do componente",
+          "chunk_id": 3,
+          "score": 1.0
+        }
+      ],
+      "latency_ms": {
+        "retrieval": 0.021180999738135142,
+        "generation": 0.1384229999530362,
+        "total": 0.1776359999894339
+      },
+      "error": null
+    },
+    {
+      "id": 8,
+      "category": "React",
+      "type": "facil",
+      "query": "¿Qué pasa cuando le paso un array de dependencias vacío a useEffect?",
+      "expected_sources": [
+        "REACT_INICIO/Ciclo_De_Vida_useEffect/FE04-50-useeffect-introducao.md"
+      ],
+      "should_answer": true,
+      "status": "answered",
+      "answer": "Resposta de teste do provedor simulado.",
+      "sources": [
+        {
+          "source": "REACT_INICIO/Ciclo_De_Vida_useEffect/FE04-50-useeffect-introducao.md",
+          "section": "Por que usar useEffect e não o corpo do componente",
+          "chunk_id": 3,
+          "score": 1.0,
+          "excerpt": "## Por que usar useEffect e não o corpo do componente\n\n```jsx\n// ❌ ERRADO — fetch dispara a cada render, gera loop infinito\nfunction App() {\n  const [dados, setDados] = useState([]);\n  fetch(\"/api\").then(r => r.json()).then(setDados);\n  // setDados → re-render → fetch de novo → loop!\n\n  return <div>...</div>;\n}\n\n// ✅ CERTO — fetch uma vez, na montagem\nfuncti"
+        }
+      ],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "REACT_INICIO/Ciclo_De_Vida_useEffect/FE04-50-useeffect-introducao.md",
+        "fixture.md"
+      ],
+      "context_sources": [
+        {
+          "source": "REACT_INICIO/Ciclo_De_Vida_useEffect/FE04-50-useeffect-introducao.md",
+          "section": "Por que usar useEffect e não o corpo do componente",
+          "chunk_id": 3,
+          "score": 1.0
+        }
+      ],
+      "latency_ms": {
+        "retrieval": 0.019129000065731816,
+        "generation": 0.14372599980561063,
+        "total": 0.17910699989442946
+      },
+      "error": null
+    },
+    {
+      "id": 9,
+      "category": "React",
+      "type": "facil",
+      "query": "¿Qué hace el hook useQuery de React Query?",
+      "expected_sources": [
+        "REACT_AVANCADO/React_Query/FE05-19-react-query-usequery.md"
+      ],
+      "should_answer": true,
+      "status": "answered",
+      "answer": "Resposta de teste do provedor simulado.",
+      "sources": [
+        {
+          "source": "REACT_AVANCADO/React_Query/FE05-19-react-query-usequery.md",
+          "section": "Configurações essenciais",
+          "chunk_id": 5,
+          "score": 1.0,
+          "excerpt": "## Configurações essenciais\n\n```jsx\nuseQuery({\n  queryKey: [\"produtos\"],\n  queryFn: buscar,\n\n  staleTime: 1000 * 60 * 5,    // 5min \"fresco\" — sem refetch\n  cacheTime: 1000 * 60 * 30,   // 30min no cache depois de inativo\n  refetchOnWindowFocus: false, // não refaz ao focar a aba\n  retry: 1,                     // tenta 1x só em erro\n  enabled: !!id,"
+        }
+      ],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "REACT_AVANCADO/React_Query/FE05-19-react-query-usequery.md",
+        "fixture.md"
+      ],
+      "context_sources": [
+        {
+          "source": "REACT_AVANCADO/React_Query/FE05-19-react-query-usequery.md",
+          "section": "Configurações essenciais",
+          "chunk_id": 5,
+          "score": 1.0
+        }
+      ],
+      "latency_ms": {
+        "retrieval": 0.018289999843545957,
+        "generation": 0.202250000256754,
+        "total": 0.23700100018686499
+      },
+      "error": null
+    },
+    {
+      "id": 10,
+      "category": "React",
+      "type": "ambigua",
+      "query": "¿Cómo hace React Query para saber cuándo debe volver a pedir los datos al servidor?",
+      "expected_sources": [
+        "REACT_AVANCADO/React_Query/FE05-19-react-query-usequery.md"
+      ],
+      "should_answer": true,
+      "status": "answered",
+      "answer": "Resposta de teste do provedor simulado.",
+      "sources": [
+        {
+          "source": "REACT_AVANCADO/React_Query/FE05-19-react-query-usequery.md",
+          "section": "Configurações essenciais",
+          "chunk_id": 5,
+          "score": 1.0,
+          "excerpt": "## Configurações essenciais\n\n```jsx\nuseQuery({\n  queryKey: [\"produtos\"],\n  queryFn: buscar,\n\n  staleTime: 1000 * 60 * 5,    // 5min \"fresco\" — sem refetch\n  cacheTime: 1000 * 60 * 30,   // 30min no cache depois de inativo\n  refetchOnWindowFocus: false, // não refaz ao focar a aba\n  retry: 1,                     // tenta 1x só em erro\n  enabled: !!id,"
+        }
+      ],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "REACT_AVANCADO/React_Query/FE05-19-react-query-usequery.md",
+        "fixture.md"
+      ],
+      "context_sources": [
+        {
+          "source": "REACT_AVANCADO/React_Query/FE05-19-react-query-usequery.md",
+          "section": "Configurações essenciais",
+          "chunk_id": 5,
+          "score": 1.0
+        }
+      ],
+      "latency_ms": {
+        "retrieval": 0.019745999907172518,
+        "generation": 0.1795789999050612,
+        "total": 0.21630199989886023
+      },
+      "error": null
+    },
+    {
+      "id": 11,
+      "category": "Node",
+      "type": "facil",
+      "query": "¿Por qué se usa Express en vez del módulo http nativo de Node?",
+      "expected_sources": [
+        "BACKEND_NODE/Express_Fundamentos/BE01-34-o-que-e-express.md"
+      ],
+      "should_answer": true,
+      "status": "answered",
+      "answer": "Resposta de teste do provedor simulado.",
+      "sources": [
+        {
+          "source": "BACKEND_NODE/Express_Fundamentos/BE01-34-o-que-e-express.md",
+          "section": "HTTP puro vs Express",
+          "chunk_id": 1,
+          "score": 1.0,
+          "excerpt": "## HTTP puro vs Express\n\n```typescript\n// http nativo — verboso\nimport http from \"http\";\n\nconst server = http.createServer((req, res) => {\n  if (req.method === \"GET\" && req.url === \"/usuarios\") {\n    res.writeHead(200, { \"Content-Type\": \"application/json\" });\n    res.end(JSON.stringify([{ nome: \"Ana\" }]));\n  }\n});\n\nserver.listen(3000);\n```\n\n```typescript\n//"
+        }
+      ],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "BACKEND_NODE/Express_Fundamentos/BE01-34-o-que-e-express.md",
+        "fixture.md"
+      ],
+      "context_sources": [
+        {
+          "source": "BACKEND_NODE/Express_Fundamentos/BE01-34-o-que-e-express.md",
+          "section": "HTTP puro vs Express",
+          "chunk_id": 1,
+          "score": 1.0
+        }
+      ],
+      "latency_ms": {
+        "retrieval": 0.021799000023747794,
+        "generation": 0.15578299962726305,
+        "total": 0.19755399989662692
+      },
+      "error": null
+    },
+    {
+      "id": 12,
+      "category": "APIs",
+      "type": "facil",
+      "query": "¿Qué significa que una API REST sea stateless?",
+      "expected_sources": [
+        "BACKEND_NODE/Express_Fundamentos/BE01-33-api-rest.md"
+      ],
+      "should_answer": true,
+      "status": "answered",
+      "answer": "Resposta de teste do provedor simulado.",
+      "sources": [
+        {
+          "source": "BACKEND_NODE/Express_Fundamentos/BE01-33-api-rest.md",
+          "section": "Os 6 princípios essenciais",
+          "chunk_id": 2,
+          "score": 1.0,
+          "excerpt": "## Os 6 princípios essenciais\n\n1. **Cliente-servidor** — separados, comunicação só via HTTP\n2. **Stateless** — cada request carrega tudo que precisa; o servidor não lembra da anterior (o token vai em toda requisição)\n3. **Cacheable** — respostas podem declarar se são cacheáveis\n4. **Interface uniforme** — recursos identificados por URL, verbos padronizados\n5"
+        }
+      ],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "BACKEND_NODE/Express_Fundamentos/BE01-33-api-rest.md",
+        "fixture.md"
+      ],
+      "context_sources": [
+        {
+          "source": "BACKEND_NODE/Express_Fundamentos/BE01-33-api-rest.md",
+          "section": "Os 6 princípios essenciais",
+          "chunk_id": 2,
+          "score": 1.0
+        }
+      ],
+      "latency_ms": {
+        "retrieval": 0.019224999959988054,
+        "generation": 0.13512299983631237,
+        "total": 0.17148000006272923
+      },
+      "error": null
+    },
+    {
+      "id": 13,
+      "category": "APIs",
+      "type": "ambigua",
+      "query": "¿Está bien nombrar un endpoint como /criarUsuario en una API REST?",
+      "expected_sources": [
+        "BACKEND_NODE/Express_Fundamentos/BE01-33-api-rest.md"
+      ],
+      "should_answer": true,
+      "status": "answered",
+      "answer": "Resposta de teste do provedor simulado.",
+      "sources": [
+        {
+          "source": "BACKEND_NODE/Express_Fundamentos/BE01-33-api-rest.md",
+          "section": "Os 6 princípios essenciais",
+          "chunk_id": 2,
+          "score": 1.0,
+          "excerpt": "## Os 6 princípios essenciais\n\n1. **Cliente-servidor** — separados, comunicação só via HTTP\n2. **Stateless** — cada request carrega tudo que precisa; o servidor não lembra da anterior (o token vai em toda requisição)\n3. **Cacheable** — respostas podem declarar se são cacheáveis\n4. **Interface uniforme** — recursos identificados por URL, verbos padronizados\n5"
+        }
+      ],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "BACKEND_NODE/Express_Fundamentos/BE01-33-api-rest.md",
+        "fixture.md"
+      ],
+      "context_sources": [
+        {
+          "source": "BACKEND_NODE/Express_Fundamentos/BE01-33-api-rest.md",
+          "section": "Os 6 princípios essenciais",
+          "chunk_id": 2,
+          "score": 1.0
+        }
+      ],
+      "latency_ms": {
+        "retrieval": 0.018266000097355573,
+        "generation": 0.12722300016321242,
+        "total": 0.16041199978644727
+      },
+      "error": null
+    },
+    {
+      "id": 14,
+      "category": "backend",
+      "type": "facil",
+      "query": "¿Qué es JWT y cómo se usa para autenticar una petición?",
+      "expected_sources": [
+        "BANCO_DADOS_PRISMA/Autenticacao_JWT/BE02-62-json-web-token-jwt.md"
+      ],
+      "should_answer": true,
+      "status": "answered",
+      "answer": "Resposta de teste do provedor simulado.",
+      "sources": [
+        {
+          "source": "BANCO_DADOS_PRISMA/Autenticacao_JWT/BE02-62-json-web-token-jwt.md",
+          "section": "Anatomia — 3 partes",
+          "chunk_id": 2,
+          "score": 1.0,
+          "excerpt": "## Anatomia — 3 partes\n\n```text\neyJhbGciOi...  .  eyJzdWI6Ij...  .  SflKxwRJ...\n   HEADER          PAYLOAD          SIGNATURE\n```\n\n```json\n// HEADER — algoritmo e tipo\n{ \"alg\": \"HS256\", \"typ\": \"JWT\" }\n\n// PAYLOAD — os \"claims\" (dados)\n{ \"sub\": \"42\", \"email\": \"ana@mail.com\", \"iat\": 1727..., \"exp\": 1727... }\n\n// SIGNATURE — HMAC(header.payload, secret)\n```\n\nCo"
+        }
+      ],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "BANCO_DADOS_PRISMA/Autenticacao_JWT/BE02-62-json-web-token-jwt.md",
+        "fixture.md"
+      ],
+      "context_sources": [
+        {
+          "source": "BANCO_DADOS_PRISMA/Autenticacao_JWT/BE02-62-json-web-token-jwt.md",
+          "section": "Anatomia — 3 partes",
+          "chunk_id": 2,
+          "score": 1.0
+        }
+      ],
+      "latency_ms": {
+        "retrieval": 0.01955800007635844,
+        "generation": 0.1429139997526363,
+        "total": 0.17883900000015274
+      },
+      "error": null
+    },
+    {
+      "id": 15,
+      "category": "backend",
+      "type": "facil",
+      "query": "¿Cuáles son las tres partes de un JSON Web Token?",
+      "expected_sources": [
+        "BANCO_DADOS_PRISMA/Autenticacao_JWT/BE02-62-json-web-token-jwt.md"
+      ],
+      "should_answer": true,
+      "status": "answered",
+      "answer": "Resposta de teste do provedor simulado.",
+      "sources": [
+        {
+          "source": "BANCO_DADOS_PRISMA/Autenticacao_JWT/BE02-62-json-web-token-jwt.md",
+          "section": "Anatomia — 3 partes",
+          "chunk_id": 2,
+          "score": 1.0,
+          "excerpt": "## Anatomia — 3 partes\n\n```text\neyJhbGciOi...  .  eyJzdWI6Ij...  .  SflKxwRJ...\n   HEADER          PAYLOAD          SIGNATURE\n```\n\n```json\n// HEADER — algoritmo e tipo\n{ \"alg\": \"HS256\", \"typ\": \"JWT\" }\n\n// PAYLOAD — os \"claims\" (dados)\n{ \"sub\": \"42\", \"email\": \"ana@mail.com\", \"iat\": 1727..., \"exp\": 1727... }\n\n// SIGNATURE — HMAC(header.payload, secret)\n```\n\nCo"
+        }
+      ],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "BANCO_DADOS_PRISMA/Autenticacao_JWT/BE02-62-json-web-token-jwt.md",
+        "fixture.md"
+      ],
+      "context_sources": [
+        {
+          "source": "BANCO_DADOS_PRISMA/Autenticacao_JWT/BE02-62-json-web-token-jwt.md",
+          "section": "Anatomia — 3 partes",
+          "chunk_id": 2,
+          "score": 1.0
+        }
+      ],
+      "latency_ms": {
+        "retrieval": 0.018793999970512232,
+        "generation": 0.1469399999223242,
+        "total": 0.1855000000432483
+      },
+      "error": null
+    },
+    {
+      "id": 16,
+      "category": "databases",
+      "type": "facil",
+      "query": "¿Qué es PostgreSQL y por qué se usa tanto en APIs con Node?",
+      "expected_sources": [
+        "BANCO_DADOS_PRISMA/SQL_PostgreSQL/BE02-09-banco-de-dados-postgresql.md"
+      ],
+      "should_answer": true,
+      "status": "answered",
+      "answer": "Resposta de teste do provedor simulado.",
+      "sources": [
+        {
+          "source": "BANCO_DADOS_PRISMA/SQL_PostgreSQL/BE02-09-banco-de-dados-postgresql.md",
+          "section": "Arquitetura",
+          "chunk_id": 2,
+          "score": 1.0,
+          "excerpt": "## Arquitetura\n\n```text\n┌─────────────┐   ┌─────────────┐\n│   psql      │   │  sua API    │     clientes\n│  (terminal) │   │  (Prisma)   │\n└──────┬──────┘   └──────┬──────┘\n       └────────┬────────┘\n                ▼ porta 5432\n       ┌─────────────────┐\n       │  Servidor       │\n       │  PostgreSQL     │\n       │ ┌─────────────┐ │\n       │ │  postgres"
+        }
+      ],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "BANCO_DADOS_PRISMA/SQL_PostgreSQL/BE02-09-banco-de-dados-postgresql.md",
+        "fixture.md"
+      ],
+      "context_sources": [
+        {
+          "source": "BANCO_DADOS_PRISMA/SQL_PostgreSQL/BE02-09-banco-de-dados-postgresql.md",
+          "section": "Arquitetura",
+          "chunk_id": 2,
+          "score": 1.0
+        }
+      ],
+      "latency_ms": {
+        "retrieval": 0.017673999991529854,
+        "generation": 0.16459399967061472,
+        "total": 0.19900600000255508
+      },
+      "error": null
+    },
+    {
+      "id": 17,
+      "category": "databases",
+      "type": "facil",
+      "query": "¿Cuál es la diferencia entre un relacionamiento N-N implícito y uno explícito en Prisma?",
+      "expected_sources": [
+        "BANCO_DADOS_PRISMA/Prisma_ORM/BE02-36-prisma-relacionamento-n-n.md"
+      ],
+      "should_answer": true,
+      "status": "answered",
+      "answer": "Resposta de teste do provedor simulado.",
+      "sources": [
+        {
+          "source": "BANCO_DADOS_PRISMA/Prisma_ORM/BE02-36-prisma-relacionamento-n-n.md",
+          "section": "N-N explícito — a junção como model",
+          "chunk_id": 3,
+          "score": 1.0,
+          "excerpt": "## N-N explícito — a junção como model\n\nQuando a relação tem dados, modele-a:\n\n```prisma\nmodel Matricula {\n  id           Int       @id @default(autoincrement())\n  estudante    Estudante @relation(fields: [estudanteId], references: [id])\n  estudanteId  Int       @map(\"estudante_id\")\n  curso        Curso     @relation(fields: [cursoId], references: [id])\n  cu"
+        }
+      ],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "BANCO_DADOS_PRISMA/Prisma_ORM/BE02-36-prisma-relacionamento-n-n.md",
+        "fixture.md"
+      ],
+      "context_sources": [
+        {
+          "source": "BANCO_DADOS_PRISMA/Prisma_ORM/BE02-36-prisma-relacionamento-n-n.md",
+          "section": "N-N explícito — a junção como model",
+          "chunk_id": 3,
+          "score": 1.0
+        }
+      ],
+      "latency_ms": {
+        "retrieval": 0.015889999758655904,
+        "generation": 0.13926800011176965,
+        "total": 0.17127900036939536
+      },
+      "error": null
+    },
+    {
+      "id": 18,
+      "category": "testing",
+      "type": "facil",
+      "query": "¿Cuál es la diferencia entre un test unitario y un test de integración?",
+      "expected_sources": [
+        "BANCO_DADOS_PRISMA/Testes_Jest_Supertest/BE02-79-introducao-a-testes-automatizados.md"
+      ],
+      "should_answer": true,
+      "status": "answered",
+      "answer": "Resposta de teste do provedor simulado.",
+      "sources": [
+        {
+          "source": "BANCO_DADOS_PRISMA/Testes_Jest_Supertest/BE02-79-introducao-a-testes-automatizados.md",
+          "section": "A pirâmide de testes",
+          "chunk_id": 2,
+          "score": 1.0,
+          "excerpt": "## A pirâmide de testes\n\n```text\n        ╱ E2E ╲          ← poucos, lentos, caros\n       ╱───────╲\n      ╱ Integração ╲     ← alguns — rota + service + banco\n     ╱─────────────╲\n    ╱   Unitários    ╲   ← muitos, rápidos, isolados\n   ╱─────────────────╲\n```\n\n| Tipo | Testa | Exemplo |\n| --- | --- | --- |\n| **Unitário** | Uma unidade isolada | `service.criar"
+        }
+      ],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "BANCO_DADOS_PRISMA/Testes_Jest_Supertest/BE02-79-introducao-a-testes-automatizados.md",
+        "fixture.md"
+      ],
+      "context_sources": [
+        {
+          "source": "BANCO_DADOS_PRISMA/Testes_Jest_Supertest/BE02-79-introducao-a-testes-automatizados.md",
+          "section": "A pirâmide de testes",
+          "chunk_id": 2,
+          "score": 1.0
+        }
+      ],
+      "latency_ms": {
+        "retrieval": 0.019177000012859935,
+        "generation": 0.1340860003438138,
+        "total": 0.17333499999949709
+      },
+      "error": null
+    },
+    {
+      "id": 19,
+      "category": "testing",
+      "type": "facil",
+      "query": "¿Qué prueba realmente un test de integración hecho con Supertest?",
+      "expected_sources": [
+        "BANCO_DADOS_PRISMA/Testes_Jest_Supertest/BE02-87-supertest-teste-de-integracao.md"
+      ],
+      "should_answer": true,
+      "status": "answered",
+      "answer": "Resposta de teste do provedor simulado.",
+      "sources": [
+        {
+          "source": "BANCO_DADOS_PRISMA/Testes_Jest_Supertest/BE02-87-supertest-teste-de-integracao.md",
+          "section": "Testando o CRUD de usuários",
+          "chunk_id": 2,
+          "score": 1.0,
+          "excerpt": "## Testando o CRUD de usuários\n\n```ts\nimport request from \"supertest\";\nimport { app } from \"../src/app\";\nimport { prisma } from \"../src/database/prisma\";\n\ndescribe(\"Usuários API\", () => {\n  beforeAll(async () => {\n    await prisma.$connect();\n  });\n\n  beforeEach(async () => {\n    await prisma.usuario.deleteMany();\n  });\n\n  afterAll(async () => {\n    await pr"
+        }
+      ],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "BANCO_DADOS_PRISMA/Testes_Jest_Supertest/BE02-87-supertest-teste-de-integracao.md",
+        "fixture.md"
+      ],
+      "context_sources": [
+        {
+          "source": "BANCO_DADOS_PRISMA/Testes_Jest_Supertest/BE02-87-supertest-teste-de-integracao.md",
+          "section": "Testando o CRUD de usuários",
+          "chunk_id": 2,
+          "score": 1.0
+        }
+      ],
+      "latency_ms": {
+        "retrieval": 0.018246000308863586,
+        "generation": 0.13977500020700973,
+        "total": 0.1799609999579843
+      },
+      "error": null
+    },
+    {
+      "id": 20,
+      "category": "testing",
+      "type": "ambigua",
+      "query": "¿Por qué en la pirámide de testing se recomienda tener muchos tests unitarios y pocos end-to-end?",
+      "expected_sources": [
+        "BANCO_DADOS_PRISMA/Testes_Jest_Supertest/BE02-79-introducao-a-testes-automatizados.md"
+      ],
+      "should_answer": true,
+      "status": "answered",
+      "answer": "Resposta de teste do provedor simulado.",
+      "sources": [
+        {
+          "source": "BANCO_DADOS_PRISMA/Testes_Jest_Supertest/BE02-79-introducao-a-testes-automatizados.md",
+          "section": "A pirâmide de testes",
+          "chunk_id": 2,
+          "score": 1.0,
+          "excerpt": "## A pirâmide de testes\n\n```text\n        ╱ E2E ╲          ← poucos, lentos, caros\n       ╱───────╲\n      ╱ Integração ╲     ← alguns — rota + service + banco\n     ╱─────────────╲\n    ╱   Unitários    ╲   ← muitos, rápidos, isolados\n   ╱─────────────────╲\n```\n\n| Tipo | Testa | Exemplo |\n| --- | --- | --- |\n| **Unitário** | Uma unidade isolada | `service.criar"
+        }
+      ],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "BANCO_DADOS_PRISMA/Testes_Jest_Supertest/BE02-79-introducao-a-testes-automatizados.md",
+        "fixture.md"
+      ],
+      "context_sources": [
+        {
+          "source": "BANCO_DADOS_PRISMA/Testes_Jest_Supertest/BE02-79-introducao-a-testes-automatizados.md",
+          "section": "A pirâmide de testes",
+          "chunk_id": 2,
+          "score": 1.0
+        }
+      ],
+      "latency_ms": {
+        "retrieval": 0.01789499992810306,
+        "generation": 0.1274769997507974,
+        "total": 0.1639219999560737
+      },
+      "error": null
+    },
+    {
+      "id": 21,
+      "category": "Git",
+      "type": "facil",
+      "query": "¿Cuál es la diferencia fundamental entre Git y GitHub?",
+      "expected_sources": [
+        "GIT_LOGIC_JS/Git_GitHub/FE02-00-introducao-ao-git-e-github.md"
+      ],
+      "should_answer": true,
+      "status": "answered",
+      "answer": "Resposta de teste do provedor simulado.",
+      "sources": [
+        {
+          "source": "GIT_LOGIC_JS/Git_GitHub/FE02-00-introducao-ao-git-e-github.md",
+          "section": "Os Três Estados do Git Local",
+          "chunk_id": 3,
+          "score": 1.0,
+          "excerpt": "## Os Três Estados do Git Local\n\nPara compreender o Git, é essencial dominar suas três áreas fundamentais:\n\n```text\n+---------------------+     git add     +---------------------+    git commit   +---------------------+\n|                     | --------------> |                     | --------------> |                     |\n|   WORKING TREE      |"
+        }
+      ],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "GIT_LOGIC_JS/Git_GitHub/FE02-00-introducao-ao-git-e-github.md",
+        "fixture.md"
+      ],
+      "context_sources": [
+        {
+          "source": "GIT_LOGIC_JS/Git_GitHub/FE02-00-introducao-ao-git-e-github.md",
+          "section": "Os Três Estados do Git Local",
+          "chunk_id": 3,
+          "score": 1.0
+        }
+      ],
+      "latency_ms": {
+        "retrieval": 0.016831999801070197,
+        "generation": 0.1771720003489463,
+        "total": 0.21285599996190285
+      },
+      "error": null
+    },
+    {
+      "id": 22,
+      "category": "Git",
+      "type": "ambigua",
+      "query": "¿Puedo seguir haciendo commits en mi proyecto si no tengo conexión a internet?",
+      "expected_sources": [
+        "GIT_LOGIC_JS/Git_GitHub/FE02-00-introducao-ao-git-e-github.md"
+      ],
+      "should_answer": true,
+      "status": "answered",
+      "answer": "Resposta de teste do provedor simulado.",
+      "sources": [
+        {
+          "source": "GIT_LOGIC_JS/Git_GitHub/FE02-00-introducao-ao-git-e-github.md",
+          "section": "Os Três Estados do Git Local",
+          "chunk_id": 3,
+          "score": 1.0,
+          "excerpt": "## Os Três Estados do Git Local\n\nPara compreender o Git, é essencial dominar suas três áreas fundamentais:\n\n```text\n+---------------------+     git add     +---------------------+    git commit   +---------------------+\n|                     | --------------> |                     | --------------> |                     |\n|   WORKING TREE      |"
+        }
+      ],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "GIT_LOGIC_JS/Git_GitHub/FE02-00-introducao-ao-git-e-github.md",
+        "fixture.md"
+      ],
+      "context_sources": [
+        {
+          "source": "GIT_LOGIC_JS/Git_GitHub/FE02-00-introducao-ao-git-e-github.md",
+          "section": "Os Três Estados do Git Local",
+          "chunk_id": 3,
+          "score": 1.0
+        }
+      ],
+      "latency_ms": {
+        "retrieval": 0.021940000351605704,
+        "generation": 0.14226700022845762,
+        "total": 0.1837730001170712
+      },
+      "error": null
+    },
+    {
+      "id": 23,
+      "category": "HTML/CSS",
+      "type": "facil",
+      "query": "¿Qué es el Box Model en CSS y qué capas lo componen?",
+      "expected_sources": [
+        "HTML_CSS/CSS/FE01-30-box-model.md"
+      ],
+      "should_answer": true,
+      "status": "answered",
+      "answer": "Resposta de teste do provedor simulado.",
+      "sources": [
+        {
+          "source": "HTML_CSS/CSS/FE01-30-box-model.md",
+          "section": "O Modelo de Caixa (Box Model)",
+          "chunk_id": 1,
+          "score": 1.0,
+          "excerpt": "## O Modelo de Caixa (Box Model)\n\nNo CSS, cada elemento renderizado na tela é tratado pelo motor do navegador como uma **caixa retangular**. O Box Model é o conceito fundamental que descreve as camadas que compõem essa caixa:\n\n```text\n+-------------------------------------------------------+\n|                       MARGIN                          |\n|  +-----"
+        }
+      ],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "HTML_CSS/CSS/FE01-30-box-model.md",
+        "fixture.md"
+      ],
+      "context_sources": [
+        {
+          "source": "HTML_CSS/CSS/FE01-30-box-model.md",
+          "section": "O Modelo de Caixa (Box Model)",
+          "chunk_id": 1,
+          "score": 1.0
+        }
+      ],
+      "latency_ms": {
+        "retrieval": 0.02012899994952022,
+        "generation": 0.1310450002165453,
+        "total": 0.16860999994605663
+      },
+      "error": null
+    },
+    {
+      "id": 24,
+      "category": "HTML/CSS",
+      "type": "facil",
+      "query": "¿Qué es Flexbox y qué problema resuelve en CSS?",
+      "expected_sources": [
+        "HTML_CSS/Flexbox/FE01-39-introducao-ao-flexbox.md"
+      ],
+      "should_answer": true,
+      "status": "answered",
+      "answer": "Resposta de teste do provedor simulado.",
+      "sources": [
+        {
+          "source": "HTML_CSS/Flexbox/FE01-39-introducao-ao-flexbox.md",
+          "section": "Conceitos Fundamentais: Container vs Itens",
+          "chunk_id": 2,
+          "score": 1.0,
+          "excerpt": "## Conceitos Fundamentais: Container vs Itens\n\nO Flexbox funciona com base em dois papéis distintos:\n\n```text\n+-------------------------------------------------------+\n|  FLEX CONTAINER (display: flex)                       |\n|                                                       |\n|  +----------------+ +----------------+ +-----------+  |\n|  |   FLEX ITEM"
+        }
+      ],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "HTML_CSS/Flexbox/FE01-39-introducao-ao-flexbox.md",
+        "fixture.md"
+      ],
+      "context_sources": [
+        {
+          "source": "HTML_CSS/Flexbox/FE01-39-introducao-ao-flexbox.md",
+          "section": "Conceitos Fundamentais: Container vs Itens",
+          "chunk_id": 2,
+          "score": 1.0
+        }
+      ],
+      "latency_ms": {
+        "retrieval": 0.017063000086636748,
+        "generation": 0.12425099976098863,
+        "total": 0.1564099998176971
+      },
+      "error": null
+    },
+    {
+      "id": 25,
+      "category": "HTML/CSS",
+      "type": "ambigua",
+      "query": "¿Cuáles son los dos roles principales dentro de un layout con Flexbox?",
+      "expected_sources": [
+        "HTML_CSS/Flexbox/FE01-39-introducao-ao-flexbox.md"
+      ],
+      "should_answer": true,
+      "status": "answered",
+      "answer": "Resposta de teste do provedor simulado.",
+      "sources": [
+        {
+          "source": "HTML_CSS/Flexbox/FE01-39-introducao-ao-flexbox.md",
+          "section": "Conceitos Fundamentais: Container vs Itens",
+          "chunk_id": 2,
+          "score": 1.0,
+          "excerpt": "## Conceitos Fundamentais: Container vs Itens\n\nO Flexbox funciona com base em dois papéis distintos:\n\n```text\n+-------------------------------------------------------+\n|  FLEX CONTAINER (display: flex)                       |\n|                                                       |\n|  +----------------+ +----------------+ +-----------+  |\n|  |   FLEX ITEM"
+        }
+      ],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "HTML_CSS/Flexbox/FE01-39-introducao-ao-flexbox.md",
+        "fixture.md"
+      ],
+      "context_sources": [
+        {
+          "source": "HTML_CSS/Flexbox/FE01-39-introducao-ao-flexbox.md",
+          "section": "Conceitos Fundamentais: Container vs Itens",
+          "chunk_id": 2,
+          "score": 1.0
+        }
+      ],
+      "latency_ms": {
+        "retrieval": 0.01887500002339948,
+        "generation": 0.13808199992126902,
+        "total": 0.171831999978167
+      },
+      "error": null
+    },
+    {
+      "id": 26,
+      "category": "sin_respuesta",
+      "type": "sin_respuesta",
+      "query": "¿Cuál es la receta tradicional para preparar una pizza margherita?",
+      "expected_sources": [],
+      "should_answer": false,
+      "status": "insufficient_evidence",
+      "answer": "Não encontrei evidências suficientes na base para responder. Tente especificar o assunto.",
+      "sources": [],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "fixture.md"
+      ],
+      "context_sources": [],
+      "latency_ms": {
+        "retrieval": 0.017380999906890793,
+        "generation": null,
+        "total": 0.02245599989691982
+      },
+      "error": null
+    },
+    {
+      "id": 27,
+      "category": "sin_respuesta",
+      "type": "sin_respuesta",
+      "query": "¿Cuáles son las mejores estrategias para invertir en la bolsa de valores?",
+      "expected_sources": [],
+      "should_answer": false,
+      "status": "insufficient_evidence",
+      "answer": "Não encontrei evidências suficientes na base para responder. Tente especificar o assunto.",
+      "sources": [],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "fixture.md"
+      ],
+      "context_sources": [],
+      "latency_ms": {
+        "retrieval": 0.01344700012850808,
+        "generation": null,
+        "total": 0.017206999928021105
+      },
+      "error": null
+    },
+    {
+      "id": 28,
+      "category": "sin_respuesta",
+      "type": "sin_respuesta",
+      "query": "¿Cómo se entrena un modelo de machine learning con PyTorch desde cero?",
+      "expected_sources": [],
+      "should_answer": false,
+      "status": "insufficient_evidence",
+      "answer": "Não encontrei evidências suficientes na base para responder. Tente especificar o assunto.",
+      "sources": [],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "fixture.md"
+      ],
+      "context_sources": [],
+      "latency_ms": {
+        "retrieval": 0.012180000339867547,
+        "generation": null,
+        "total": 0.014915999599907082
+      },
+      "error": null
+    },
+    {
+      "id": 29,
+      "category": "sin_respuesta",
+      "type": "sin_respuesta",
+      "query": "¿Qué reglas tiene el fútbol para definir un fuera de juego (offside)?",
+      "expected_sources": [],
+      "should_answer": false,
+      "status": "insufficient_evidence",
+      "answer": "Não encontrei evidências suficientes na base para responder. Tente especificar o assunto.",
+      "sources": [],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "fixture.md"
+      ],
+      "context_sources": [],
+      "latency_ms": {
+        "retrieval": 0.010257000212732237,
+        "generation": null,
+        "total": 0.012491999768826645
+      },
+      "error": null
+    },
+    {
+      "id": 30,
+      "category": "sin_respuesta",
+      "type": "sin_respuesta",
+      "query": "¿Cómo se configura un clúster de Kubernetes en un proveedor cloud?",
+      "expected_sources": [],
+      "should_answer": false,
+      "status": "insufficient_evidence",
+      "answer": "Não encontrei evidências suficientes na base para responder. Tente especificar o assunto.",
+      "sources": [],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "fixture.md"
+      ],
+      "context_sources": [],
+      "latency_ms": {
+        "retrieval": 0.009881000096356729,
+        "generation": null,
+        "total": 0.012501999663072638
+      },
+      "error": null
+    },
+    {
+      "id": 31,
+      "category": "Git",
+      "type": "referencia",
+      "query": "Como retiro README.md do staging mantendo minhas edições?",
+      "expected_sources": [
+        "DEVMIND/Git/DM01-01-branch-staging-pr.md"
+      ],
+      "should_answer": true,
+      "portfolio": true,
+      "status": "answered",
+      "answer": "Resposta de teste do provedor simulado.",
+      "sources": [
+        {
+          "source": "DEVMIND/Git/DM01-01-branch-staging-pr.md",
+          "section": "Da branch à revisão no GitHub",
+          "chunk_id": 2,
+          "score": 1.0,
+          "excerpt": "## Da branch à revisão no GitHub\n\nCrie uma branch com `git switch -c docs/guia`, faça o commit e envie a branch com `git push -u origin docs/guia`. Um pull request no GitHub propõe integrar a branch de origem à branch de destino. A equipe pode comentar o diff, pedir ajustes e acompanhar as verificações antes da integração.\n\nReferências [git restore](https://"
+        }
+      ],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "DEVMIND/Git/DM01-01-branch-staging-pr.md",
+        "fixture.md"
+      ],
+      "context_sources": [
+        {
+          "source": "DEVMIND/Git/DM01-01-branch-staging-pr.md",
+          "section": "Da branch à revisão no GitHub",
+          "chunk_id": 2,
+          "score": 1.0
+        }
+      ],
+      "latency_ms": {
+        "retrieval": 0.018011000065598637,
+        "generation": 0.1672579996920831,
+        "total": 0.19913599999199505
+      },
+      "error": null
+    },
+    {
+      "id": 32,
+      "category": "HTML/CSS",
+      "type": "referencia",
+      "query": "Como associo um label a um input e permito que os campos quebrem linha com Flexbox?",
+      "expected_sources": [
+        "DEVMIND/HTML_CSS/DM01-02-formularios-e-flexbox.md"
+      ],
+      "should_answer": true,
+      "portfolio": true,
+      "status": "answered",
+      "answer": "Resposta de teste do provedor simulado.",
+      "sources": [
+        {
+          "source": "DEVMIND/HTML_CSS/DM01-02-formularios-e-flexbox.md",
+          "section": "Deixar controles quebrarem linha com Flexbox",
+          "chunk_id": 2,
+          "score": 1.0,
+          "excerpt": "## Deixar controles quebrarem linha com Flexbox\n\nPara um grupo de controles que precisa se adaptar à largura da tela, aplique `display: flex`, `flex-wrap: wrap` e `gap: 0.75rem` ao contêiner. Em telas estreitas, os itens podem passar à próxima linha, mantendo espaçamento. Se os itens também precisarem crescer, defina `flex: 1 1 14rem` neles e teste a largura"
+        }
+      ],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "DEVMIND/HTML_CSS/DM01-02-formularios-e-flexbox.md",
+        "fixture.md"
+      ],
+      "context_sources": [
+        {
+          "source": "DEVMIND/HTML_CSS/DM01-02-formularios-e-flexbox.md",
+          "section": "Deixar controles quebrarem linha com Flexbox",
+          "chunk_id": 2,
+          "score": 1.0
+        }
+      ],
+      "latency_ms": {
+        "retrieval": 0.015961999906721758,
+        "generation": 0.128564000078768,
+        "total": 0.16078899989224738
+      },
+      "error": null
+    },
+    {
+      "id": 33,
+      "category": "JavaScript",
+      "type": "referencia",
+      "query": "Quando usar map e filter em uma lista de produtos?",
+      "expected_sources": [
+        "DEVMIND/JavaScript/DM01-03-map-filter.md"
+      ],
+      "should_answer": true,
+      "portfolio": true,
+      "status": "answered",
+      "answer": "Resposta de teste do provedor simulado.",
+      "sources": [
+        {
+          "source": "DEVMIND/JavaScript/DM01-03-map-filter.md",
+          "section": "Escolher entre map e filter",
+          "chunk_id": 1,
+          "score": 1.0,
+          "excerpt": "## Escolher entre map e filter\n\nUse `map` quando cada item precisa se transformar em outro valor, como trocar produtos pelos respectivos nomes. Use `filter` quando precisa selecionar os itens que passam em um teste. Ambos retornam outro array, mas uma função de callback ainda pode causar efeitos colaterais. Mantenha a callback pura quando possível.\n\n```js\nco"
+        }
+      ],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "DEVMIND/JavaScript/DM01-03-map-filter.md",
+        "fixture.md"
+      ],
+      "context_sources": [
+        {
+          "source": "DEVMIND/JavaScript/DM01-03-map-filter.md",
+          "section": "Escolher entre map e filter",
+          "chunk_id": 1,
+          "score": 1.0
+        }
+      ],
+      "latency_ms": {
+        "retrieval": 0.01749200009726337,
+        "generation": 0.1403510000272945,
+        "total": 0.17288100025325548
+      },
+      "error": null
+    },
+    {
+      "id": 34,
+      "category": "Python",
+      "type": "referencia",
+      "query": "Como conto ocorrências em Python com um dicionário e get?",
+      "expected_sources": [
+        "DEVMIND/Python/DM01-04-lista-e-dicionario.md"
+      ],
+      "should_answer": true,
+      "portfolio": true,
+      "status": "answered",
+      "answer": "Resposta de teste do provedor simulado.",
+      "sources": [
+        {
+          "source": "DEVMIND/Python/DM01-04-lista-e-dicionario.md",
+          "section": "Índices, chaves e valor padrão",
+          "chunk_id": 1,
+          "score": 1.0,
+          "excerpt": "## Índices, chaves e valor padrão\n\nUma lista é uma sequência acessada por posição. Um dicionário associa chaves a valores. Para registrar quantas vezes cada status apareceu, use o status como chave. Com `get(status, 0)`, uma chave ausente devolve zero. O acesso `totais[status]` levantaria `KeyError` se a chave ainda não existisse.\n\n```python\ntotais = {}\nfor"
+        }
+      ],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "DEVMIND/Python/DM01-04-lista-e-dicionario.md",
+        "fixture.md"
+      ],
+      "context_sources": [
+        {
+          "source": "DEVMIND/Python/DM01-04-lista-e-dicionario.md",
+          "section": "Índices, chaves e valor padrão",
+          "chunk_id": 1,
+          "score": 1.0
+        }
+      ],
+      "latency_ms": {
+        "retrieval": 0.015672999779781094,
+        "generation": 0.13048699975115596,
+        "total": 0.16140799971253728
+      },
+      "error": null
+    },
+    {
+      "id": 35,
+      "category": "HTTP",
+      "type": "referencia",
+      "query": "Por que repetir um PUT pode ser seguro e repetir um POST pode duplicar pedidos?",
+      "expected_sources": [
+        "DEVMIND/HTTP/DM01-05-put-post-idempotencia.md"
+      ],
+      "should_answer": true,
+      "portfolio": true,
+      "status": "answered",
+      "answer": "Resposta de teste do provedor simulado.",
+      "sources": [
+        {
+          "source": "DEVMIND/HTTP/DM01-05-put-post-idempotencia.md",
+          "section": "Efeito pretendido de uma operação idempotente",
+          "chunk_id": 1,
+          "score": 1.0,
+          "excerpt": "## Efeito pretendido de uma operação idempotente\n\nSe `PUT /preferencias/42` define o mesmo tema duas vezes com o mesmo corpo, o estado pretendido depois de cada requisição é o mesmo. Isso torna PUT idempotente segundo a semântica HTTP. As respostas podem ter status distintos, por exemplo 201 ao criar o recurso e 204 ao substituí-lo, e efeitos como logs podem"
+        }
+      ],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "DEVMIND/HTTP/DM01-05-put-post-idempotencia.md",
+        "fixture.md"
+      ],
+      "context_sources": [
+        {
+          "source": "DEVMIND/HTTP/DM01-05-put-post-idempotencia.md",
+          "section": "Efeito pretendido de uma operação idempotente",
+          "chunk_id": 1,
+          "score": 1.0
+        }
+      ],
+      "latency_ms": {
+        "retrieval": 0.015425000128743704,
+        "generation": 0.14088699981584796,
+        "total": 0.17097899990403675
+      },
+      "error": null
+    },
+    {
+      "id": 36,
+      "category": "React",
+      "type": "referencia",
+      "query": "Como adiciono um item ao estado anterior sem mutar a lista no React?",
+      "expected_sources": [
+        "DEVMIND/React/DM01-06-listas-no-estado.md"
+      ],
+      "should_answer": true,
+      "portfolio": true,
+      "status": "answered",
+      "answer": "Resposta de teste do provedor simulado.",
+      "sources": [
+        {
+          "source": "DEVMIND/React/DM01-06-listas-no-estado.md",
+          "section": "Adicionar ou atualizar sem mutar",
+          "chunk_id": 1,
+          "score": 1.0,
+          "excerpt": "## Adicionar ou atualizar sem mutar\n\nUma lista armazenada no estado deve ser tratada como somente leitura. Para adicionar um item, chame o setter com uma função que recebe o estado anterior e retorna uma nova lista, como `setItems(previous => [...previous, item])`. Assim atualizações enfileiradas usam o estado anterior correspondente.\n\nPara alterar um objeto"
+        }
+      ],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "DEVMIND/React/DM01-06-listas-no-estado.md",
+        "fixture.md"
+      ],
+      "context_sources": [
+        {
+          "source": "DEVMIND/React/DM01-06-listas-no-estado.md",
+          "section": "Adicionar ou atualizar sem mutar",
+          "chunk_id": 1,
+          "score": 1.0
+        }
+      ],
+      "latency_ms": {
+        "retrieval": 0.015729999631730607,
+        "generation": 0.6072850001146435,
+        "total": 0.6385189999491558
+      },
+      "error": null
+    },
+    {
+      "id": 37,
+      "category": "Autenticação",
+      "type": "referencia",
+      "query": "Quando uma API deve retornar 401 ou 403?",
+      "expected_sources": [
+        "DEVMIND/Autenticacao/DM01-07-autenticacao-autorizacao.md"
+      ],
+      "should_answer": true,
+      "portfolio": true,
+      "status": "answered",
+      "answer": "Resposta de teste do provedor simulado.",
+      "sources": [
+        {
+          "source": "DEVMIND/Autenticacao/DM01-07-autenticacao-autorizacao.md",
+          "section": "Quando usar 401 e 403",
+          "chunk_id": 1,
+          "score": 1.0,
+          "excerpt": "## Quando usar 401 e 403\n\nAutenticar é identificar quem fez a requisição. Autorizar é verificar se essa identidade tem permissão para executar a ação. Uma API pode retornar 401 quando as credenciais válidas estão ausentes e incluir um desafio `WWW-Authenticate`. Se a identidade foi reconhecida, mas não pode acessar um relatório reservado à equipe administrat"
+        }
+      ],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "DEVMIND/Autenticacao/DM01-07-autenticacao-autorizacao.md",
+        "fixture.md"
+      ],
+      "context_sources": [
+        {
+          "source": "DEVMIND/Autenticacao/DM01-07-autenticacao-autorizacao.md",
+          "section": "Quando usar 401 e 403",
+          "chunk_id": 1,
+          "score": 1.0
+        }
+      ],
+      "latency_ms": {
+        "retrieval": 0.020680000034190016,
+        "generation": 0.15421699981743586,
+        "total": 0.19359099997018347
+      },
+      "error": null
+    },
+    {
+      "id": 38,
+      "category": "Fora da base",
+      "type": "sin_respuesta",
+      "query": "Qual é a receita de uma pizza margherita?",
+      "expected_sources": [],
+      "should_answer": false,
+      "portfolio": true,
+      "status": "insufficient_evidence",
+      "answer": "Não encontrei evidências suficientes na base para responder. Tente especificar o assunto.",
+      "sources": [],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "fixture.md"
+      ],
+      "context_sources": [],
+      "latency_ms": {
+        "retrieval": 0.0174479996530863,
+        "generation": null,
+        "total": 0.022949000140215503
+      },
+      "error": null
+    },
+    {
+      "id": 39,
+      "category": "Fora da base",
+      "type": "sin_respuesta",
+      "query": "Como calculo a distância orbital de Netuno?",
+      "expected_sources": [],
+      "should_answer": false,
+      "portfolio": true,
+      "status": "insufficient_evidence",
+      "answer": "Não encontrei evidências suficientes na base para responder. Tente especificar o assunto.",
+      "sources": [],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "fixture.md"
+      ],
+      "context_sources": [],
+      "latency_ms": {
+        "retrieval": 0.014963000012357952,
+        "generation": null,
+        "total": 0.019568999960029032
+      },
+      "error": null
+    },
+    {
+      "id": 40,
+      "category": "Ambiguidade",
+      "type": "ambigua",
+      "query": "Como faço isso funcionar?",
+      "expected_sources": [],
+      "should_answer": false,
+      "portfolio": true,
+      "status": "insufficient_evidence",
+      "answer": "Não encontrei evidências suficientes na base para responder. Tente especificar o assunto.",
+      "sources": [],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "fixture.md"
+      ],
+      "context_sources": [
+        {
+          "source": "fixture.md",
+          "section": "Irrelevante",
+          "chunk_id": 0,
+          "score": 1.0
+        }
+      ],
+      "latency_ms": {
+        "retrieval": 0.01086999964172719,
+        "generation": 0.20416600000316976,
+        "total": 0.2248250002594432
+      },
+      "error": null
+    },
+    {
+      "id": 41,
+      "category": "Ambiguidade",
+      "type": "ambigua",
+      "query": "Qual deles devo usar no meu projeto?",
+      "expected_sources": [],
+      "should_answer": false,
+      "portfolio": true,
+      "status": "insufficient_evidence",
+      "answer": "Não encontrei evidências suficientes na base para responder. Tente especificar o assunto.",
+      "sources": [],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "fixture.md"
+      ],
+      "context_sources": [
+        {
+          "source": "fixture.md",
+          "section": "Irrelevante",
+          "chunk_id": 0,
+          "score": 1.0
+        }
+      ],
+      "latency_ms": {
+        "retrieval": 0.04256900001564645,
+        "generation": 0.15743599988127244,
+        "total": 0.23050000027069473
+      },
+      "error": null
+    }
+  ]
+}

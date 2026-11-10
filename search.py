@@ -1,59 +1,35 @@
-import os
-from openai import OpenAI
-from dotenv import load_dotenv
-from pinecone import Pinecone
+"""CLI de busca. Use --debug para inspecionar os resultados da mesma busca."""
 
-load_dotenv()
+import argparse
 
-pico = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
-index = pico.Index("kenzie-knowledge")
-ai = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+from pydantic import ValidationError
 
-question = input("Search: ")
+from providers import ServiceError
+from rag import RunTrace, answer_question, format_debug_hits
 
 
-SCORE_THRESHOLD = 0.40
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Pergunte à base de conhecimento do DevMind.")
+    parser.add_argument("--top-k", type=int)
+    parser.add_argument("--debug", action="store_true", help="Mostra os resultados da recuperação e os tempos.")
+    args = parser.parse_args()
+    trace = RunTrace()
+    try:
+        result = answer_question(input("Pergunta: "), top_k=args.top_k, trace=trace)
+    except (EOFError, ValidationError):
+        parser.error("Informe uma pergunta de 1 a 1200 caracteres e top-k de 1 a 20.")
+    except ServiceError as exc:
+        print(exc)
+        return 1
 
-def retrieve(query, top_k=3):
-    result = index.search_records(namespace="kenzie", query={
-            "inputs": {"text": query}, 
-            "top_k": top_k
-        },fields=["chunk_text", "source", "section"])
-    
-    return [i for i in result.result.hits if i.score >= SCORE_THRESHOLD]
-# print(result)
-# chunks = [i.fields.get("chunk_text", "") for i in result.result.hits ]
+    print(f"\n{result['answer']}")
+    for item in result["sources"]:
+        print(f"- {item['source']} · {item['section']}")
+    if args.debug:
+        print(f"\nTempo total: {trace.total_ms:.1f} ms")
+        print(format_debug_hits(trace.hits))
+    return 0
 
-# relevant_hits = [i for i in result.result.hits if i.score >= SCORE_THRESHOLD]
-relevant_hits = retrieve(question, top_k=3)
 
-if not relevant_hits:
-    print("Nao tem resultados relevantes.")
-else:
-    chunks = [f"[Fuente: {i.fields.get('source')} | Sección: {i.fields.get('section', 'General')}]\n{i.fields.get('chunk_text', '')}" for i in relevant_hits]
-    context = "\n\n---\n\n".join(chunks)
-
-    prompt = f"""Basándote únicamente en el contexto proporcionado, responde la siguiente consulta o explica el término consultado. Si la información no guarda ninguna relación con el contexto, responde indicando que no tienes suficiente información.
- 
-Contexto:
-{context}
- 
-Pregunta: {question}
-Al final de tu respuesta agrega:
-Fuente: <archivo> — Sección: <sección>
-"""
-    response = ai.chat.completions.create(
-        model="gpt-4o",
-        messages=[
-            {"role": "system", "content": "Eres un asistente técnico que responde exclusivamente con el contexto proporcionado."},
-            {"role": "user", "content": prompt}
-        ]
-    )
-    print("\n--- Respuesta de GPT ---")
-    print(response.choices[0].message.content)
-
-    print("\n--- Fuentes consultadas ---")
-for i, match in enumerate(relevant_hits, 1):
-    source = match.fields.get("source", "desconocido")
-    section = match.fields.get("section", "General")
-    print(f"{i}. [Similitud: {match.score:.4f}] Archivo: {source} — Sección: {section}")
+if __name__ == "__main__":
+    raise SystemExit(main())

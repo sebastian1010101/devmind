@@ -1,0 +1,145 @@
+@import "tailwindcss";
+
+:root {
+  --background: #050506;
+  --surface: #0d0e10;
+  --surface-raised: #131417;
+  --border: rgba(255, 255, 255, 0.09);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --foreground: #e6e6ea;
+  --muted: #8a8d93;
+  --accent: #7c9cff;
+  --accent-dim: rgba(124, 156, 255, 0.35);
+  --danger: #ff6b6b;
+  --mono-stack: ui-monospace, "Cascadia Code", Consolas, monospace;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-danger: var(--danger);
+  --font-mono: var(--mono-stack);
+}
+
+* {
+  scrollbar-color: var(--border-strong) transparent;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: system-ui, sans-serif;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 42px 42px;
+  background-position: center;
+}
+
+.text-glow {
+  text-shadow: 0 0 12px var(--accent-dim);
+}
+
+.border-glow {
+  box-shadow: 0 0 0 1px var(--border), 0 0 22px -8px var(--accent-dim);
+}
+
+.glass-panel {
+  background: rgba(13, 14, 16, 0.25);
+  backdrop-filter: blur(60px) saturate(190%) brightness(1.1);
+  -webkit-backdrop-filter: blur(60px) saturate(190%) brightness(1.1);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04),
+    0 8px 32px -16px rgba(0, 0, 0, 0.6);
+}
+
+.glass-panel-raised {
+  background: rgba(19, 20, 23, 0.32);
+  backdrop-filter: blur(70px) saturate(200%) brightness(1.12);
+  -webkit-backdrop-filter: blur(70px) saturate(200%) brightness(1.12);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05),
+    0 8px 28px -12px rgba(0, 0, 0, 0.55);
+}
+
+@keyframes loading-dot {
+  0%, 80%, 100% {
+    opacity: 0.25;
+    transform: translateY(0);
+  }
+  40% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+}
+
+.animate-loading-dot {
+  animation: loading-dot 1.1s ease-in-out infinite;
+}
+
+@keyframes ellipsis-dot-1 {
+  0%, 100% {
+    opacity: 1;
+  }
+}
+
+@keyframes ellipsis-dot-2 {
+  0%, 33.32% {
+    opacity: 0;
+  }
+  33.33%, 100% {
+    opacity: 1;
+  }
+}
+
+@keyframes ellipsis-dot-3 {
+  0%, 66.65% {
+    opacity: 0;
+  }
+  66.66%, 100% {
+    opacity: 1;
+  }
+}
+
+.animate-ellipsis-dot-1 {
+  animation: ellipsis-dot-1 1.2s steps(1, jump-end) infinite;
+}
+
+.animate-ellipsis-dot-2 {
+  animation: ellipsis-dot-2 1.2s steps(1, jump-end) infinite;
+}
+
+.animate-ellipsis-dot-3 {
+  animation: ellipsis-dot-3 1.2s steps(1, jump-end) infinite;
+}
+
+@keyframes caret-blink {
+  0%, 49% {
+    opacity: 1;
+  }
+  50%, 100% {
+    opacity: 0;
+  }
+}
+
+.animate-caret-blink {
+  animation: caret-blink 1s step-end infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

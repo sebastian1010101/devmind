@@ -15,6 +15,7 @@ __pycache__/
 *$py.class
 *.so
 .pytest_cache/
+.mypy_cache/
 
 # IDEs y editores
 .vscode/
@@ -25,3 +26,5 @@ __pycache__/
 # Sistema operativo
 .DS_Store
 Thumbs.db
+# Relatórios de avaliação locais
+/evaluation/*-local.json

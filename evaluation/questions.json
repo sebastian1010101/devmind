@@ -1,0 +1,405 @@
+[
+  {
+    "id": 1,
+    "category": "JavaScript",
+    "type": "facil",
+    "query": "¿Cuál es la diferencia entre declarar una variable con let y con const en JavaScript moderno?",
+    "expected_sources": [
+      "GIT_LOGIC_JS/Fundamentos_JS/FE02-08-variaveis.md"
+    ],
+    "should_answer": true
+  },
+  {
+    "id": 2,
+    "category": "JavaScript",
+    "type": "facil",
+    "query": "¿Qué es un array en JavaScript y por qué se usa en lugar de variables sueltas?",
+    "expected_sources": [
+      "GIT_LOGIC_JS/Arrays/FE02-45-introducao-a-arrays.md"
+    ],
+    "should_answer": true
+  },
+  {
+    "id": 3,
+    "category": "JavaScript",
+    "type": "facil",
+    "query": "¿Desde qué número empieza el índice de los elementos en un array?",
+    "expected_sources": [
+      "GIT_LOGIC_JS/Arrays/FE02-45-introducao-a-arrays.md"
+    ],
+    "should_answer": true
+  },
+  {
+    "id": 4,
+    "category": "JavaScript",
+    "type": "facil",
+    "query": "¿Cuándo se pueden omitir las llaves y el return en una arrow function?",
+    "expected_sources": [
+      "DOM_CSS_JS/ES6_JS_Moderno/FE03-47-arrow-function.md"
+    ],
+    "should_answer": true
+  },
+  {
+    "id": 5,
+    "category": "TypeScript",
+    "type": "facil",
+    "query": "¿Qué es un union type en TypeScript?",
+    "expected_sources": [
+      "REACT_AVANCADO/TypeScript/FE05-47-union-type.md"
+    ],
+    "should_answer": true
+  },
+  {
+    "id": 6,
+    "category": "TypeScript",
+    "type": "ambigua",
+    "query": "¿Cómo puedo restringir una variable a que solo acepte un conjunto fijo de valores de texto exactos?",
+    "expected_sources": [
+      "REACT_AVANCADO/TypeScript/FE05-47-union-type.md"
+    ],
+    "should_answer": true
+  },
+  {
+    "id": 7,
+    "category": "React",
+    "type": "facil",
+    "query": "¿Para qué sirve el hook useEffect en React?",
+    "expected_sources": [
+      "REACT_INICIO/Ciclo_De_Vida_useEffect/FE04-50-useeffect-introducao.md"
+    ],
+    "should_answer": true
+  },
+  {
+    "id": 8,
+    "category": "React",
+    "type": "facil",
+    "query": "¿Qué pasa cuando le paso un array de dependencias vacío a useEffect?",
+    "expected_sources": [
+      "REACT_INICIO/Ciclo_De_Vida_useEffect/FE04-50-useeffect-introducao.md"
+    ],
+    "should_answer": true
+  },
+  {
+    "id": 9,
+    "category": "React",
+    "type": "facil",
+    "query": "¿Qué hace el hook useQuery de React Query?",
+    "expected_sources": [
+      "REACT_AVANCADO/React_Query/FE05-19-react-query-usequery.md"
+    ],
+    "should_answer": true
+  },
+  {
+    "id": 10,
+    "category": "React",
+    "type": "ambigua",
+    "query": "¿Cómo hace React Query para saber cuándo debe volver a pedir los datos al servidor?",
+    "expected_sources": [
+      "REACT_AVANCADO/React_Query/FE05-19-react-query-usequery.md"
+    ],
+    "should_answer": true
+  },
+  {
+    "id": 11,
+    "category": "Node",
+    "type": "facil",
+    "query": "¿Por qué se usa Express en vez del módulo http nativo de Node?",
+    "expected_sources": [
+      "BACKEND_NODE/Express_Fundamentos/BE01-34-o-que-e-express.md"
+    ],
+    "should_answer": true
+  },
+  {
+    "id": 12,
+    "category": "APIs",
+    "type": "facil",
+    "query": "¿Qué significa que una API REST sea stateless?",
+    "expected_sources": [
+      "BACKEND_NODE/Express_Fundamentos/BE01-33-api-rest.md"
+    ],
+    "should_answer": true
+  },
+  {
+    "id": 13,
+    "category": "APIs",
+    "type": "ambigua",
+    "query": "¿Está bien nombrar un endpoint como /criarUsuario en una API REST?",
+    "expected_sources": [
+      "BACKEND_NODE/Express_Fundamentos/BE01-33-api-rest.md"
+    ],
+    "should_answer": true
+  },
+  {
+    "id": 14,
+    "category": "backend",
+    "type": "facil",
+    "query": "¿Qué es JWT y cómo se usa para autenticar una petición?",
+    "expected_sources": [
+      "BANCO_DADOS_PRISMA/Autenticacao_JWT/BE02-62-json-web-token-jwt.md"
+    ],
+    "should_answer": true
+  },
+  {
+    "id": 15,
+    "category": "backend",
+    "type": "facil",
+    "query": "¿Cuáles son las tres partes de un JSON Web Token?",
+    "expected_sources": [
+      "BANCO_DADOS_PRISMA/Autenticacao_JWT/BE02-62-json-web-token-jwt.md"
+    ],
+    "should_answer": true
+  },
+  {
+    "id": 16,
+    "category": "databases",
+    "type": "facil",
+    "query": "¿Qué es PostgreSQL y por qué se usa tanto en APIs con Node?",
+    "expected_sources": [
+      "BANCO_DADOS_PRISMA/SQL_PostgreSQL/BE02-09-banco-de-dados-postgresql.md"
+    ],
+    "should_answer": true
+  },
+  {
+    "id": 17,
+    "category": "databases",
+    "type": "facil",
+    "query": "¿Cuál es la diferencia entre un relacionamiento N-N implícito y uno explícito en Prisma?",
+    "expected_sources": [
+      "BANCO_DADOS_PRISMA/Prisma_ORM/BE02-36-prisma-relacionamento-n-n.md"
+    ],
+    "should_answer": true
+  },
+  {
+    "id": 18,
+    "category": "testing",
+    "type": "facil",
+    "query": "¿Cuál es la diferencia entre un test unitario y un test de integración?",
+    "expected_sources": [
+      "BANCO_DADOS_PRISMA/Testes_Jest_Supertest/BE02-79-introducao-a-testes-automatizados.md"
+    ],
+    "should_answer": true
+  },
+  {
+    "id": 19,
+    "category": "testing",
+    "type": "facil",
+    "query": "¿Qué prueba realmente un test de integración hecho con Supertest?",
+    "expected_sources": [
+      "BANCO_DADOS_PRISMA/Testes_Jest_Supertest/BE02-87-supertest-teste-de-integracao.md"
+    ],
+    "should_answer": true
+  },
+  {
+    "id": 20,
+    "category": "testing",
+    "type": "ambigua",
+    "query": "¿Por qué en la pirámide de testing se recomienda tener muchos tests unitarios y pocos end-to-end?",
+    "expected_sources": [
+      "BANCO_DADOS_PRISMA/Testes_Jest_Supertest/BE02-79-introducao-a-testes-automatizados.md"
+    ],
+    "should_answer": true
+  },
+  {
+    "id": 21,
+    "category": "Git",
+    "type": "facil",
+    "query": "¿Cuál es la diferencia fundamental entre Git y GitHub?",
+    "expected_sources": [
+      "GIT_LOGIC_JS/Git_GitHub/FE02-00-introducao-ao-git-e-github.md"
+    ],
+    "should_answer": true
+  },
+  {
+    "id": 22,
+    "category": "Git",
+    "type": "ambigua",
+    "query": "¿Puedo seguir haciendo commits en mi proyecto si no tengo conexión a internet?",
+    "expected_sources": [
+      "GIT_LOGIC_JS/Git_GitHub/FE02-00-introducao-ao-git-e-github.md"
+    ],
+    "should_answer": true
+  },
+  {
+    "id": 23,
+    "category": "HTML/CSS",
+    "type": "facil",
+    "query": "¿Qué es el Box Model en CSS y qué capas lo componen?",
+    "expected_sources": [
+      "HTML_CSS/CSS/FE01-30-box-model.md"
+    ],
+    "should_answer": true
+  },
+  {
+    "id": 24,
+    "category": "HTML/CSS",
+    "type": "facil",
+    "query": "¿Qué es Flexbox y qué problema resuelve en CSS?",
+    "expected_sources": [
+      "HTML_CSS/Flexbox/FE01-39-introducao-ao-flexbox.md"
+    ],
+    "should_answer": true
+  },
+  {
+    "id": 25,
+    "category": "HTML/CSS",
+    "type": "ambigua",
+    "query": "¿Cuáles son los dos roles principales dentro de un layout con Flexbox?",
+    "expected_sources": [
+      "HTML_CSS/Flexbox/FE01-39-introducao-ao-flexbox.md"
+    ],
+    "should_answer": true
+  },
+  {
+    "id": 26,
+    "category": "sin_respuesta",
+    "type": "sin_respuesta",
+    "query": "¿Cuál es la receta tradicional para preparar una pizza margherita?",
+    "expected_sources": [],
+    "should_answer": false
+  },
+  {
+    "id": 27,
+    "category": "sin_respuesta",
+    "type": "sin_respuesta",
+    "query": "¿Cuáles son las mejores estrategias para invertir en la bolsa de valores?",
+    "expected_sources": [],
+    "should_answer": false
+  },
+  {
+    "id": 28,
+    "category": "sin_respuesta",
+    "type": "sin_respuesta",
+    "query": "¿Cómo se entrena un modelo de machine learning con PyTorch desde cero?",
+    "expected_sources": [],
+    "should_answer": false
+  },
+  {
+    "id": 29,
+    "category": "sin_respuesta",
+    "type": "sin_respuesta",
+    "query": "¿Qué reglas tiene el fútbol para definir un fuera de juego (offside)?",
+    "expected_sources": [],
+    "should_answer": false
+  },
+  {
+    "id": 30,
+    "category": "sin_respuesta",
+    "type": "sin_respuesta",
+    "query": "¿Cómo se configura un clúster de Kubernetes en un proveedor cloud?",
+    "expected_sources": [],
+    "should_answer": false
+  },
+  {
+    "id": 31,
+    "category": "Git",
+    "type": "referencia",
+    "query": "Como retiro README.md do staging mantendo minhas edições?",
+    "expected_sources": [
+      "DEVMIND/Git/DM01-01-branch-staging-pr.md"
+    ],
+    "should_answer": true,
+    "portfolio": true
+  },
+  {
+    "id": 32,
+    "category": "HTML/CSS",
+    "type": "referencia",
+    "query": "Como associo um label a um input e permito que os campos quebrem linha com Flexbox?",
+    "expected_sources": [
+      "DEVMIND/HTML_CSS/DM01-02-formularios-e-flexbox.md"
+    ],
+    "should_answer": true,
+    "portfolio": true
+  },
+  {
+    "id": 33,
+    "category": "JavaScript",
+    "type": "referencia",
+    "query": "Quando usar map e filter em uma lista de produtos?",
+    "expected_sources": [
+      "DEVMIND/JavaScript/DM01-03-map-filter.md"
+    ],
+    "should_answer": true,
+    "portfolio": true
+  },
+  {
+    "id": 34,
+    "category": "Python",
+    "type": "referencia",
+    "query": "Como conto ocorrências em Python com um dicionário e get?",
+    "expected_sources": [
+      "DEVMIND/Python/DM01-04-lista-e-dicionario.md"
+    ],
+    "should_answer": true,
+    "portfolio": true
+  },
+  {
+    "id": 35,
+    "category": "HTTP",
+    "type": "referencia",
+    "query": "Por que repetir um PUT pode ser seguro e repetir um POST pode duplicar pedidos?",
+    "expected_sources": [
+      "DEVMIND/HTTP/DM01-05-put-post-idempotencia.md"
+    ],
+    "should_answer": true,
+    "portfolio": true
+  },
+  {
+    "id": 36,
+    "category": "React",
+    "type": "referencia",
+    "query": "Como adiciono um item ao estado anterior sem mutar a lista no React?",
+    "expected_sources": [
+      "DEVMIND/React/DM01-06-listas-no-estado.md"
+    ],
+    "should_answer": true,
+    "portfolio": true
+  },
+  {
+    "id": 37,
+    "category": "Autenticação",
+    "type": "referencia",
+    "query": "Quando uma API deve retornar 401 ou 403?",
+    "expected_sources": [
+      "DEVMIND/Autenticacao/DM01-07-autenticacao-autorizacao.md"
+    ],
+    "should_answer": true,
+    "portfolio": true
+  },
+  {
+    "id": 38,
+    "category": "Fora da base",
+    "type": "sin_respuesta",
+    "query": "Qual é a receita de uma pizza margherita?",
+    "expected_sources": [],
+    "should_answer": false,
+    "portfolio": true
+  },
+  {
+    "id": 39,
+    "category": "Fora da base",
+    "type": "sin_respuesta",
+    "query": "Como calculo a distância orbital de Netuno?",
+    "expected_sources": [],
+    "should_answer": false,
+    "portfolio": true
+  },
+  {
+    "id": 40,
+    "category": "Ambiguidade",
+    "type": "ambigua",
+    "query": "Como faço isso funcionar?",
+    "expected_sources": [],
+    "should_answer": false,
+    "portfolio": true
+  },
+  {
+    "id": 41,
+    "category": "Ambiguidade",
+    "type": "ambigua",
+    "query": "Qual deles devo usar no meu projeto?",
+    "expected_sources": [],
+    "should_answer": false,
+    "portfolio": true
+  }
+]

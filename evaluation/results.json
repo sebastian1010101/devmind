@@ -1,0 +1,394 @@
+{
+  "questions_evaluated": 30,
+  "retrieval": {
+    "total_answerable_questions": 25,
+    "hit_rate": {
+      "hit@1": 0.72,
+      "hit@3": 0.96,
+      "hit@5": 0.96
+    },
+    "per_question": [
+      {
+        "id": 1,
+        "query": "¿Cuál es la diferencia entre declarar una variable con let y con const en JavaScript moderno?",
+        "retrieved": [
+          "FE02-08-variaveis.md",
+          "FE02-08-variaveis.md",
+          "FE03-49-escopo-de-bloco.md",
+          "FE02-26-escopos.md",
+          "FE03-49-escopo-de-bloco.md"
+        ],
+        "hit@1": true,
+        "hit@3": true,
+        "hit@5": true
+      },
+      {
+        "id": 2,
+        "query": "¿Qué es un array en JavaScript y por qué se usa en lugar de variables sueltas?",
+        "retrieved": [
+          "FE02-45-introducao-a-arrays.md",
+          "FE03-60-desestruturando-arrays-e-objetos.md",
+          "FE03-50-metodos-de-array-no-es6.md",
+          "FE02-54-avancando-com-funcoes-e-objetos.md",
+          "FE03-61-spread-operator.md"
+        ],
+        "hit@1": true,
+        "hit@3": true,
+        "hit@5": true
+      },
+      {
+        "id": 3,
+        "query": "¿Desde qué número empieza el índice de los elementos en un array?",
+        "retrieved": [
+          "FE02-45-introducao-a-arrays.md",
+          "FE03-50-metodos-de-array-no-es6.md",
+          "FE03-55-metodo-reduce.md",
+          "FE02-46-lacos-com-arrays.md",
+          "FE03-51-metodo-foreach.md"
+        ],
+        "hit@1": true,
+        "hit@3": true,
+        "hit@5": true
+      },
+      {
+        "id": 4,
+        "query": "¿Cuándo se pueden omitir las llaves y el return en una arrow function?",
+        "retrieved": [
+          "FE03-52-metodo-map.md",
+          "FE03-47-arrow-function.md",
+          "BE02-58-tsyringe-injecao-de-dependencia-com-express.md",
+          "FE03-47-arrow-function.md",
+          "FE02-21-sintaxe-e-declaracao-de-funcoes.md"
+        ],
+        "hit@1": false,
+        "hit@3": true,
+        "hit@5": true
+      },
+      {
+        "id": 5,
+        "query": "¿Qué es un union type en TypeScript?",
+        "retrieved": [
+          "FE05-47-union-type.md",
+          "FE05-43-tipos-basicos.md",
+          "FE05-47-union-type.md",
+          "BE01-12-union-types.md",
+          "FE05-45-criando-tipos.md"
+        ],
+        "hit@1": true,
+        "hit@3": true,
+        "hit@5": true
+      },
+      {
+        "id": 6,
+        "query": "¿Cómo puedo restringir una variable a que solo acepte un conjunto fijo de valores de texto exactos?",
+        "retrieved": [
+          "FE05-47-union-type.md",
+          "FE02-16-estruturas-condicionais.md",
+          "BE01-10-enum.md",
+          "BE01-56-zod-introducao.md",
+          "BE01-10-enum.md"
+        ],
+        "hit@1": true,
+        "hit@3": true,
+        "hit@5": true
+      },
+      {
+        "id": 7,
+        "query": "¿Para qué sirve el hook useEffect en React?",
+        "retrieved": [
+          "FE04-50-useeffect-introducao.md",
+          "FE04-50-useeffect-introducao.md",
+          "FE04-29-hooks-no-react.md",
+          "FE04-50-useeffect-introducao.md",
+          "FE04-51-useeffect-efeitos-de-montagem.md"
+        ],
+        "hit@1": true,
+        "hit@3": true,
+        "hit@5": true
+      },
+      {
+        "id": 8,
+        "query": "¿Qué pasa cuando le paso un array de dependencias vacío a useEffect?",
+        "retrieved": [
+          "FE04-54-useeffect-efeitos-de-atualizacao.md",
+          "FE04-50-useeffect-introducao.md",
+          "FE04-54-useeffect-efeitos-de-atualizacao.md",
+          "FE04-50-useeffect-introducao.md",
+          "FE04-50-useeffect-introducao.md"
+        ],
+        "hit@1": false,
+        "hit@3": true,
+        "hit@5": true
+      },
+      {
+        "id": 9,
+        "query": "¿Qué hace el hook useQuery de React Query?",
+        "retrieved": [
+          "FE05-18-react-query-introducao.md",
+          "FE05-19-react-query-usequery.md",
+          "FE05-18-react-query-introducao.md",
+          "FE05-18-react-query-introducao.md",
+          "FE05-19-react-query-usequery.md"
+        ],
+        "hit@1": false,
+        "hit@3": true,
+        "hit@5": true
+      },
+      {
+        "id": 10,
+        "query": "¿Cómo hace React Query para saber cuándo debe volver a pedir los datos al servidor?",
+        "retrieved": [
+          "FE05-19-react-query-usequery.md",
+          "FE05-18-react-query-introducao.md",
+          "FE05-18-react-query-introducao.md",
+          "FE05-19-react-query-usequery.md",
+          "FE05-19-react-query-usequery.md"
+        ],
+        "hit@1": true,
+        "hit@3": true,
+        "hit@5": true
+      },
+      {
+        "id": 11,
+        "query": "¿Por qué se usa Express en vez del módulo http nativo de Node?",
+        "retrieved": [
+          "BE01-34-o-que-e-express.md",
+          "BE01-34-o-que-e-express.md",
+          "BE01-34-o-que-e-express.md",
+          "BE01-29-o-que-e-backend.md",
+          "BE01-34-o-que-e-express.md"
+        ],
+        "hit@1": true,
+        "hit@3": true,
+        "hit@5": true
+      },
+      {
+        "id": 12,
+        "query": "¿Qué significa que una API REST sea stateless?",
+        "retrieved": [
+          "BE01-33-api-rest.md",
+          "BE01-33-api-rest.md",
+          "BE02-62-json-web-token-jwt.md",
+          "BE02-01-importancia-dos-bancos-de-dados.md",
+          "BE01-33-api-rest.md"
+        ],
+        "hit@1": true,
+        "hit@3": true,
+        "hit@5": true
+      },
+      {
+        "id": 13,
+        "query": "¿Está bien nombrar un endpoint como /criarUsuario en una API REST?",
+        "retrieved": [
+          "BE02-70-documentando-em-markdown.md",
+          "BE01-33-api-rest.md",
+          "BE01-48-atividade-segmentando-controllers-services.md",
+          "BE02-69-atividade-praticando-autenticacao.md",
+          "BE02-87-supertest-teste-de-integracao.md"
+        ],
+        "hit@1": false,
+        "hit@3": true,
+        "hit@5": true
+      },
+      {
+        "id": 14,
+        "query": "¿Qué es JWT y cómo se usa para autenticar una petición?",
+        "retrieved": [
+          "BE02-62-json-web-token-jwt.md",
+          "FE05-06-autenticacao-parte-1.md",
+          "BE02-62-json-web-token-jwt.md",
+          "FE05-06-autenticacao-parte-1.md",
+          "BE02-62-json-web-token-jwt.md"
+        ],
+        "hit@1": true,
+        "hit@3": true,
+        "hit@5": true
+      },
+      {
+        "id": 15,
+        "query": "¿Cuáles son las tres partes de un JSON Web Token?",
+        "retrieved": [
+          "BE02-62-json-web-token-jwt.md",
+          "BE02-62-json-web-token-jwt.md",
+          "BE02-62-json-web-token-jwt.md",
+          "FE05-06-autenticacao-parte-1.md",
+          "BE02-62-json-web-token-jwt.md"
+        ],
+        "hit@1": true,
+        "hit@3": true,
+        "hit@5": true
+      },
+      {
+        "id": 16,
+        "query": "¿Qué es PostgreSQL y por qué se usa tanto en APIs con Node?",
+        "retrieved": [
+          "BE02-09-banco-de-dados-postgresql.md",
+          "BE02-09-banco-de-dados-postgresql.md",
+          "BE01-53-seguranca-owasp.md",
+          "BE02-01-importancia-dos-bancos-de-dados.md",
+          "BE02-74-render-criando-o-banco-de-dados.md"
+        ],
+        "hit@1": true,
+        "hit@3": true,
+        "hit@5": true
+      },
+      {
+        "id": 17,
+        "query": "¿Cuál es la diferencia entre un relacionamiento N-N implícito y uno explícito en Prisma?",
+        "retrieved": [
+          "BE02-37-atividade-relacionamentos-n-n-prisma.md",
+          "BE02-36-prisma-relacionamento-n-n.md",
+          "BE02-36-prisma-relacionamento-n-n.md",
+          "BE02-37-atividade-relacionamentos-n-n-prisma.md",
+          "BE02-36-prisma-relacionamento-n-n.md"
+        ],
+        "hit@1": false,
+        "hit@3": true,
+        "hit@5": true
+      },
+      {
+        "id": 18,
+        "query": "¿Cuál es la diferencia entre un test unitario y un test de integración?",
+        "retrieved": [
+          "BE02-79-introducao-a-testes-automatizados.md",
+          "BE02-87-supertest-teste-de-integracao.md",
+          "BE02-91-prisma-testes-automatizados.md",
+          "BE02-95-prisma-testes-de-integracao.md",
+          "BE02-91-prisma-testes-automatizados.md"
+        ],
+        "hit@1": true,
+        "hit@3": true,
+        "hit@5": true
+      },
+      {
+        "id": 19,
+        "query": "¿Qué prueba realmente un test de integración hecho con Supertest?",
+        "retrieved": [
+          "BE02-86-supertest-instalacao-e-configuracao.md",
+          "BE02-87-supertest-teste-de-integracao.md",
+          "BE02-95-prisma-testes-de-integracao.md",
+          "BE02-92-prisma-testes-unitarios.md",
+          "BE02-95-prisma-testes-de-integracao.md"
+        ],
+        "hit@1": false,
+        "hit@3": true,
+        "hit@5": true
+      },
+      {
+        "id": 20,
+        "query": "¿Por qué en la pirámide de testing se recomienda tener muchos tests unitarios y pocos end-to-end?",
+        "retrieved": [
+          "BE02-79-introducao-a-testes-automatizados.md",
+          "BE02-79-introducao-a-testes-automatizados.md",
+          "BE02-98-introducao-a-testes-avancados.md",
+          "BE02-57-introducao-a-injecao-de-dependencia.md",
+          "BE02-98-introducao-a-testes-avancados.md"
+        ],
+        "hit@1": true,
+        "hit@3": true,
+        "hit@5": true
+      },
+      {
+        "id": 21,
+        "query": "¿Cuál es la diferencia fundamental entre Git y GitHub?",
+        "retrieved": [
+          "FE02-00-introducao-ao-git-e-github.md",
+          "FE02-03-instalacao-e-utilizacao-do-github-desktop.md",
+          "FE02-03-instalacao-e-utilizacao-do-github-desktop.md",
+          "FE02-02-configurando-chave-ssh.md",
+          "FE02-04-github-pages.md"
+        ],
+        "hit@1": true,
+        "hit@3": true,
+        "hit@5": true
+      },
+      {
+        "id": 22,
+        "query": "¿Puedo seguir haciendo commits en mi proyecto si no tengo conexión a internet?",
+        "retrieved": [
+          "FE02-35-enviando-os-projetos-pelo-github.md",
+          "FE01-38-enviando-o-projeto-para-correcao.md",
+          "FE02-03-instalacao-e-utilizacao-do-github-desktop.md",
+          "FE02-35-enviando-os-projetos-pelo-github.md",
+          "FE02-03-instalacao-e-utilizacao-do-github-desktop.md"
+        ],
+        "hit@1": false,
+        "hit@3": false,
+        "hit@5": false
+      },
+      {
+        "id": 23,
+        "query": "¿Qué es el Box Model en CSS y qué capas lo componen?",
+        "retrieved": [
+          "FE01-30-box-model.md",
+          "FE01-30-box-model.md",
+          "FE01-30-box-model.md",
+          "FE03-26-position.md",
+          "FE01-24-estrutura-e-seletores.md"
+        ],
+        "hit@1": true,
+        "hit@3": true,
+        "hit@5": true
+      },
+      {
+        "id": 24,
+        "query": "¿Qué es Flexbox y qué problema resuelve en CSS?",
+        "retrieved": [
+          "FE01-39-introducao-ao-flexbox.md",
+          "FE01-44-container.md",
+          "FE01-39-introducao-ao-flexbox.md",
+          "FE01-39-introducao-ao-flexbox.md",
+          "FE01-43-flexbox-editor.md"
+        ],
+        "hit@1": true,
+        "hit@3": true,
+        "hit@5": true
+      },
+      {
+        "id": 25,
+        "query": "¿Cuáles son los dos roles principales dentro de un layout con Flexbox?",
+        "retrieved": [
+          "FE01-39-introducao-ao-flexbox.md",
+          "FE01-39-introducao-ao-flexbox.md",
+          "FE01-39-introducao-ao-flexbox.md",
+          "FE01-43-flexbox-editor.md",
+          "FE01-40-atividade-flexbox.md"
+        ],
+        "hit@1": true,
+        "hit@3": true,
+        "hit@5": true
+      }
+    ]
+  },
+  "unsupported_rejection": {
+    "total_unsupported_questions": 5,
+    "correctly_rejected": 5,
+    "per_question": [
+      {
+        "id": 26,
+        "query": "¿Cuál es la receta tradicional para preparar una pizza margherita?",
+        "correctly_rejected": true
+      },
+      {
+        "id": 27,
+        "query": "¿Cuáles son las mejores estrategias para invertir en la bolsa de valores?",
+        "correctly_rejected": true
+      },
+      {
+        "id": 28,
+        "query": "¿Cómo se entrena un modelo de machine learning con PyTorch desde cero?",
+        "correctly_rejected": true
+      },
+      {
+        "id": 29,
+        "query": "¿Qué reglas tiene el fútbol para definir un fuera de juego (offside)?",
+        "correctly_rejected": true
+      },
+      {
+        "id": 30,
+        "query": "¿Cómo se configura un clúster de Kubernetes en un proveedor cloud?",
+        "correctly_rejected": true
+      }
+    ]
+  }
+}
