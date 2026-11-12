@@ -51,6 +51,7 @@ export function Guide({ path, onNavigate, onAskAbout }: GuideProps) {
       <div className="flex flex-col gap-4">
         {breadcrumbs}
         <GuideDocument
+          key={activeDocument.source}
           module={activeModule}
           section={activeSection}
           doc={activeDocument}

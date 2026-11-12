@@ -1,9 +1,12 @@
 from pathlib import Path
 
+import pytest
+
 from guide import (
     GuideModule,
     build_guide,
     humanize_folder,
+    read_guide_document,
 )
 
 REAL_KNOWLEDGE_DIR = Path(__file__).resolve().parent.parent / "knowledge"
@@ -77,3 +80,43 @@ def test_build_guide_against_real_knowledge_base_has_eight_modules_in_order():
             assert section.documents, f"{module.id}/{section.id} no tiene documentos"
             orders = [d.order for d in section.documents]
             assert orders == sorted(orders)
+
+
+def test_read_guide_document_uses_catalog_source_and_preserves_the_markdown(tmp_path):
+    markdown = "# Introdução\n\n| Tecnologia |\n| --- |\n| HTML |\n"
+    _write(tmp_path / "MOD" / "Tema" / "Introdução ao HTML.MD", markdown)
+    doc = build_guide(tmp_path)[0].sections[0].documents[0]
+
+    assert read_guide_document(doc.source, tmp_path) == markdown
+
+
+@pytest.mark.parametrize("source", [
+    "",
+    "/MOD/Tema/doc.md",
+    "../outside/doc.md",
+    "MOD/Tema/../index.md",
+    "MOD/Tema/./doc.md",
+    "MOD//Tema/doc.md",
+    "MOD\\Tema\\doc.md",
+    "MOD/index.md",
+    "MOD/Tema/doc.txt",
+    "MOD/Tema/missing.md",
+    "MOD/Tema/empty.md",
+    "MOD/Tema/binary.md",
+    "MOD/Link/doc.md",
+    "MOD/Tema/link.md",
+])
+def test_read_guide_document_rejects_invalid_sources(tmp_path, source):
+    root = tmp_path / "knowledge"
+    topic = root / "MOD" / "Tema"
+    _write(topic / "doc.md", "# Documento")
+    _write(root / "MOD" / "index.md", "# Índice")
+    _write(topic / "doc.txt", "Texto")
+    _write(topic / "empty.md", "   \n")
+    (topic / "binary.md").write_bytes(b"\x00")
+    outside = tmp_path / "outside"
+    _write(outside / "doc.md", "# Fora da base")
+    (root / "MOD" / "Link").symlink_to(outside, target_is_directory=True)
+    (topic / "link.md").symlink_to(topic / "doc.md")
+
+    assert read_guide_document(source, root) is None

@@ -22,10 +22,11 @@ export class ApiError extends Error {
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   let response: Response;
   try {
+    const timeout = AbortSignal.timeout(90_000);
     response = await fetch(`${API_BASE_URL}${path}`, {
       headers: { "Content-Type": "application/json" },
-      signal: AbortSignal.timeout(90_000),
       ...init,
+      signal: init?.signal ? AbortSignal.any([init.signal, timeout]) : timeout,
     });
   } catch (error) {
     if (error instanceof DOMException && error.name === "TimeoutError") {
@@ -65,6 +66,12 @@ export function getStats(): Promise<StatsResponse> {
 
 export function getGuide(): Promise<GuideModule[]> {
   return request<GuideModule[]>("/guide");
+}
+
+export async function getGuideDocument(source: string, signal: AbortSignal): Promise<string> {
+  const query = new URLSearchParams({ source });
+  const { markdown } = await request<{ markdown: string }>(`/guide/document?${query}`, { signal });
+  return markdown;
 }
 
 export function getHealth(): Promise<HealthResponse> {

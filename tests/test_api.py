@@ -1,4 +1,5 @@
 import json
+from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import Mock
 
@@ -25,6 +26,19 @@ def test_local_endpoints_do_not_need_provider_credentials(monkeypatch):
     response = client.post("/ask", json={"question": "Como funciona o Git?"})
     assert response.status_code == 503
     assert response.json() == {"detail": "Configure PINECONE_API_KEY no servidor."}
+
+
+def test_guide_document_returns_the_catalog_source_without_provider_credentials(monkeypatch):
+    monkeypatch.delenv("PINECONE_API_KEY", raising=False)
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
+    source = "HTML_CSS/HTML/FE01-04-introducao-ao-html.md"
+    markdown = (Path("knowledge") / source).read_text(encoding="utf-8")
+
+    response = client.get("/guide/document", params={"source": source})
+
+    assert response.status_code == 200
+    assert response.json() == {"markdown": markdown}
+    assert client.get("/guide/document", params={"source": "../README.md"}).status_code == 404
 
 
 @pytest.mark.parametrize("payload", [

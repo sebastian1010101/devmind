@@ -19,7 +19,7 @@ navegação de GUIDE (não se inventa uma categoria "General" para eles).
 
 import re
 from dataclasses import dataclass, field
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 
 from chunking import KNOWLEDGE_DIR, infer_module_topic, iter_markdown_files, read_markdown
 
@@ -185,6 +185,29 @@ def build_guide(root: Path = KNOWLEDGE_DIR) -> list[GuideModule]:
 
 def guide_as_list(root: Path = KNOWLEDGE_DIR) -> list[dict]:
     return [m.as_dict() for m in build_guide(root)]
+
+
+def read_guide_document(source: str, root: Path = KNOWLEDGE_DIR) -> str | None:
+    """Lê um documento identificado pelo caminho relativo do catálogo."""
+    relative = PurePosixPath(source)
+    if (
+        relative.is_absolute()
+        or len(relative.parts) < 3
+        or ".." in relative.parts
+        or "\\" in source
+        or relative.as_posix() != source
+        or relative.suffix.lower() != ".md"
+    ):
+        return None
+
+    try:
+        path = root.resolve() / relative
+        if path.resolve(strict=True) != path:
+            return None
+        markdown = read_markdown(path)
+    except (OSError, RuntimeError, ValueError):
+        return None
+    return markdown if markdown.strip() else None
 
 
 if __name__ == "__main__":

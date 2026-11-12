@@ -66,8 +66,12 @@ export function Terminal() {
   const guide = useGuide();
 
   useEffect(() => {
-    logRef.current?.scrollTo({ top: logRef.current.scrollHeight });
-  }, [entries]);
+    if (mode === "ask") logRef.current?.scrollTo({ top: logRef.current.scrollHeight });
+  }, [entries, mode]);
+
+  useEffect(() => {
+    if (mode === "guide") logRef.current?.scrollTo({ top: 0 });
+  }, [guidePath, mode]);
 
   useEffect(() => {
     getStats()
@@ -258,7 +262,7 @@ export function Terminal() {
   };
 
   const focusInput = (event: MouseEvent<HTMLDivElement>) => {
-    if (isInteractiveTarget(event.target)) return;
+    if (mode === "guide" || isInteractiveTarget(event.target)) return;
     inputRef.current?.focus();
   };
 
