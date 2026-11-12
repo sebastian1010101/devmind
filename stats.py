@@ -10,7 +10,14 @@ import hashlib
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from chunking import KNOWLEDGE_DIR, chunk_markdown, document_records, infer_module_topic, iter_markdown_files, read_markdown
+from chunking import (
+    KNOWLEDGE_DIR,
+    chunk_markdown,
+    document_records,
+    infer_module_topic,
+    iter_markdown_files,
+    read_markdown,
+)
 
 
 @dataclass
@@ -25,7 +32,9 @@ class KnowledgeBaseStats:
     documents_indexed: int = 0
     failed: list[DocumentIssue] = field(default_factory=list)
     empty: list[DocumentIssue] = field(default_factory=list)
-    duplicates: list[tuple[str, str]] = field(default_factory=list)  # (arquivo, duplicado_de)
+    duplicates: list[tuple[str, str]] = field(
+        default_factory=list
+    )  # (arquivo, duplicado_de)
 
     chunks_created: int = 0
     chunks_per_document: dict[str, int] = field(default_factory=dict)
@@ -71,14 +80,23 @@ def compute_stats(root: Path = KNOWLEDGE_DIR) -> KnowledgeBaseStats:
 
 
 def scan_corpus(
-    root: Path, module: str | None = None, *, collect_records: bool = False,
+    root: Path,
+    module: str | None = None,
+    *,
+    collect_records: bool = False,
 ) -> tuple[KnowledgeBaseStats, list[dict]]:
     """Valida e fragmenta o corpus uma vez para o relatório e o upsert."""
     stats = KnowledgeBaseStats()
     records = []
-    seen_hashes: dict[str, str] = {}  # hash de conteúdo normalizado -> primeiro arquivo com esse hash
+    seen_hashes: dict[str, str] = (
+        {}
+    )  # hash de conteúdo normalizado -> primeiro arquivo com esse hash
 
-    files = [p for p in iter_markdown_files(root) if module is None or infer_module_topic(p, root)[0] == module]
+    files = [
+        p
+        for p in iter_markdown_files(root)
+        if module is None or infer_module_topic(p, root)[0] == module
+    ]
     stats.documents_discovered = len(files)
 
     for path in files:
@@ -131,11 +149,15 @@ def format_report(stats: KnowledgeBaseStats) -> str:
         f"Max chunk length: {stats.max_chunk_length} chars",
     ]
     if stats.failed:
-        lines += ["", "Failed documents:"] + [f"  - {i.path}: {i.reason}" for i in stats.failed]
+        lines += ["", "Failed documents:"] + [
+            f"  - {i.path}: {i.reason}" for i in stats.failed
+        ]
     if stats.empty:
         lines += ["", "Empty documents:"] + [f"  - {i.path}" for i in stats.empty]
     if stats.duplicates:
-        lines += ["", "Potential duplicates:"] + [f"  - {a} ~= {b}" for a, b in stats.duplicates]
+        lines += ["", "Potential duplicates:"] + [
+            f"  - {a} ~= {b}" for a, b in stats.duplicates
+        ]
     return "\n".join(lines)
 
 
