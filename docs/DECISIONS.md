@@ -11,3 +11,7 @@
 | Preservar `gpt-4o` com override | É o modelo da configuração original e suporta a saída estruturada usada aqui. OpenAI anunciou a retirada dos snapshots documentados em 14/01/2027. Use `RAG_MODEL` para testar a substituição antes de migrar. [OpenAI Deprecations](https://developers.openai.com/api/docs/deprecations) |
 | Separar corpus autoral e herdado | Os sete novos guias permitem reproduzir a demo com poucos registros e fontes revisáveis. O corpus herdado permanece no diretório existente e pode ser incluído em execuções locais autorizadas. |
 | Separar avaliações simuladas e reais | O modo simulado verifica o fluxo e as métricas com entrada controlada. O modo real mede o comportamento do índice e do modelo configurados e exige opt-in. |
+
+## Evolução multiusuário de 16/11/2026
+
+A geração padrão passa a Gemini nativo, com OpenAI configurável. O dashboard usa Supabase Auth, cookies HttpOnly e verificação JWT no backend. PostgreSQL recebe dados por importação transacional de uma cópia SQLite consistente. Os dados históricos mantêm o proprietário até uma transferência administrativa explícita. A abertura pública exige a revisão descrita na [entrega desta fase](PUBLIC_RELEASE.md).

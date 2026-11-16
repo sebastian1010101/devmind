@@ -1,4 +1,6 @@
-# Active Recall — MVP local
+# Active Recall — evolução do MVP local
+
+A implementação de 16/11/2026 acrescenta identidade Supabase, autorização por usuário, PostgreSQL e seleção de Gemini/OpenAI. O [relatório multiusuário](PUBLIC_RELEASE.md) documenta o estado atual e suas verificações. As seções abaixo registram a implementação original de 12/11/2026 e seu funcionamento pedagógico.
 
 Implementado em 12/11/2026 para a demonstração DevMind. Um estudante seleciona módulo, tema ou documento do Guia, gera até três cartões com evidências do RAG, responde com suas palavras, recebe feedback e define como foi recordar. O modo **Estudo** reúne painel, prática e progresso, mantendo Chat e Guia existentes.
 

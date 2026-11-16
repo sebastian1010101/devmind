@@ -1,5 +1,11 @@
 # Arquitetura de DevMind
 
+## Identidade, acesso e persistência
+
+A homepage `/` é prerenderizada. O dashboard exige uma verificação de sessão no servidor Next.js. O proxy `/api` mantém as chamadas do navegador na mesma origem. FastAPI usa Supabase Auth REST e valida JWT via JWKS, assinatura ES256/RS256, expiração, issuer, audience, rol e UUID de sujeito. Cookies HttpOnly mantêm a sessão e as mutações verificam Origin e cabeçalho CSRF.
+
+O repositório recebe o `user_id` obtido da identidade validada. Cartões, tentativas, revisões, sessões, idempotência e progresso usam esse identificador. PostgreSQL guarda o schema privado com RLS, e SQLite atende o desenvolvimento com migração automática. Cotas e leases são persistentes. O corpus e os embeddings públicos permanecem compartilhados. [Migrações e verificação multiusuário](PUBLIC_RELEASE.md)
+
 ## Ingestão
 
 1. `main.py` verifica o índice configurado. Quando ausente, cria um índice serverless com `llama-text-embed-v2` e `text → chunk_text`.
@@ -12,7 +18,7 @@
 
 1. FastAPI valida a pergunta e aceita filtros de escopo opcionais. O chat chama o mesmo `answer_question` usado pela CLI e pela avaliação.
 2. Pinecone embute a pergunta e retorna hits ordenados. O pipeline aplica o limiar de relevância aos primeiros `top_k`. O limite de contexto conta o JSON serializado das evidências, incluindo IDs e escapes.
-3. A pergunta e os trechos são enviados como dados ao modelo. Sem evidência elegível, a resposta de abstensão é local. Com evidência, uma chamada de Chat Completions produz `answer` e `citations` em JSON Schema estrito.
+3. A pergunta e os trechos são enviados como dados ao modelo. Sem evidência elegível, a resposta de abstensão é local. Com evidência, uma chamada do provedor LLM configurado produz `answer` e `citations` em JSON Schema estrito.
 4. O backend aceita uma resposta com citações presentes no mapa de evidências daquela requisição. A seção, o caminho e o trecho saem da metadata do fragmento. Citações repetidas à mesma seção são agrupadas. Uma saída vazia, inconsistente ou truncada vira erro controlado. [OpenAI Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs?api-mode=chat)
 5. O chat exibe a resposta, os trechos citados ou a abstensão. Markdown renderizado do modelo tem HTML, imagens e links externos desativados.
 
@@ -20,7 +26,7 @@
 
 ## Configuração e limites
 
-As chaves ficam no processo backend. Clientes são criados sob demanda. O OpenAI recebe uma chamada por resposta com evidência e sem reenvio automático; o SDK Pinecone permite uma nova tentativa com espera limitada. Logs de falhas contêm provedor, classe e status, sem corpo externo. A API converte erros de configuração, timeout, cota e resposta inválida em mensagens públicas.
+As chaves ficam no processo backend. Clientes são criados sob demanda. O provedor LLM recebe uma chamada por resposta com evidência e sem reenvio automático; o SDK Pinecone permite uma nova tentativa com espera limitada. Logs de falhas contêm provedor, classe e status, sem corpo externo. A API converte erros de configuração, timeout, cota e resposta inválida em mensagens públicas.
 
 A distinção entre comandos e dados reduz injeção de prompt. A aplicação não oferece ferramentas ao modelo. A presença de uma citação não demonstra que ela sustenta todas as afirmações. O limite de caracteres reduz custo e tamanho, mas a contagem de tokens varia com o idioma e o conteúdo.
 
@@ -29,3 +35,7 @@ A distinção entre comandos e dados reduz injeção de prompt. A aplicação n�
 O avaliador mede Hit@1, @3 e @5 nos ranks brutos dos casos com fonte esperada e recuperação concluída, mesmo se a geração falhar. Ele recupera os ranks extras na mesma busca e limita a geração ao top-k configurado. Atribuição mede se cada referência declarada corresponde ao caminho, seção e ordinal de um fragmento enviado ao modelo. A taxa de fonte esperada citada compara também com os rótulos do dataset.
 
 A acurácia de abstensão inclui as decisões corretas de responder e de se abster entre execuções concluídas. O relatório também apresenta o subconjunto de rejeições esperadas. Latências são medianas das execuções concluídas, com amostras por fase. Taxa de erros usa todas as perguntas. Métricas sem casos elegíveis têm valor nulo.
+
+## Provedores LLM
+
+`llm.py` oferece um contrato de geração para o RAG e Active Recall. Gemini utiliza a API nativa generateContent com JSON Schema, metadados de uso e motivos de término próprios. OpenAI utiliza Chat Completions com JSON Schema estrito. Ambos passam por validação Pydantic, consistência de citações e tratamento de abstensão ou erro. `RunTrace` identifica o provedor e guarda consumo medido. Pinecone conserva `llama-text-embed-v2`. [Decisões e evidências](PUBLIC_RELEASE.md)

@@ -22,10 +22,21 @@ const directory = path.dirname(fileURLToPath(import.meta.url));
   });
   const page = await context.newPage();
   page.on("pageerror", (error) => errors.push(error.message));
-  const screenshots = path.resolve(directory, "../../docs/screenshots");
+  const screenshots = path.resolve(directory, "../../docs/screenshots/study-authenticated");
   fs.mkdirSync(screenshots, { recursive: true });
   try {
-    await page.goto("http://127.0.0.1:3036");
+    await page.goto("http://127.0.0.1:3036/cadastro");
+    await page.getByLabel("Email", { exact: true }).fill(`study-${Date.now()}@example.com`);
+    const email = await page.getByLabel("Email", { exact: true }).inputValue();
+    await page.getByLabel("Senha", { exact: true }).fill("test-password-1234");
+    await page.getByLabel("Tenho 18 anos").check();
+    await page.getByLabel("Li e aceito").check();
+    await page.getByRole("button", { name: "Criar conta gratuita" }).click();
+    await page.waitForURL("**/verificar");
+    await page.getByLabel("Email", { exact: true }).fill(email);
+    await page.getByLabel("Código de confirmação").fill("123456");
+    await page.getByRole("button", { name: "Confirmar código", exact: true }).click();
+    await page.waitForURL("**/dashboard");
     await page.getByRole("button", { name: "Estudo", exact: true }).click();
     await page.getByLabel("Tema", { exact: true }).selectOption("git");
     await page.getByLabel("Quantidade", { exact: true }).selectOption("1");
@@ -75,7 +86,7 @@ const directory = path.dirname(fileURLToPath(import.meta.url));
       viewports: [{ width: 1440, height: 1000 }, { width: 390, height: 844 }],
       checks: ["generation", "hidden_solution", "timeout", "persisted_answer_after_reload", "retry", "evaluation", "self_recall", "reference_answer", "open_document", "daily_progress", "upcoming_reviews", "mobile_no_overflow", "no_page_errors"],
       screenshots: ["study-dashboard.png", "study-feedback.png", "study-progress.png", "study-mobile.png", "study-practice-mobile.png"] };
-    fs.writeFileSync(path.resolve(directory, "../../evaluation/learning-browser-2026-11-12.json"), JSON.stringify(report, null, 2) + "\n");
+    fs.writeFileSync(path.resolve(directory, "../../evaluation/learning-browser-local.json"), JSON.stringify(report, null, 2) + "\n");
     console.log(JSON.stringify(report, null, 2));
   } catch (error) {
     console.error((await page.locator("body").innerText()).slice(0, 4000));

@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import { Scene } from "@/components/three/Scene";
-import { KnowledgeProvider } from "@/hooks/useKnowledge";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -12,11 +10,8 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="pt-BR" className="h-full antialiased">
-      <body className="h-dvh flex flex-col overflow-hidden bg-background text-foreground">
-        <KnowledgeProvider>
-          <Scene />
-          {children}
-        </KnowledgeProvider>
+      <body className="min-h-dvh bg-background text-foreground">
+        {children}
       </body>
     </html>
   );

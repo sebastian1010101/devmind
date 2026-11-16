@@ -6,6 +6,8 @@ import json
 import platform
 import subprocess
 import sys
+import tempfile
+from unittest.mock import patch
 from datetime import datetime, timezone
 from pathlib import Path
 from time import monotonic, sleep
@@ -15,6 +17,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from fastapi.testclient import TestClient  # noqa: E402
 
+from auth import User, current_user
+from learning_store import LearningStore
+from llm import require_llm_key
 from api import app  # noqa: E402
 from chunking import KNOWLEDGE_DIR  # noqa: E402
 from config import settings  # noqa: E402
@@ -86,9 +91,12 @@ def main() -> int:
     index = None
     writes_attempted = False
     ids = {record["_id"] for record in records}
+    previous_identity = app.dependency_overrides.get(current_user)
+    app.dependency_overrides[current_user] = lambda: User("local-demo", "fixture@example.com")
+    report["api_identity"] = "explicit local test identity; Supabase validation is separate"
     try:
         require_key("PINECONE_API_KEY")
-        require_key("OPENAI_API_KEY")
+        require_llm_key()
         with provider_errors("Pinecone"):
             description = pinecone_client().describe_index(settings.index_name)
             fields = description.to_dict()["schema"]["fields"]
@@ -106,8 +114,11 @@ def main() -> int:
             ):
                 raise ServiceError("incompatible_index", "Verifique o esquema integrado do índice.", 503)
             index = pinecone_index()
-        with provider_errors("OpenAI"):
-            report["openai_model"] = openai_client().models.retrieve(settings.model).id
+        if settings.llm_provider == "openai":
+            with provider_errors("OpenAI"):
+                report["openai_model"] = openai_client().models.retrieve(settings.model).id
+        else:
+            report["requested_gemini_model"] = settings.gemini_model
         report["checks"]["provider_authentication_and_index"] = True
 
         if listed_ids(index, namespace):
@@ -142,20 +153,22 @@ def main() -> int:
 
         # Real ASGI request/response validation, with both provider clients untouched.
         report["api"] = []
-        with TestClient(app) as client:
-            for question in (questions[0], next(q for q in questions if q["type"] == "sin_respuesta")):
-                payload = {"question": question["query"]}
-                if question["expected_sources"]:
-                    payload["source"] = question["expected_sources"][0]
-                response = client.post("/ask", json=payload)
-                body = response.json()
-                report["api"].append({"request": payload, "http_status": response.status_code, "response": body})
-                report["checks"][f"api_question_{question['id']}"] = (
-                    response.status_code == 200
-                    and body.get("status") == ("answered" if question["should_answer"] else "insufficient_evidence")
-                    and (bool(body.get("sources")) == question["should_answer"])
-                    and all(item["source"] == payload["source"] for item in body.get("sources", []))
-                )
+        with tempfile.TemporaryDirectory(prefix="devmind-rag-validation-") as directory:
+            store = LearningStore(Path(directory) / "learning.sqlite3")
+            with patch("api.get_store", return_value=store), patch("learning_api.get_store", return_value=store), TestClient(app, headers={"Origin": "http://localhost:3035", "X-DevMind-CSRF": "1"}) as client:
+                for question in (questions[0], next(q for q in questions if q["type"] == "sin_respuesta")):
+                    payload = {"question": question["query"]}
+                    if question["expected_sources"]:
+                        payload["source"] = question["expected_sources"][0]
+                    response = client.post("/ask", json=payload)
+                    body = response.json()
+                    report["api"].append({"request": payload, "http_status": response.status_code, "response": body})
+                    report["checks"][f"api_question_{question['id']}"] = (
+                        response.status_code == 200
+                        and body.get("status") == ("answered" if question["should_answer"] else "insufficient_evidence")
+                        and (bool(body.get("sources")) == question["should_answer"])
+                        and all(item["source"] == payload["source"] for item in body.get("sources", []))
+                    )
     except ServiceError as exc:
         report["error"] = {"code": exc.code, "http_status": exc.status}
     except Exception as exc:
@@ -173,6 +186,10 @@ def main() -> int:
                 report["cleanup"]["error"] = exc.code
             except Exception as exc:
                 report["cleanup"]["error_type"] = type(exc).__name__
+        if previous_identity is None:
+            app.dependency_overrides.pop(current_user, None)
+        else:
+            app.dependency_overrides[current_user] = previous_identity
         settings.namespace = previous_namespace
         report["passed"] = (
             report["error"] is None and bool(report["checks"]) and all(report["checks"].values())

@@ -143,7 +143,7 @@ def test_invalid_scope_never_calls_provider(setup, scope):
         generate(s)
     assert exc.value.status == 422
     s.model.assert_not_called()
-    assert s.store.progress()["usage"] == {}
+    assert all(item["used"] == 0 for item in s.store.progress()["usage"].values())
 
 
 def test_generation_idempotency_and_duplicate_library_question(setup):
@@ -193,8 +193,8 @@ def test_foreign_learner_card_cannot_be_read_or_reviewed(setup):
     card = generate(s)
     with s.store.connection(write=True) as db:
         db.execute("INSERT INTO learners VALUES ('other', 'UTC', ?)", (stamp(NOW),))
-        db.execute("UPDATE cards SET learner_id='other' WHERE id=?", (card["id"],))
-        db.execute("UPDATE review_schedule SET learner_id='other' WHERE card_id=?", (card["id"],))
+        db.execute("UPDATE cards SET user_id='other' WHERE id=?", (card["id"],))
+        db.execute("UPDATE review_schedule SET user_id='other' WHERE card_id=?", (card["id"],))
     assert s.client.get(f"/learning/cards/{card['id']}").status_code == 404
     assert s.client.post(f"/learning/cards/{card['id']}/reviews", json={"request_id": str(uuid4()), "answer": "Olá"}).status_code == 404
     assert s.client.get("/learning/progress").json()["total"] == 0
@@ -453,8 +453,8 @@ def test_api_validates_without_echoing_private_data(setup, payload):
     setup.model.assert_not_called()
 
 
-@pytest.mark.parametrize("headers", [{"origin": "https://evil.example"}, {"host": "evil.example"}])
-def test_local_only_guard_blocks_foreign_origins_and_hosts(setup, headers):
+@pytest.mark.parametrize("headers", [{"origin": "https://evil.example"}, {"origin": "null"}])
+def test_origin_guard_blocks_foreign_origins(setup, headers):
     assert setup.client.get("/learning/progress", headers=headers).status_code == 403
     assert setup.client.post("/ask", headers=headers, json={"question": "Olá"}).status_code == 403
     setup.model.assert_not_called()

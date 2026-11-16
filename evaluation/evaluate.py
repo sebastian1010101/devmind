@@ -39,6 +39,7 @@ def summarize_usage(rows: list[dict]) -> dict:
     for provider, fields in {
         "pinecone": ("read_units", "embed_total_tokens"),
         "openai": ("prompt_tokens", "completion_tokens", "total_tokens", "cached_tokens"),
+        "gemini": ("prompt_tokens", "completion_tokens", "total_tokens", "thinking_tokens", "cached_tokens"),
     }.items():
         totals[provider] = {}
         for name in fields:
@@ -105,7 +106,9 @@ def _run(question: dict, *, namespace: str | None = None) -> dict:
             "retrieval": trace.retrieval_ms, "generation": trace.generation_ms, "total": trace.total_ms,
         },
         "error": error,
-        "usage": {"pinecone": trace.pinecone_usage, "openai": trace.openai_usage},
+        "usage": {"pinecone": trace.pinecone_usage, "openai": trace.openai_usage,
+                  "gemini": trace.llm_usage if trace.llm_provider == "gemini" else {}},
+        "llm_provider": trace.llm_provider,
         "generation_model": trace.generation_model,
     }
 
@@ -119,6 +122,7 @@ def _mock_run(questions: list[dict]) -> list[dict]:
     })
     rows = []
     with (
+        patch.object(settings, "llm_provider", "openai"),
         patch("rag.pinecone_index", return_value=index),
         patch("rag.openai_client", return_value=model),
         patch.dict(os.environ, {"PINECONE_API_KEY": "fixture", "OPENAI_API_KEY": "fixture"}),
@@ -144,7 +148,7 @@ def _mock_run(questions: list[dict]) -> list[dict]:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--live", action="store_true", help="Autoriza consultas a Pinecone e geração na OpenAI.")
+    parser.add_argument("--live", action="store_true", help="Autoriza consultas a Pinecone e geração no provedor configurado.")
     parser.add_argument("--portfolio", action="store_true", help="Usa os 11 casos do corpus autoral.")
     parser.add_argument("--output", type=Path)
     parser.add_argument("--namespace", help="Namespace de avaliação, sem alterar a configuração local.")
@@ -158,7 +162,8 @@ def main() -> int:
     if args.live:
         try:
             require_key("PINECONE_API_KEY")
-            require_key("OPENAI_API_KEY")
+            from llm import require_llm_key
+            require_llm_key()
         except ServiceError as exc:
             parser.error(str(exc))
         rows = []

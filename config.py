@@ -1,7 +1,7 @@
 """Configuração compartilhada, validada no início de cada processo."""
 
 import os
-from typing import Annotated
+from typing import Annotated, Literal
 
 from dotenv import load_dotenv
 from pydantic import BaseModel, Field, StringConstraints
@@ -15,6 +15,9 @@ Question = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1,
 
 
 class Settings(BaseModel):
+    llm_provider: Literal["gemini", "openai"] = "gemini"
+    gemini_model: str = Field(default="gemini-3.1-flash-lite", pattern=r"^[a-zA-Z0-9._-]{1,120}$")
+    gemini_timeout: float = Field(default=30, ge=1, le=60)
     index_name: str = Field(default="kenzie-knowledge", pattern=r"^[a-z0-9][a-z0-9-]{0,44}$")
     namespace: str = Field(default="devmind", pattern=r"^[A-Za-z0-9_-]{1,80}$")
     top_k: int = Field(default=3, ge=1, le=MAX_TOP_K)
@@ -26,6 +29,9 @@ class Settings(BaseModel):
 
 
 _ENV = {
+    "llm_provider": "LLM_PROVIDER",
+    "gemini_model": "GEMINI_MODEL",
+    "gemini_timeout": "GEMINI_TIMEOUT_SECONDS",
     "index_name": "PINECONE_INDEX_NAME",
     "namespace": "PINECONE_NAMESPACE",
     "top_k": "RAG_TOP_K",

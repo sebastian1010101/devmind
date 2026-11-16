@@ -1,0 +1,253 @@
+{
+  "date": "2026-11-16",
+  "tests": {
+    "passed": 192,
+    "skipped": 1,
+    "postgresql": "18.6 temporary local instance, 4 tests included",
+    "coverage": [
+      "ES256 and RS256 signatures",
+      "expired and tampered JWT",
+      "issuer and audience",
+      "anonymous and absent identity",
+      "CSRF",
+      "per-object A/B isolation",
+      "idempotency isolation",
+      "daily sessions and persistence",
+      "atomic daily quotas",
+      "global budget",
+      "persistent concurrency leases",
+      "PostgreSQL RLS",
+      "SQLite migration and import",
+      "request body limit",
+      "partial password-update failure"
+    ]
+  },
+  "frontend": {
+    "eslint": "passed",
+    "typescript": "passed",
+    "production_build_webpack": "passed with default API configuration and current application screenshot",
+    "browser": {
+      "passed": true,
+      "mode": "Chrome desktop and mobile, simulated Supabase and AI, real signed JWT and database",
+      "results": [
+        "Public homepage, anchors, FAQ and zero API requests",
+        "Server-side private-route redirect",
+        "Signup, email-code confirmation, HttpOnly session, generation, evaluation and spaced repetition",
+        "Mobile layout and separate account B with empty progress",
+        "Logout, login, persistent progress and expired-access session refresh",
+        "Logout invalidates the other open dashboard tab",
+        "Recovery-code flow and password-change UX with simulated Supabase"
+      ],
+      "errors": []
+    },
+    "home_api_requests": 0,
+    "viewports": [
+      1440,
+      390,
+      320
+    ],
+    "mobile_mode": "Chrome viewport and touch emulation",
+    "final_home_smoke": {
+      "browser": "157.0.8103.78",
+      "results": [
+        {
+          "width": 1440,
+          "passed": true,
+          "api_requests": 0
+        },
+        {
+          "width": 390,
+          "passed": true,
+          "api_requests": 0
+        },
+        {
+          "width": 320,
+          "passed": true,
+          "api_requests": 0
+        }
+      ]
+    }
+  },
+  "ingestion_dry_run": {
+    "documents": 503,
+    "chunks": 3841,
+    "invalid_documents": 0
+  },
+  "openai_and_pinecone_live": {
+    "passed": true,
+    "chat": "answered",
+    "cards": 1,
+    "grades": [
+      "correct",
+      "incorrect",
+      "incorrect"
+    ],
+    "model": "gpt-4o-2024-08-06",
+    "restart_preserved": true,
+    "cleanup": {
+      "attempted": true,
+      "verified": true
+    },
+    "temperature": 0,
+    "final_run_usage": {
+      "prompt_tokens": 2892,
+      "completion_tokens": 552,
+      "total_tokens": 3444
+    },
+    "earlier_controlled_rejections": [
+      "command placeholder absent from evidence",
+      "correct grade with missing concepts"
+    ],
+    "llm_calls_across_three_controlled_runs": 12,
+    "full_report": "evaluation/public-openai-live-local.json"
+  },
+  "gemini_live": {
+    "verified": true,
+    "model": "gemini-3.1-flash-lite",
+    "missing_variables": [],
+    "mock_contract_tests": 8,
+    "model_listed_by_account": true,
+    "temporary_namespaces_cleaned": true,
+    "timeout_seconds": 30,
+    "chat": "answered",
+    "cards": 1,
+    "grades": [
+      "correct",
+      "incorrect",
+      "incorrect"
+    ],
+    "cleanup": {
+      "attempted": true,
+      "verified": true
+    },
+    "restart_preserved": true,
+    "usage": {
+      "prompt_tokens": 2221,
+      "completion_tokens": 634,
+      "total_tokens": 2855
+    },
+    "full_report": "evaluation/public-gemini-31-live-local.json",
+    "initial_trials": [
+      {
+        "model": "gemini-3.5-flash-lite",
+        "result": "503 from provider",
+        "attempts": 2
+      },
+      {
+        "model": "gemini-3.1-flash-lite",
+        "timeout_seconds": 15,
+        "result": "timeout"
+      },
+      {
+        "model": "gemini-2.5-flash-lite",
+        "result": "404 from provider"
+      }
+    ]
+  },
+  "supabase_hosted": {
+    "verified": false,
+    "missing_variables": [
+      "DEVMIND_TEST_EMAIL",
+      "DEVMIND_TEST_PASSWORD"
+    ],
+    "email_delivery": "registration email received, confirmed by user screenshot",
+    "configuration_verified": true,
+    "signing_algorithms": [
+      "ES256"
+    ],
+    "registration_enabled": true,
+    "email_confirmation_required": true,
+    "database_ready": true,
+    "email_template_status": "OTP templates prepared; dashboard screenshot shows Source disabled until custom SMTP is configured",
+    "site_url_status": "localhost:3000 observed; user instructed to configure localhost:3035",
+    "otp_templates_static_validation": "passed: one OTP placeholder and verification-page link without credentials in both templates",
+    "custom_smtp_status": "required by observed dashboard before editing email source; pending provider setup by user"
+  },
+  "managed_postgresql": {
+    "verified": true,
+    "missing_variables": [],
+    "database_url_encoding_corrected": true,
+    "migration_verification": "applied and verified",
+    "scope": "connection, migrations and local API access",
+    "schema_version": 2,
+    "tables": 14,
+    "api_health_status": 200,
+    "api_missing_session_status": 401,
+    "api_signup_validation_status": 422
+  },
+  "launch": {
+    "status": "pending hosted integrations and operational/legal checklist",
+    "checklist": "docs/PUBLIC_RELEASE.md",
+    "production_signup_default": false,
+    "initial_signup_scope": "Brazil, declared age 18+"
+  },
+  "files": [
+    ".env.example",
+    "README.md",
+    "api.py",
+    "auth.py",
+    "config.py",
+    "database.py",
+    "docs/ACTIVE_RECALL.md",
+    "docs/ARCHITECTURE.md",
+    "docs/DECISIONS.md",
+    "docs/PUBLIC_RELEASE.md",
+    "docs/screenshots/public-dashboard-mobile.png",
+    "docs/screenshots/public-home-desktop.png",
+    "docs/screenshots/public-home-mobile.png",
+    "docs/screenshots/public-study-feedback.png",
+    "docs/screenshots/public-study-panel.png",
+    "evaluation/evaluate.py",
+    "evaluation/public-verification-2026-11-16.json",
+    "evaluation/serve_learning_fixture.py",
+    "evaluation/validate_auth.py",
+    "evaluation/validate_learning.py",
+    "evaluation/validate_live.py",
+    "frontend/.env.example",
+    "frontend/README.md",
+    "frontend/app/cadastro/page.tsx",
+    "frontend/app/dashboard/error.tsx",
+    "frontend/app/dashboard/layout.tsx",
+    "frontend/app/dashboard/loading.tsx",
+    "frontend/app/dashboard/page.tsx",
+    "frontend/app/entrar/page.tsx",
+    "frontend/app/globals.css",
+    "frontend/app/layout.tsx",
+    "frontend/app/nova-senha/page.tsx",
+    "frontend/app/page.tsx",
+    "frontend/app/privacidade/page.tsx",
+    "frontend/app/recuperar/page.tsx",
+    "frontend/app/termos/page.tsx",
+    "frontend/app/verificar/page.tsx",
+    "frontend/components/auth/AuthForm.tsx",
+    "frontend/components/auth/Session.tsx",
+    "frontend/components/study/Study.tsx",
+    "frontend/lib/api.ts",
+    "frontend/next.config.ts",
+    "frontend/public/previews/study-multiuser.png",
+    "frontend/tests/public.e2e.mjs",
+    "frontend/tests/study.e2e.mjs",
+    "learning_api.py",
+    "learning_service.py",
+    "learning_store.py",
+    "llm.py",
+    "manage_db.py",
+    "migrations/002_multiuser.sql",
+    "migrations/003_postgres.sql",
+    "rag.py",
+    "requirements.txt",
+    "security.py",
+    "supabase/templates/confirm-signup.html",
+    "supabase/templates/reset-password.html",
+    "tests/conftest.py",
+    "tests/test_api.py",
+    "tests/test_gemini.py",
+    "tests/test_learning.py",
+    "tests/test_postgres.py",
+    "tests/test_security.py"
+  ],
+  "dependencies": {
+    "packages_checked": 40,
+    "compatible": true
+  }
+}

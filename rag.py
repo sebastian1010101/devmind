@@ -7,6 +7,7 @@ from time import perf_counter
 from pydantic import BaseModel, ConfigDict, TypeAdapter, ValidationError
 
 from config import Question, TopK, settings
+from llm import generate_json, require_llm_key
 from providers import ServiceError, openai_client, pinecone_index, provider_errors, require_key
 
 NOT_FOUND_MESSAGE = "Não encontrei evidências suficientes na base para responder. Tente especificar o assunto."
@@ -42,6 +43,8 @@ class RunTrace:
     pinecone_usage: dict[str, int] = field(default_factory=dict)
     openai_usage: dict[str, int] = field(default_factory=dict)
     generation_model: str | None = None
+    llm_provider: str | None = None
+    llm_usage: dict[str, int] = field(default_factory=dict)
 
     @property
     def retrieved(self) -> list[dict]:
@@ -130,44 +133,17 @@ def _invalid_response() -> ServiceError:
 
 
 def _generate(question, context, included, trace=None) -> dict:
-    options = {}
-    if settings.temperature is not None:
-        options["temperature"] = settings.temperature
+    trace = trace if trace is not None else RunTrace()
     try:
-        with provider_errors("OpenAI"):
-            completion = openai_client().chat.completions.create(
-                model=settings.model,
-                messages=[
-                    {"role": "system", "content": SYSTEM_PROMPT},
-                    {"role": "user", "content": '{"question":' + json.dumps(question, ensure_ascii=False)
-                     + ',"evidence":' + context + '}'},
-                ],
-                response_format={"type": "json_schema", "json_schema": {
-                    "name": "grounded_answer", "strict": True, "schema": GroundedAnswer.model_json_schema(),
-                }},
-                max_completion_tokens=1200,
-                store=False,
-                **options,
-            )
-        if trace is not None:
-            usage = getattr(completion, "usage", None)
-            for name in ("prompt_tokens", "completion_tokens", "total_tokens"):
-                value = getattr(usage, name, None)
-                if isinstance(value, int):
-                    trace.openai_usage[name] = value
-            cached = getattr(getattr(usage, "prompt_tokens_details", None), "cached_tokens", None)
-            if isinstance(cached, int):
-                trace.openai_usage["cached_tokens"] = cached
-            model = getattr(completion, "model", None)
-            if isinstance(model, str):
-                trace.generation_model = model
-        choice = completion.choices[0]
-        if choice.message.refusal or choice.finish_reason == "content_filter":
+        result = generate_json(GroundedAnswer, SYSTEM_PROMPT,
+                               {"question": question, "evidence": json.loads(context)}, trace, 1200,
+                               openai_factory=openai_client, schema_name="grounded_answer")
+        if result.refused:
             return _abstain()
-        if choice.finish_reason != "stop":
+        if not result.stopped:
             raise _invalid_response()
-        grounded = GroundedAnswer.model_validate_json(choice.message.content)
-    except (ValidationError, IndexError):
+        grounded = GroundedAnswer.model_validate_json(result.content)
+    except (ValidationError, IndexError, TypeError):
         raise _invalid_response() from None
 
     if grounded.answer is None and not grounded.citations:
@@ -201,7 +177,7 @@ def answer_question(
         question = _QUESTION.validate_python(question)
         top_k = _TOP_K.validate_python(settings.top_k if top_k is None else top_k)
         require_key("PINECONE_API_KEY")
-        require_key("OPENAI_API_KEY")
+        require_llm_key()
         retrieval_started = perf_counter()
         try:
             hits = retrieve(

@@ -2,7 +2,9 @@
 
 DevMind é um assistente de estudos de programação. Em vez de procurar manualmente em várias anotações, você faz uma pergunta em linguagem natural e recebe uma explicação com o arquivo, a seção e um trecho de cada fonte citada. Quando a base não sustenta uma resposta, o chat sinaliza a falta de evidência.
 
-O modo **Estudo** transforma documentos recuperados em flashcards com IA. Você responde com suas palavras, confere feedback e fontes, indica como foi recordar e acompanha a próxima revisão. Cartões, tentativas, calendário e sessões diárias ficam em SQLite. É uma demo local de um estudante. [Active Recall: arquitetura, endpoints e demonstração](docs/ACTIVE_RECALL.md)
+O modo **Estudo** transforma documentos recuperados em flashcards com IA. Você responde com suas palavras, confere feedback e fontes, indica como foi recordar e acompanha a próxima revisão. Cartões, tentativas, calendário e sessões diárias ficam associados à conta autenticada. A persistência suporta PostgreSQL e SQLite para desenvolvimento local. A homepage pública apresenta o produto, e o espaço de estudo fica em `/dashboard`. [Active Recall: arquitetura, endpoints e demonstração](docs/ACTIVE_RECALL.md)
+
+A [entrega multiusuário](docs/PUBLIC_RELEASE.md) reúne autenticação, migrações, arquitetura, testes, execução local, restrições de lançamento e texto para CV. Gemini e Supabase hospedados dependem da configuração e verificação das contas externas.
 
 ## O que você pode fazer
 
@@ -24,17 +26,17 @@ flowchart LR
     API --> R[RAG compartilhado]
     CLI[CLI e avaliação] --> R
     R -->|Consulta e metadados| PC
-    R -->|Pergunta e evidência limitada| AI[OpenAI]
+    R -->|Pergunta e evidência limitada| AI[Gemini ou OpenAI]
     AI -->|Resposta e IDs de evidência| R
     R -->|Validação das citações| API
     API --> LS[Active Recall]
     LS --> R
     LS --> AI
-    LS --> DB[(SQLite: cartões e progresso)]
+    LS --> DB[(PostgreSQL ou SQLite local)]
     LS --> CAL[Repetição espaçada determinista]
 ```
 
-Python 3.12, FastAPI, Pinecone com `llama-text-embed-v2`, OpenAI Chat Completions, pytest, Next.js, React, TypeScript e Tailwind CSS. A visualização em Three.js é decorativa.
+Python 3.12, FastAPI, Pinecone com `llama-text-embed-v2`, Gemini generateContent, OpenAI Chat Completions, Supabase Auth, PostgreSQL, pytest, Next.js, React, TypeScript e Tailwind CSS. A visualização em Three.js é decorativa.
 
 ## Executar localmente
 
@@ -47,7 +49,7 @@ npm --prefix frontend ci
 .venv/bin/python ingest.py --module devmind --dry-run
 ```
 
-Para usar o chat com provedores reais, copie `.env.example` para `.env` se ainda não existir. Preencha `PINECONE_API_KEY` e `OPENAI_API_KEY` no arquivo local. Configure `PINECONE_NAMESPACE=devmind-portfolio` para isolar a demonstração. Use o mesmo namespace em ingestão, API, CLI e avaliação.
+Para usar o chat com provedores reais, copie `.env.example` para `.env` se ainda não existir. Preencha `PINECONE_API_KEY`, `GEMINI_API_KEY`, `SUPABASE_URL` e `SUPABASE_PUBLISHABLE_KEY` no arquivo local. O padrão é `LLM_PROVIDER=gemini`. Para OpenAI, configure `LLM_PROVIDER=openai` e `OPENAI_API_KEY`. Habilite confirmação de email e assinatura ES256/RS256 no Supabase. Configure o Site URL na porta 3035 e aplique os [modelos de email com código OTP](docs/PUBLIC_RELEASE.md#correos-de-confirmación-y-recuperación). Configure `PINECONE_NAMESPACE=devmind-portfolio` para isolar a demonstração. Use o mesmo namespace em ingestão, API, CLI e avaliação.
 
 Com autorização para consumo no projeto dos provedores, execute os comandos abaixo. `main.py` verifica o índice e cria um índice serverless se ele ainda não existir. Você pode pular esse comando quando já houver um índice compatível.
 
@@ -57,16 +59,16 @@ Com autorização para consumo no projeto dos provedores, execute os comandos ab
 .venv/bin/python -m uvicorn api:app --host 127.0.0.1 --port 8000 --no-proxy-headers
 ```
 
-Em outro terminal, execute `npm --prefix frontend run dev` e abra [localhost:3035](http://localhost:3035). A URL padrão do backend é `http://localhost:8000`. Para alterá-la, use `NEXT_PUBLIC_API_URL` em `frontend/.env.local`. Reinicie o servidor após alterar a configuração. Para a demo de produção, use os comandos verificados abaixo.
+Em outro terminal, execute `npm --prefix frontend run dev` e abra [localhost:3035](http://localhost:3035). A URL padrão do backend é `http://localhost:8000`. Para alterá-la, use `API_URL` em `frontend/.env.local`. Configure a URL no build e no servidor. O navegador acessa o proxy same-origin `/api`. Para a demo de produção, use os comandos verificados abaixo.
 
 ```bash
 npm --prefix frontend run build -- --webpack
 npm --prefix frontend run start -- --hostname 127.0.0.1 --port 3035
 ```
 
-Sem credenciais, os mesmos servidores permitem abrir a interface, consultar `/health`, `/stats` e navegar no Guia. A ação de perguntar retorna uma mensagem de configuração. Para uma consulta pelo terminal, use `.venv/bin/python search.py --debug`.
+Sem credenciais, a homepage funciona e a API permite consultar `/health`, `/stats`, `/guide` e `/guide/document`. O dashboard com Chat, Guia e Estudo exige uma conta Supabase. As operações de IA também exigem as chaves dos provedores configurados. Para uma consulta pelo terminal, use `.venv/bin/python search.py --debug`.
 
-No modo **Estudo**, selecione **Guias DevMind → Git**, quantidade **1** e o foco “Como retirar README.md do staging mantendo as edições?”. Gere, responda, avalie e selecione **Lembrei**. O painel **Progresso** mostra a próxima revisão. A base privada é criada automaticamente em `data/learning.sqlite3`; preserve esse diretório entre execuções. [Roteiro completo e recuperação após falhas](docs/ACTIVE_RECALL.md#executar-e-demonstrar)
+Crie uma conta, confirme o email e abra `/dashboard`. No modo **Estudo**, selecione **Guias DevMind → Git**, quantidade **1** e o foco “Como retirar README.md do staging mantendo as edições?”. Gere, responda, avalie e selecione **Lembrei**. O painel **Progresso** mostra a próxima revisão. Em desenvolvimento SQLite, a base privada é criada automaticamente em `data/learning.sqlite3`; preserve esse diretório entre execuções. O progresso histórico `local-demo` conserva o proprietário até a importação administrativa explícita com `manage_db.py import-sqlite --owner`. [Roteiro completo e recuperação após falhas](docs/ACTIVE_RECALL.md#executar-e-demonstrar)
 
 ### Configuração do backend
 
@@ -76,14 +78,20 @@ No modo **Estudo**, selecione **Guias DevMind → Git**, quantidade **1** e o fo
 | `PINECONE_NAMESPACE` | `devmind` | Partição consultada e atualizada pelo app. |
 | `RAG_TOP_K` | `3` | Número máximo de candidatos para o contexto, de 1 a 20. |
 | `RAG_SCORE_THRESHOLD` | `0.40` | Limiar inicial de similaridade. Use o conjunto de avaliação para calibrá-lo. |
-| `RAG_MODEL` | `gpt-4o` | Modelo Chat Completions com suporte a JSON Schema estrito. |
+| `LLM_PROVIDER` | `gemini` | Provedor de geração, `gemini` ou `openai`. |
+| `GEMINI_MODEL` | `gemini-3.1-flash-lite` | Modelo Gemini configurável, sujeito ao acesso e à quota da conta. |
+| `GEMINI_TIMEOUT_SECONDS` | `30` | Tempo de espera por chamada Gemini. |
+| `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY` | Sem padrão | Projeto Auth com email confirmado e chave de assinatura asimétrica. |
+| `RAG_MODEL` | `gpt-4o` | Modelo utilizado pelo provedor alternativo OpenAI. |
+| `DATABASE_URL` | Sem padrão | PostgreSQL privado, obrigatório para rotas privadas em produção. |
 | `RAG_TEMPERATURE` | Omitida | Valor entre 0 e 2. Defina somente para modelos que aceitam o parâmetro. |
 | `RAG_CONTEXT_CHARS` | `10000` | Limite em caracteres do JSON de evidências. |
 | `RAG_TIMEOUT_SECONDS` | `15` | Timeout por operação nos SDKs. |
 | `FRONTEND_ORIGIN` | localhost e 127.0.0.1 na porta 3035 | Origens CORS, separadas por vírgulas. |
-| `LEARNING_DB_PATH` | `data/learning.sqlite3` | Progresso privado do estudante local, com migração automática. |
+| `LEARNING_DB_PATH` | `data/learning.sqlite3` | SQLite de desenvolvimento com progresso por usuário e migração automática. |
 
-`/ask` e `/learning/*` exigem peer local, Host local e Origin autorizado. Há cotas persistentes de 50 perguntas de chat, 10 gerações e 50 avaliações por dia de São Paulo. Falhas contam na cota. Não publique a demo por proxy ou túnel: esses controles não são autenticação multiusuário.
+`/ask` e `/learning/*` exigem JWT Supabase válido. O servidor aplica o UUID autenticado às operações privadas. Há cotas persistentes por usuário e globais, limites por IP, CSRF para cookies e leases de concorrência. A configuração está em `.env.example`. Em produção, o registro depende de `SIGNUP_ENABLED=true` após a revisão de lançamento. [Configuração, migrações e segurança](docs/PUBLIC_RELEASE.md)
+
 
 ### Atualizar a base
 
@@ -124,7 +132,7 @@ A [execução simulada](evaluation/results-mock.json) verificou o comportamento 
 
 ## Limitações e próximos passos
 
-O histórico do chat fica na página e cada pergunta é independente. Active Recall persiste as tentativas e a evidência de cada cartão em SQLite. A validação garante que uma citação existe no contexto enviado ao modelo. Aferir se cada afirmação é sustentada pelo trecho exige revisão humana ou uma metodologia adicional. A avaliação da IA pode falhar, e a autoavaliação do estudante tem prioridade no calendário. O catálogo local e o índice remoto têm ciclos de atualização separados. A API está restrita à demo local; exposição pública exige autenticação, autorização por recurso e cotas por usuário.
+O histórico do chat fica na página e cada pergunta é independente. Active Recall persiste as tentativas e a evidência de cada cartão em SQLite. A validação garante que uma citação existe no contexto enviado ao modelo. Aferir se cada afirmação é sustentada pelo trecho exige revisão humana ou uma metodologia adicional. A avaliação da IA pode falhar, e a autoavaliação do estudante tem prioridade no calendário. O catálogo local e o índice remoto têm ciclos de atualização separados. A preparação multiusuário inclui autenticação, autorização por recurso e cotas. A abertura pública depende das integrações hospedadas, das licenças do corpus, da configuração de infraestrutura e da revisão de público, regiões e privacidade descritas no checklist de lançamento.
 
 Os próximos passos são ampliar a avaliação pedagógica com respostas rotuladas por pessoas, calibrar o limiar e revisar erros de fundamentação. WhatsApp fica para uma etapa posterior; a seleção diária já é independente do canal.
 

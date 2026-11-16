@@ -25,7 +25,7 @@ def test_local_endpoints_do_not_need_provider_credentials(monkeypatch):
     assert any(module["id"] == "devmind" for module in guide.json())
     response = client.post("/ask", json={"question": "Como funciona o Git?"})
     assert response.status_code == 503
-    assert response.json() == {"detail": "Configure PINECONE_API_KEY no servidor."}
+    assert response.json()["detail"] == "Configure PINECONE_API_KEY no servidor."
 
 
 def test_guide_document_returns_the_catalog_source_without_provider_credentials(monkeypatch):
@@ -55,7 +55,7 @@ def test_ask_rejects_invalid_payloads_without_echo(payload):
 
 
 def test_ask_returns_sections_and_passes_the_backend_default(monkeypatch):
-    def answer(question, *, top_k, module, topic, source):
+    def answer(question, *, top_k, module, topic, source, trace=None):
         assert (question, top_k, module, topic, source) == ("Pergunta?", None, "devmind", "git", "DEVMIND/Git/a.md")
         return {"status": "answered", "answer": "Resposta", "sources": [
             {"source": source, "section": "Seção", "excerpt": "Evidência", "score": 0.8, "chunk_id": 1},

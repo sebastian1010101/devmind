@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ApiError, getGuideDocument, learningApi } from "@/lib/api";
 import type { DailySession, GenerateCardsRequest, GuideModule, LearningProgress, LearningSource, Recall, ReviewResult, StudyCard } from "@/lib/types";
+import { useUserId } from "@/components/auth/Session";
 import { MarkdownContent } from "@/components/MarkdownContent";
 
 const button = "rounded-lg border border-border-strong px-4 py-2 text-sm hover:border-accent focus-visible:outline-accent disabled:opacity-50 disabled:cursor-wait";
@@ -22,11 +23,11 @@ function date(value: string) {
 function message(error: unknown) {
   return error instanceof ApiError ? error.message : "Não foi possível concluir. Tente novamente.";
 }
-function saved(key: string): string | null {
-  try { return localStorage.getItem(key); } catch { return null; }
+function readDraft(key: string): string | null {
+  try { return sessionStorage.getItem(key); } catch { return null; }
 }
-function remember(key: string, value: string | null) {
-  try { if (value === null) localStorage.removeItem(key); else localStorage.setItem(key, value); } catch { /* Server still persists submitted answers. */ }
+function writeDraft(key: string, value: string | null) {
+  try { if (value === null) sessionStorage.removeItem(key); else sessionStorage.setItem(key, value); } catch { /* Server still persists submitted answers. */ }
 }
 
 function Evidence({ sources }: { sources: LearningSource[] }) {
@@ -59,6 +60,9 @@ function Evidence({ sources }: { sources: LearningSource[] }) {
 }
 
 export function Study({ active, modules }: { active: boolean; modules: GuideModule[] }) {
+  const userId = useUserId();
+  const saved = useCallback((key: string) => readDraft(`devmind:${userId}:${key}`), [userId]);
+  const remember = useCallback((key: string, value: string | null) => writeDraft(`devmind:${userId}:${key}`, value), [userId]);
   const [tab, setTab] = useState<"dashboard" | "practice" | "progress">("dashboard");
   const [progress, setProgress] = useState<LearningProgress | null>(null);
   const [due, setDue] = useState<StudyCard[]>([]);
@@ -100,7 +104,8 @@ export function Study({ active, modules }: { active: boolean; modules: GuideModu
         } catch { remember("devmind:generation", null); }
       }
     }).catch((error) => { loaded.current = false; setError(message(error)); });
-  }, [active, refresh]);
+  }, [active, refresh, saved, remember]); // Drafts are scoped to the authenticated account.
+
 
   async function openCard(item: StudyCard) {
     setBusy("Abrindo cartão…"); setError(""); setResult(null); setAnswer("");
@@ -188,7 +193,7 @@ export function Study({ active, modules }: { active: boolean; modules: GuideModu
     <div className="flex flex-wrap items-start justify-between gap-3">
       <div><p className="font-mono text-xs tracking-widest text-accent">ACTIVE RECALL</p>
         <h2 className="mt-2 text-2xl font-semibold">Aprenda. Recorde. Evolua.</h2>
-        <p className="mt-2 text-xs text-muted">Demo local · um estudante · datas de São Paulo</p></div>
+        <p className="mt-2 text-xs text-muted">Sua conta · datas de São Paulo</p></div>
       <nav aria-label="Navegação de estudo" className="flex flex-wrap gap-2">
         <button className={button} aria-current={tab === "dashboard" ? "page" : undefined} onClick={() => setTab("dashboard")}>Painel</button>
         <button className={button} aria-current={tab === "progress" ? "page" : undefined} onClick={() => setTab("progress")}>Progresso</button>
