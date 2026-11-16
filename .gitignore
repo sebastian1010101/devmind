@@ -28,3 +28,9 @@ __pycache__/
 Thumbs.db
 # Relatórios de avaliação locais
 /evaluation/*-local.json
+
+# Progresso privado da demo (inclui WAL e SHM)
+/data/
+*.sqlite3
+*.sqlite3-wal
+*.sqlite3-shm

@@ -46,3 +46,27 @@ def test_errors_are_visible_without_fabricating_zero_latency_or_decisions():
     assert metrics["retrieval_hit_at_k"]["1"]["rate"] == 1.0
     assert metrics["abstention_accuracy"]["rate"] is None
     assert metrics["latency"]["generation"]["median_ms"] is None
+
+
+def test_source_precision_counts_each_labeled_citation():
+    from evaluate import measure
+
+    sources = [{"source": source, "section": "A", "chunk_id": 0} for source in ("a.md", "b.md")]
+    metrics = measure([{
+        "error": None, "status": "answered", "expected_sources": ["a.md"], "should_answer": True,
+        "sources": sources, "context_sources": sources, "retrieval_completed": True,
+        "retrieved_sources": ["a.md", "b.md"],
+        "latency_ms": {"retrieval": 1, "generation": 2, "total": 3},
+    }])
+    assert metrics["labeled_source_precision"] == {"passed": 1, "total": 2, "rate": 0.5}
+    assert metrics["expected_source_cited"]["rate"] == 1
+    assert metrics["source_attribution"]["rate"] == 1
+
+
+def test_usage_distinguishes_unavailable_from_measured_zero():
+    from evaluate import summarize_usage
+
+    usage = summarize_usage([{}, {"usage": {"openai": {"cached_tokens": 0, "prompt_tokens": 10}}}])
+    assert usage["openai"]["cached_tokens"] == {"total": 0, "samples": 1}
+    assert usage["openai"]["prompt_tokens"]["total"] == 10
+    assert usage["pinecone"]["read_units"] == {"total": None, "samples": 0}

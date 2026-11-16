@@ -1,4 +1,4 @@
-export type Mode = "ask" | "guide";
+export type Mode = "ask" | "guide" | "study";
 
 /** Scope opcional de GUIDE aplicado a uma pergunta de ASK ("Ask about this
  * topic/document"): restringe o retrieval via `filter` de Pinecone no
@@ -83,4 +83,39 @@ export type GuidePath = {
   moduleId?: string;
   sectionId?: string;
   documentId?: string;
+};
+
+export type Recall = "again" | "hard" | "good" | "easy";
+export type ReviewSchedule = {
+  stage: number; reviews: number; lapses: number; last_recall: Recall | null;
+  due_at: string; last_review_at: string | null; interval_days: number; version: number;
+};
+export type LearningSource = {
+  evidence_id: string; source: string; section: string; chunk_id: number | null;
+  text_sha256: string; chunk_text?: string; source_changed?: boolean;
+};
+export type ReviewResult = {
+  review_id: string; grade: "correct" | "partial" | "incorrect" | "ungradable";
+  feedback: string; present_concepts: string[]; missing_concepts: string[]; errors: string[];
+  reference_answer: string; explanation: string; sources: LearningSource[];
+  schedule: ReviewSchedule; self_recall: Recall | null; notice: string;
+};
+export type StudyCard = {
+  id: string; question: string; module: string; topic: string | null;
+  learning_state: "new" | "due" | "scheduled";
+  difficulty: "easy" | "medium" | "hard"; schedule: ReviewSchedule;
+  sources: LearningSource[]; completed?: boolean;
+  latest_attempt?: { request_id: string; answer: string; state: string; result: ReviewResult | null } | null;
+};
+export type DailySession = {
+  id: string; local_date: string; cards: StudyCard[]; completed: number; total: number;
+};
+export type LearningProgress = {
+  total: number; due: number; reviewed: number; new: number; attempts: number; correct: number; graded: number;
+  topics: { module: string; topic: string | null; total: number; reviewed: number; due: number }[];
+  upcoming: { id: string; question: string; due_at: string }[];
+  usage: Record<string, { used: number; limit: number }>; local_date: string;
+};
+export type GenerateCardsRequest = {
+  request_id: string; module: string; topic?: string; source?: string; focus: string; count: number;
 };

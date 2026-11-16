@@ -34,12 +34,30 @@ def attributed(citations: list[dict], context: list[dict]) -> bool:
     return bool(citations) and all(identity(citation) in allowed for citation in citations)
 
 
+def summarize_usage(rows: list[dict]) -> dict:
+    totals = {}
+    for provider, fields in {
+        "pinecone": ("read_units", "embed_total_tokens"),
+        "openai": ("prompt_tokens", "completion_tokens", "total_tokens", "cached_tokens"),
+    }.items():
+        totals[provider] = {}
+        for name in fields:
+            values = [row.get("usage", {}).get(provider, {}).get(name) for row in rows]
+            measured = [value for value in values if isinstance(value, int)]
+            totals[provider][name] = {"total": sum(measured) if measured else None, "samples": len(measured)}
+    return totals
+
+
 def measure(rows: list[dict]) -> dict:
     def rate(values):
         return {"passed": sum(values), "total": len(values), "rate": sum(values) / len(values) if values else None}
 
     succeeded = [row for row in rows if row["error"] is None]
     generated = [row for row in succeeded if row["status"] == "answered"]
+    labeled_citations = [
+        item["source"] in row["expected_sources"]
+        for row in generated if row["expected_sources"] for item in row["sources"]
+    ]
     retrieval_cases = [row for row in rows if row["expected_sources"] and row["retrieval_completed"]]
     latencies = {}
     for phase in ("retrieval", "generation", "total"):
@@ -61,17 +79,18 @@ def measure(rows: list[dict]) -> dict:
             any(item["source"] in row["expected_sources"] for item in row["sources"])
             for row in succeeded if row["expected_sources"]
         ]),
+        "labeled_source_precision": rate(labeled_citations),
         "latency": latencies,
         "error_rate": rate([row["error"] is not None for row in rows]),
     }
 
 
-def _run(question: dict) -> dict:
+def _run(question: dict, *, namespace: str | None = None) -> dict:
     trace = RunTrace()
     result = {}
     error = None
     try:
-        result = answer_question(question["query"], trace=trace, retrieval_k=max(K_VALUES))
+        result = answer_question(question["query"], trace=trace, retrieval_k=max(K_VALUES), namespace=namespace)
     except ServiceError as exc:
         error = exc.code
     return {
@@ -86,6 +105,8 @@ def _run(question: dict) -> dict:
             "retrieval": trace.retrieval_ms, "generation": trace.generation_ms, "total": trace.total_ms,
         },
         "error": error,
+        "usage": {"pinecone": trace.pinecone_usage, "openai": trace.openai_usage},
+        "generation_model": trace.generation_model,
     }
 
 
@@ -126,7 +147,11 @@ def main() -> int:
     parser.add_argument("--live", action="store_true", help="Autoriza consultas a Pinecone e geração na OpenAI.")
     parser.add_argument("--portfolio", action="store_true", help="Usa os 11 casos do corpus autoral.")
     parser.add_argument("--output", type=Path)
+    parser.add_argument("--namespace", help="Namespace de avaliação, sem alterar a configuração local.")
     args = parser.parse_args()
+    if args.namespace:
+        # Use the same validation as the application's environment configuration.
+        settings.__class__(namespace=args.namespace)
 
     dataset = QUESTIONS_PATH.read_bytes()
     questions = [q for q in json.loads(dataset) if not args.portfolio or q.get("portfolio")]
@@ -138,7 +163,7 @@ def main() -> int:
             parser.error(str(exc))
         rows = []
         for question in questions:
-            row = _run(question)
+            row = _run(question, namespace=args.namespace)
             rows.append(row)
             print(f"{row['id']:02}: {row['error'] or row['status']}", flush=True)
     else:
@@ -150,9 +175,10 @@ def main() -> int:
         "timestamp_utc": datetime.now(timezone.utc).isoformat(),
         "dataset_sha256": hashlib.sha256(dataset).hexdigest(),
         "subset": "portfolio" if args.portfolio else "all",
-        "config": settings.model_dump(),
+        "config": {**settings.model_dump(), "namespace": args.namespace or settings.namespace},
         "questions_evaluated": len(rows),
         "metrics": measure(rows),
+        "usage": summarize_usage(rows),
         "per_question": rows,
     }
     default_name = "results-real-local.json" if args.live else "results-mock-local.json"

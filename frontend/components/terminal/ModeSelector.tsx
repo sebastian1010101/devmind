@@ -5,6 +5,7 @@ import type { Mode } from "@/lib/types";
 const MODES: { id: Mode; label: string }[] = [
   { id: "ask", label: "Chat" },
   { id: "guide", label: "Guia" },
+  { id: "study", label: "Estudo" },
 ];
 
 type ModeSelectorProps = {

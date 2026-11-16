@@ -1,0 +1,751 @@
+{
+  "mode": "live",
+  "timestamp_utc": "2026-11-12T20:39:19.335290+00:00",
+  "git_commit": "09d84e2932799a948efa20a0b718cdc3de757904",
+  "git_dirty": true,
+  "code_sha256": {
+    "rag.py": "a06e4561359b1008c5c753be3bdfcd7cac588e83b98e23db7492e43c461f8609",
+    "config.py": "243af79224e838ffa9b6b31551b8a55199401ec12fd6f3298669aa33d0736fb2",
+    "providers.py": "00448dece6fcb30b95295d5e5bbf4bc27b459ee3420c45fb7b79a8f356393591",
+    "ingest.py": "af7d21e23ebf280cc2627f7120e6135decdcc4a9dc84d181a0d4e18c2157305a",
+    "chunking.py": "0728a23b603cd4d3f0b2df15bf5b6063dfeefb2e53ca673adeb550039adc1fcb",
+    "api.py": "c57283b1e1d020e4e47f200639965609d0122c65e1bc8d8b9543b0148a46e6b0",
+    "evaluation/evaluate.py": "839fdf4781b630fc16feb5a89b0e266d0425393611101f91a91b699fe91c62db",
+    "evaluation/validate_live.py": "a3eb40c5457f2b81d3f74a4ebfcbbacad8482947921a2ad6d3b89ebf7b909301"
+  },
+  "python": "3.14.4",
+  "config": {
+    "index_name": "kenzie-knowledge",
+    "namespace": "devmind-validation-477b842323f64818ae8a6b91feb55a61",
+    "top_k": 3,
+    "score_threshold": 0.4,
+    "model": "gpt-4o",
+    "temperature": null,
+    "context_chars": 10000,
+    "timeout": 15
+  },
+  "dataset_sha256": "334538ef2673105b7c7e68136edd2d1ad0a5c162b82d0eaccc1dd060fb7c8f64",
+  "corpus_sha256": "d195b5e59420933a74a2af9c8e00dc742a1ead6828644da5aea2cda9bab46b66",
+  "documents": 8,
+  "chunks": 17,
+  "upsert_text_characters_per_pass": 5703,
+  "checks": {
+    "provider_authentication_and_index": true,
+    "idempotent_reingestion": true,
+    "evaluation_without_errors": true,
+    "answer_and_abstention_decisions": true,
+    "structural_source_attribution": true,
+    "expected_sources_cited": true,
+    "api_question_31": true,
+    "api_question_38": true
+  },
+  "system_prompt_sha256": "b8c46c830472d05d0ee4fc265571bb6e8e77de45ffe9c3546750c8e688705b61",
+  "per_question": [
+    {
+      "id": 31,
+      "category": "Git",
+      "type": "referencia",
+      "query": "Como retiro README.md do staging mantendo minhas edições?",
+      "expected_sources": [
+        "DEVMIND/Git/DM01-01-branch-staging-pr.md"
+      ],
+      "should_answer": true,
+      "portfolio": true,
+      "status": "answered",
+      "answer": "Para retirar `README.md` do staging mantendo suas edições, use o comando `git restore --staged README.md`. Isso removerá o arquivo do índice (staging area), mas preservará as alterações feitas no seu conteúdo.",
+      "sources": [
+        {
+          "source": "DEVMIND/Git/DM01-01-branch-staging-pr.md",
+          "section": "Tirar um arquivo do staging",
+          "chunk_id": 1.0,
+          "score": 0.6128,
+          "excerpt": "## Tirar um arquivo do staging\n\nImagine que você editou `README.md` e o adicionou com `git add README.md`. Se quiser que a próxima confirmação deixe esse arquivo de fora, use `git restore --staged README.md`. A opção altera o índice (staging area) e preserva o conteúdo que você está editando. Use `git diff --staged` para conferir o próximo commit e `git diff"
+        }
+      ],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "DEVMIND/Git/DM01-01-branch-staging-pr.md",
+        "DEVMIND/Git/DM01-01-branch-staging-pr.md",
+        "DEVMIND/Git/DM01-01-branch-staging-pr.md",
+        "DEVMIND/React/DM01-06-listas-no-estado.md",
+        "DEVMIND/React/DM01-06-listas-no-estado.md"
+      ],
+      "context_sources": [
+        {
+          "source": "DEVMIND/Git/DM01-01-branch-staging-pr.md",
+          "section": "Tirar um arquivo do staging",
+          "chunk_id": 1.0,
+          "score": 0.6128
+        }
+      ],
+      "latency_ms": {
+        "retrieval": 349.7918640005082,
+        "generation": 1576.432174000729,
+        "total": 1926.377132000198
+      },
+      "error": null,
+      "usage": {
+        "pinecone": {
+          "read_units": 1,
+          "embed_total_tokens": 17
+        },
+        "openai": {
+          "prompt_tokens": 356,
+          "completion_tokens": 57,
+          "total_tokens": 413,
+          "cached_tokens": 0
+        }
+      },
+      "generation_model": "gpt-4o-2024-08-06"
+    },
+    {
+      "id": 32,
+      "category": "HTML/CSS",
+      "type": "referencia",
+      "query": "Como associo um label a um input e permito que os campos quebrem linha com Flexbox?",
+      "expected_sources": [
+        "DEVMIND/HTML_CSS/DM01-02-formularios-e-flexbox.md"
+      ],
+      "should_answer": true,
+      "portfolio": true,
+      "status": "answered",
+      "answer": "Para associar um label a um input, use um identificador único no campo de input e o mesmo valor no atributo `for` do label. Isso garante que o navegador associe corretamente o texto ao campo, permitindo que clicar no label coloque o foco no input, como no exemplo abaixo:\n\n```html\n<label for=\"city\">Cidade</label>\n<input id=\"city\" name=\"city\" autocomplete=\"address-level2\">\n```\n\nPara permitir que os campos quebrem linha com Flexbox, aplique as seguintes propriedades ao contêiner dos elementos:\n\n```css\ndisplay: flex;\nflex-wrap: wrap;\ngap: 0.75rem;\n```\n\nIsso permite que, em telas estreitas, os itens passem para a próxima linha mantendo um espaçamento adequado. Se os itens precisarem ajustar o tamanho, adicione também `flex: 1 1 14rem` para que possam crescer conforme necessário.",
+      "sources": [
+        {
+          "source": "DEVMIND/HTML_CSS/DM01-02-formularios-e-flexbox.md",
+          "section": "Deixar controles quebrarem linha com Flexbox",
+          "chunk_id": 2.0,
+          "score": 0.5957,
+          "excerpt": "## Deixar controles quebrarem linha com Flexbox\n\nPara um grupo de controles que precisa se adaptar à largura da tela, aplique `display: flex`, `flex-wrap: wrap` e `gap: 0.75rem` ao contêiner. Em telas estreitas, os itens podem passar à próxima linha, mantendo espaçamento. Se os itens também precisarem crescer, defina `flex: 1 1 14rem` neles e teste a largura"
+        },
+        {
+          "source": "DEVMIND/HTML_CSS/DM01-02-formularios-e-flexbox.md",
+          "section": "Associar rótulo e campo",
+          "chunk_id": 1.0,
+          "score": 0.4648,
+          "excerpt": "## Associar rótulo e campo\n\nDê um identificador único ao campo e use o mesmo valor em `for` no rótulo. Assim o navegador associa o texto ao campo e, por exemplo, clicar em “Cidade” coloca o foco no controle. Mantenha o rótulo visível durante o preenchimento.\n\n```html\n<label for=\"city\">Cidade</label>\n<input id=\"city\" name=\"city\" autocomplete=\"address-level2\">"
+        }
+      ],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "DEVMIND/HTML_CSS/DM01-02-formularios-e-flexbox.md",
+        "DEVMIND/HTML_CSS/DM01-02-formularios-e-flexbox.md",
+        "DEVMIND/JavaScript/DM01-03-map-filter.md",
+        "DEVMIND/HTML_CSS/DM01-02-formularios-e-flexbox.md",
+        "DEVMIND/React/DM01-06-listas-no-estado.md"
+      ],
+      "context_sources": [
+        {
+          "source": "DEVMIND/HTML_CSS/DM01-02-formularios-e-flexbox.md",
+          "section": "Deixar controles quebrarem linha com Flexbox",
+          "chunk_id": 2.0,
+          "score": 0.5957
+        },
+        {
+          "source": "DEVMIND/HTML_CSS/DM01-02-formularios-e-flexbox.md",
+          "section": "Associar rótulo e campo",
+          "chunk_id": 1.0,
+          "score": 0.4648
+        }
+      ],
+      "latency_ms": {
+        "retrieval": 242.4917970001843,
+        "generation": 2626.901576999444,
+        "total": 2869.560587001615
+      },
+      "error": null,
+      "usage": {
+        "pinecone": {
+          "read_units": 1,
+          "embed_total_tokens": 25
+        },
+        "openai": {
+          "prompt_tokens": 529,
+          "completion_tokens": 216,
+          "total_tokens": 745,
+          "cached_tokens": 0
+        }
+      },
+      "generation_model": "gpt-4o-2024-08-06"
+    },
+    {
+      "id": 33,
+      "category": "JavaScript",
+      "type": "referencia",
+      "query": "Quando usar map e filter em uma lista de produtos?",
+      "expected_sources": [
+        "DEVMIND/JavaScript/DM01-03-map-filter.md"
+      ],
+      "should_answer": true,
+      "portfolio": true,
+      "status": "answered",
+      "answer": "Use `map` quando você precisa transformar cada item de uma lista de produtos em outro valor, por exemplo, convertendo produtos em seus respectivos nomes. Use `filter` quando você precisa selecionar os produtos que atendem a um determinado critério, como aqueles que estão disponíveis. Ambos retornarão um novo array e é recomendado manter a função de callback pura sempre que possível para evitar efeitos colaterais.",
+      "sources": [
+        {
+          "source": "DEVMIND/JavaScript/DM01-03-map-filter.md",
+          "section": "Escolher entre map e filter",
+          "chunk_id": 1.0,
+          "score": 0.6051,
+          "excerpt": "## Escolher entre map e filter\n\nUse `map` quando cada item precisa se transformar em outro valor, como trocar produtos pelos respectivos nomes. Use `filter` quando precisa selecionar os itens que passam em um teste. Ambos retornam outro array, mas uma função de callback ainda pode causar efeitos colaterais. Mantenha a callback pura quando possível.\n\n```js\nco"
+        }
+      ],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "DEVMIND/JavaScript/DM01-03-map-filter.md",
+        "DEVMIND/React/DM01-06-listas-no-estado.md",
+        "DEVMIND/Python/DM01-04-lista-e-dicionario.md",
+        "DEVMIND/JavaScript/DM01-03-map-filter.md",
+        "DEVMIND/React/DM01-06-listas-no-estado.md"
+      ],
+      "context_sources": [
+        {
+          "source": "DEVMIND/JavaScript/DM01-03-map-filter.md",
+          "section": "Escolher entre map e filter",
+          "chunk_id": 1.0,
+          "score": 0.6051
+        }
+      ],
+      "latency_ms": {
+        "retrieval": 165.58514700045635,
+        "generation": 1410.745721001149,
+        "total": 1576.4603440002247
+      },
+      "error": null,
+      "usage": {
+        "pinecone": {
+          "read_units": 1,
+          "embed_total_tokens": 14
+        },
+        "openai": {
+          "prompt_tokens": 424,
+          "completion_tokens": 90,
+          "total_tokens": 514,
+          "cached_tokens": 0
+        }
+      },
+      "generation_model": "gpt-4o-2024-08-06"
+    },
+    {
+      "id": 34,
+      "category": "Python",
+      "type": "referencia",
+      "query": "Como conto ocorrências em Python com um dicionário e get?",
+      "expected_sources": [
+        "DEVMIND/Python/DM01-04-lista-e-dicionario.md"
+      ],
+      "should_answer": true,
+      "portfolio": true,
+      "status": "answered",
+      "answer": "Para contar ocorrências em Python usando um dicionário e o método `get`, você pode utilizar as chaves do dicionário para rastrear a quantidade de ocorrências de cada item. Ao iterar sobre uma lista, por exemplo, para cada item, você usa `get(item, 0)` para obter o contador atual do item no dicionário ou zero se ele ainda não estiver no dicionário. Em seguida, você incrementa esse contador e atualiza o dicionário. Segue um exemplo:\n\n```python\ntotais = {}\nfor status in [\"aberto\", \"fechado\", \"aberto\"]:\n    totais[status] = totais.get(status, 0) + 1\n# Resultado: {\"aberto\": 2, \"fechado\": 1}\n```",
+      "sources": [
+        {
+          "source": "DEVMIND/Python/DM01-04-lista-e-dicionario.md",
+          "section": "Índices, chaves e valor padrão",
+          "chunk_id": 1.0,
+          "score": 0.564,
+          "excerpt": "## Índices, chaves e valor padrão\n\nUma lista é uma sequência acessada por posição. Um dicionário associa chaves a valores. Para registrar quantas vezes cada status apareceu, use o status como chave. Com `get(status, 0)`, uma chave ausente devolve zero. O acesso `totais[status]` levantaria `KeyError` se a chave ainda não existisse.\n\n```python\ntotais = {}\nfor"
+        }
+      ],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "DEVMIND/Python/DM01-04-lista-e-dicionario.md",
+        "DEVMIND/Python/DM01-04-lista-e-dicionario.md",
+        "DEVMIND/HTTP/DM01-05-put-post-idempotencia.md",
+        "DEVMIND/HTTP/DM01-05-put-post-idempotencia.md",
+        "DEVMIND/JavaScript/DM01-03-map-filter.md"
+      ],
+      "context_sources": [
+        {
+          "source": "DEVMIND/Python/DM01-04-lista-e-dicionario.md",
+          "section": "Índices, chaves e valor padrão",
+          "chunk_id": 1.0,
+          "score": 0.564
+        }
+      ],
+      "latency_ms": {
+        "retrieval": 206.86323199879553,
+        "generation": 2211.1194130011427,
+        "total": 2418.095918999825
+      },
+      "error": null,
+      "usage": {
+        "pinecone": {
+          "read_units": 1,
+          "embed_total_tokens": 19
+        },
+        "openai": {
+          "prompt_tokens": 442,
+          "completion_tokens": 185,
+          "total_tokens": 627,
+          "cached_tokens": 0
+        }
+      },
+      "generation_model": "gpt-4o-2024-08-06"
+    },
+    {
+      "id": 35,
+      "category": "HTTP",
+      "type": "referencia",
+      "query": "Por que repetir um PUT pode ser seguro e repetir um POST pode duplicar pedidos?",
+      "expected_sources": [
+        "DEVMIND/HTTP/DM01-05-put-post-idempotencia.md"
+      ],
+      "should_answer": true,
+      "portfolio": true,
+      "status": "answered",
+      "answer": "Um PUT é considerado seguro para repetição porque é uma operação idempotente. Isso significa que, ao enviar a mesma requisição PUT múltiplas vezes com o mesmo corpo, o estado final do recurso permanece inalterado após a primeira operação ser efetivada. Por exemplo, definir as mesmas preferências em um recurso através de `PUT /preferencias/42` duas vezes não altera o resultado final após a primeira mudança bem-sucedida.\n\nEm contraste, um POST não é idempotente por natureza. Repetir uma operação POST, como `POST /pedidos`, pode resultar na criação de múltiplos recursos ou pedidos, já que cada operação POST pode ser tratada como uma nova solicitação. Portanto, é importante checar o contrato específico do endpoint antes de repetir um POST automaticamente após um timeout para evitar efeitos indesejados como duplicação de pedidos.",
+      "sources": [
+        {
+          "source": "DEVMIND/HTTP/DM01-05-put-post-idempotencia.md",
+          "section": "Efeito pretendido de uma operação idempotente",
+          "chunk_id": 1.0,
+          "score": 0.6177,
+          "excerpt": "## Efeito pretendido de uma operação idempotente\n\nSe `PUT /preferencias/42` define o mesmo tema duas vezes com o mesmo corpo, o estado pretendido depois de cada requisição é o mesmo. Isso torna PUT idempotente segundo a semântica HTTP. As respostas podem ter status distintos, por exemplo 201 ao criar o recurso e 204 ao substituí-lo, e efeitos como logs podem"
+        }
+      ],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "DEVMIND/HTTP/DM01-05-put-post-idempotencia.md",
+        "DEVMIND/HTTP/DM01-05-put-post-idempotencia.md",
+        "DEVMIND/React/DM01-06-listas-no-estado.md",
+        "DEVMIND/Autenticacao/DM01-07-autenticacao-autorizacao.md",
+        "DEVMIND/Python/DM01-04-lista-e-dicionario.md"
+      ],
+      "context_sources": [
+        {
+          "source": "DEVMIND/HTTP/DM01-05-put-post-idempotencia.md",
+          "section": "Efeito pretendido de uma operação idempotente",
+          "chunk_id": 1.0,
+          "score": 0.6177
+        }
+      ],
+      "latency_ms": {
+        "retrieval": 195.23356100035016,
+        "generation": 2352.956679000272,
+        "total": 2548.3291710006597
+      },
+      "error": null,
+      "usage": {
+        "pinecone": {
+          "read_units": 1,
+          "embed_total_tokens": 23
+        },
+        "openai": {
+          "prompt_tokens": 453,
+          "completion_tokens": 190,
+          "total_tokens": 643,
+          "cached_tokens": 0
+        }
+      },
+      "generation_model": "gpt-4o-2024-08-06"
+    },
+    {
+      "id": 36,
+      "category": "React",
+      "type": "referencia",
+      "query": "Como adiciono um item ao estado anterior sem mutar a lista no React?",
+      "expected_sources": [
+        "DEVMIND/React/DM01-06-listas-no-estado.md"
+      ],
+      "should_answer": true,
+      "portfolio": true,
+      "status": "answered",
+      "answer": "Para adicionar um item ao estado anterior sem mutar a lista em React, você pode usar o seguinte padrão:\n\n```javascript\nsetItems(previous => [...previous, item]);\n```\n\nIsso usa o operador de espalhamento (`...`) para criar uma nova lista que contém todos os itens da lista anterior, além do novo `item`, garantindo que o estado original não seja mutado.",
+      "sources": [
+        {
+          "source": "DEVMIND/React/DM01-06-listas-no-estado.md",
+          "section": "Adicionar ou atualizar sem mutar",
+          "chunk_id": 1.0,
+          "score": 0.7442,
+          "excerpt": "## Adicionar ou atualizar sem mutar\n\nUma lista armazenada no estado deve ser tratada como somente leitura. Para adicionar um item, chame o setter com uma função que recebe o estado anterior e retorna uma nova lista, como `setItems(previous => [...previous, item])`. Assim atualizações enfileiradas usam o estado anterior correspondente.\n\nPara alterar um objeto"
+        }
+      ],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "DEVMIND/React/DM01-06-listas-no-estado.md",
+        "DEVMIND/React/DM01-06-listas-no-estado.md",
+        "DEVMIND/HTTP/DM01-05-put-post-idempotencia.md",
+        "DEVMIND/JavaScript/DM01-03-map-filter.md",
+        "DEVMIND/Python/DM01-04-lista-e-dicionario.md"
+      ],
+      "context_sources": [
+        {
+          "source": "DEVMIND/React/DM01-06-listas-no-estado.md",
+          "section": "Adicionar ou atualizar sem mutar",
+          "chunk_id": 1.0,
+          "score": 0.7442
+        }
+      ],
+      "latency_ms": {
+        "retrieval": 191.5793890002533,
+        "generation": 1655.7997399995656,
+        "total": 1847.5238700011687
+      },
+      "error": null,
+      "usage": {
+        "pinecone": {
+          "read_units": 1,
+          "embed_total_tokens": 19
+        },
+        "openai": {
+          "prompt_tokens": 431,
+          "completion_tokens": 92,
+          "total_tokens": 523,
+          "cached_tokens": 0
+        }
+      },
+      "generation_model": "gpt-4o-2024-08-06"
+    },
+    {
+      "id": 37,
+      "category": "Autenticação",
+      "type": "referencia",
+      "query": "Quando uma API deve retornar 401 ou 403?",
+      "expected_sources": [
+        "DEVMIND/Autenticacao/DM01-07-autenticacao-autorizacao.md"
+      ],
+      "should_answer": true,
+      "portfolio": true,
+      "status": "answered",
+      "answer": "Uma API deve retornar 401 quando as credenciais para autenticação estão ausentes ou inválidas, indicando que a autenticação é necessária. Já o código 403 é apropriado quando a identidade da requisição é reconhecida, mas não tem permissão para executar a ação desejada, como acessar um recurso restrito a certas permissões, mesmo que a autenticação já tenha sido realizada.",
+      "sources": [
+        {
+          "source": "DEVMIND/Autenticacao/DM01-07-autenticacao-autorizacao.md",
+          "section": "Quando usar 401 e 403",
+          "chunk_id": 1.0,
+          "score": 0.7062,
+          "excerpt": "## Quando usar 401 e 403\n\nAutenticar é identificar quem fez a requisição. Autorizar é verificar se essa identidade tem permissão para executar a ação. Uma API pode retornar 401 quando as credenciais válidas estão ausentes e incluir um desafio `WWW-Authenticate`. Se a identidade foi reconhecida, mas não pode acessar um relatório reservado à equipe administrat"
+        }
+      ],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "DEVMIND/Autenticacao/DM01-07-autenticacao-autorizacao.md",
+        "DEVMIND/Autenticacao/DM01-07-autenticacao-autorizacao.md",
+        "DEVMIND/HTTP/DM01-05-put-post-idempotencia.md",
+        "DEVMIND/HTTP/DM01-05-put-post-idempotencia.md",
+        "DEVMIND/JavaScript/DM01-03-map-filter.md"
+      ],
+      "context_sources": [
+        {
+          "source": "DEVMIND/Autenticacao/DM01-07-autenticacao-autorizacao.md",
+          "section": "Quando usar 401 e 403",
+          "chunk_id": 1.0,
+          "score": 0.7062
+        }
+      ],
+      "latency_ms": {
+        "retrieval": 201.41021400013415,
+        "generation": 1412.7674700011994,
+        "total": 1614.3435329995555
+      },
+      "error": null,
+      "usage": {
+        "pinecone": {
+          "read_units": 1,
+          "embed_total_tokens": 15
+        },
+        "openai": {
+          "prompt_tokens": 446,
+          "completion_tokens": 89,
+          "total_tokens": 535,
+          "cached_tokens": 0
+        }
+      },
+      "generation_model": "gpt-4o-2024-08-06"
+    },
+    {
+      "id": 38,
+      "category": "Fora da base",
+      "type": "sin_respuesta",
+      "query": "Qual é a receita de uma pizza margherita?",
+      "expected_sources": [],
+      "should_answer": false,
+      "portfolio": true,
+      "status": "insufficient_evidence",
+      "answer": "Não encontrei evidências suficientes na base para responder. Tente especificar o assunto.",
+      "sources": [],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "DEVMIND/React/DM01-06-listas-no-estado.md",
+        "DEVMIND/HTML_CSS/DM01-02-formularios-e-flexbox.md",
+        "DEVMIND/HTML_CSS/DM01-02-formularios-e-flexbox.md",
+        "DEVMIND/Python/DM01-04-lista-e-dicionario.md",
+        "DEVMIND/HTTP/DM01-05-put-post-idempotencia.md"
+      ],
+      "context_sources": [],
+      "latency_ms": {
+        "retrieval": 225.55156799899123,
+        "generation": null,
+        "total": 225.6101739985752
+      },
+      "error": null,
+      "usage": {
+        "pinecone": {
+          "read_units": 1,
+          "embed_total_tokens": 15
+        },
+        "openai": {}
+      },
+      "generation_model": null
+    },
+    {
+      "id": 39,
+      "category": "Fora da base",
+      "type": "sin_respuesta",
+      "query": "Como calculo a distância orbital de Netuno?",
+      "expected_sources": [],
+      "should_answer": false,
+      "portfolio": true,
+      "status": "insufficient_evidence",
+      "answer": "Não encontrei evidências suficientes na base para responder. Tente especificar o assunto.",
+      "sources": [],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "DEVMIND/HTTP/DM01-05-put-post-idempotencia.md",
+        "DEVMIND/HTML_CSS/DM01-02-formularios-e-flexbox.md",
+        "DEVMIND/Git/DM01-01-branch-staging-pr.md",
+        "DEVMIND/HTTP/DM01-05-put-post-idempotencia.md",
+        "DEVMIND/Autenticacao/DM01-07-autenticacao-autorizacao.md"
+      ],
+      "context_sources": [],
+      "latency_ms": {
+        "retrieval": 258.65686100041785,
+        "generation": null,
+        "total": 258.7360229990736
+      },
+      "error": null,
+      "usage": {
+        "pinecone": {
+          "read_units": 1,
+          "embed_total_tokens": 14
+        },
+        "openai": {}
+      },
+      "generation_model": null
+    },
+    {
+      "id": 40,
+      "category": "Ambiguidade",
+      "type": "ambigua",
+      "query": "Como faço isso funcionar?",
+      "expected_sources": [],
+      "should_answer": false,
+      "portfolio": true,
+      "status": "insufficient_evidence",
+      "answer": "Não encontrei evidências suficientes na base para responder. Tente especificar o assunto.",
+      "sources": [],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "DEVMIND/HTML_CSS/DM01-02-formularios-e-flexbox.md",
+        "DEVMIND/React/DM01-06-listas-no-estado.md",
+        "DEVMIND/Git/DM01-01-branch-staging-pr.md",
+        "DEVMIND/JavaScript/DM01-03-map-filter.md",
+        "DEVMIND/HTML_CSS/DM01-02-formularios-e-flexbox.md"
+      ],
+      "context_sources": [],
+      "latency_ms": {
+        "retrieval": 314.5653779993154,
+        "generation": null,
+        "total": 314.6184010001889
+      },
+      "error": null,
+      "usage": {
+        "pinecone": {
+          "read_units": 1,
+          "embed_total_tokens": 10
+        },
+        "openai": {}
+      },
+      "generation_model": null
+    },
+    {
+      "id": 41,
+      "category": "Ambiguidade",
+      "type": "ambigua",
+      "query": "Qual deles devo usar no meu projeto?",
+      "expected_sources": [],
+      "should_answer": false,
+      "portfolio": true,
+      "status": "insufficient_evidence",
+      "answer": "Não encontrei evidências suficientes na base para responder. Tente especificar o assunto.",
+      "sources": [],
+      "retrieval_completed": true,
+      "retrieved_sources": [
+        "DEVMIND/JavaScript/DM01-03-map-filter.md",
+        "DEVMIND/Python/DM01-04-lista-e-dicionario.md",
+        "DEVMIND/Autenticacao/DM01-07-autenticacao-autorizacao.md",
+        "DEVMIND/HTML_CSS/DM01-02-formularios-e-flexbox.md",
+        "DEVMIND/React/DM01-06-listas-no-estado.md"
+      ],
+      "context_sources": [],
+      "latency_ms": {
+        "retrieval": 166.02702800082625,
+        "generation": null,
+        "total": 166.06820299966785
+      },
+      "error": null,
+      "usage": {
+        "pinecone": {
+          "read_units": 1,
+          "embed_total_tokens": 13
+        },
+        "openai": {}
+      },
+      "generation_model": null
+    }
+  ],
+  "error": null,
+  "cleanup": {
+    "attempted": true,
+    "verified": true
+  },
+  "index": {
+    "ready": true,
+    "text_field": {
+      "type": "semantic_text",
+      "model": "llama-text-embed-v2",
+      "metric": "cosine",
+      "description": null,
+      "read_parameters": {
+        "truncate": "END",
+        "dimension": 1024,
+        "input_type": "query"
+      },
+      "write_parameters": {
+        "truncate": "END",
+        "dimension": 1024,
+        "input_type": "passage"
+      }
+    }
+  },
+  "openai_model": "gpt-4o",
+  "record_count_after_first_upsert": 17,
+  "record_count_after_second_upsert": 17,
+  "metrics": {
+    "retrieval_hit_at_k": {
+      "1": {
+        "passed": 7,
+        "total": 7,
+        "rate": 1.0
+      },
+      "3": {
+        "passed": 7,
+        "total": 7,
+        "rate": 1.0
+      },
+      "5": {
+        "passed": 7,
+        "total": 7,
+        "rate": 1.0
+      }
+    },
+    "abstention_accuracy": {
+      "passed": 11,
+      "total": 11,
+      "rate": 1.0
+    },
+    "correct_rejection": {
+      "passed": 4,
+      "total": 4,
+      "rate": 1.0
+    },
+    "source_attribution": {
+      "passed": 7,
+      "total": 7,
+      "rate": 1.0
+    },
+    "expected_source_cited": {
+      "passed": 7,
+      "total": 7,
+      "rate": 1.0
+    },
+    "labeled_source_precision": {
+      "passed": 8,
+      "total": 8,
+      "rate": 1.0
+    },
+    "latency": {
+      "retrieval": {
+        "median_ms": 206.86,
+        "samples": 11
+      },
+      "generation": {
+        "median_ms": 1655.8,
+        "samples": 7
+      },
+      "total": {
+        "median_ms": 1614.34,
+        "samples": 11
+      }
+    },
+    "error_rate": {
+      "passed": 0,
+      "total": 11,
+      "rate": 0.0
+    }
+  },
+  "usage": {
+    "pinecone": {
+      "read_units": {
+        "total": 11,
+        "samples": 11
+      },
+      "embed_total_tokens": {
+        "total": 184,
+        "samples": 11
+      }
+    },
+    "openai": {
+      "prompt_tokens": {
+        "total": 3081,
+        "samples": 7
+      },
+      "completion_tokens": {
+        "total": 919,
+        "samples": 7
+      },
+      "total_tokens": {
+        "total": 4000,
+        "samples": 7
+      },
+      "cached_tokens": {
+        "total": 0,
+        "samples": 7
+      }
+    }
+  },
+  "api": [
+    {
+      "request": {
+        "question": "Como retiro README.md do staging mantendo minhas edições?",
+        "source": "DEVMIND/Git/DM01-01-branch-staging-pr.md"
+      },
+      "http_status": 200,
+      "response": {
+        "status": "answered",
+        "answer": "Para retirar o arquivo `README.md` do staging mantendo suas edições, você pode usar o comando `git restore --staged README.md`. Isso remove o arquivo do índice (staging area) mas mantém suas alterações locais.",
+        "sources": [
+          {
+            "source": "DEVMIND/Git/DM01-01-branch-staging-pr.md",
+            "section": "Tirar um arquivo do staging",
+            "chunk_id": 1,
+            "score": 0.6128,
+            "excerpt": "## Tirar um arquivo do staging\n\nImagine que você editou `README.md` e o adicionou com `git add README.md`. Se quiser que a próxima confirmação deixe esse arquivo de fora, use `git restore --staged README.md`. A opção altera o índice (staging area) e preserva o conteúdo que você está editando. Use `git diff --staged` para conferir o próximo commit e `git diff"
+          }
+        ]
+      }
+    },
+    {
+      "request": {
+        "question": "Qual é a receita de uma pizza margherita?"
+      },
+      "http_status": 200,
+      "response": {
+        "status": "insufficient_evidence",
+        "answer": "Não encontrei evidências suficientes na base para responder. Tente especificar o assunto.",
+        "sources": []
+      }
+    }
+  ],
+  "passed": true
+}

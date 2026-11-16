@@ -5,6 +5,7 @@ import type {
   GuideModule,
   HealthResponse,
   StatsResponse,
+  StudyCard, DailySession, LearningProgress, GenerateCardsRequest, ReviewResult, Recall,
 } from "./types";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
@@ -18,6 +19,22 @@ export class ApiError extends Error {
     this.status = status;
   }
 }
+
+export const learningApi = {
+  progress: () => request<LearningProgress>("/learning/progress"),
+  due: () => request<{ cards: StudyCard[] }>("/learning/due?limit=20"),
+  daily: () => request<DailySession>("/learning/daily"),
+  card: (id: string) => request<StudyCard>(`/learning/cards/${encodeURIComponent(id)}`),
+  generate: (body: GenerateCardsRequest) => request<{ cards: StudyCard[] }>("/learning/cards", {
+    method: "POST", body: JSON.stringify(body),
+  }),
+  review: (id: string, requestId: string, answer: string) => request<ReviewResult>(`/learning/cards/${encodeURIComponent(id)}/reviews`, {
+    method: "POST", body: JSON.stringify({ request_id: requestId, answer }),
+  }),
+  recall: (id: string, recall: Recall) => request<ReviewResult>(`/learning/reviews/${encodeURIComponent(id)}/recall`, {
+    method: "POST", body: JSON.stringify({ recall }),
+  }),
+};
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   let response: Response;

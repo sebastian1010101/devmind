@@ -1,0 +1,38 @@
+{
+  "passed": true,
+  "provider": "mock",
+  "timestamp_utc": "2026-11-12T21:36:18.593Z",
+  "browser": "157.0.8103.78",
+  "viewports": [
+    {
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "width": 390,
+      "height": 844
+    }
+  ],
+  "checks": [
+    "generation",
+    "hidden_solution",
+    "timeout",
+    "persisted_answer_after_reload",
+    "retry",
+    "evaluation",
+    "self_recall",
+    "reference_answer",
+    "open_document",
+    "daily_progress",
+    "upcoming_reviews",
+    "mobile_no_overflow",
+    "no_page_errors"
+  ],
+  "screenshots": [
+    "study-dashboard.png",
+    "study-feedback.png",
+    "study-progress.png",
+    "study-mobile.png",
+    "study-practice-mobile.png"
+  ]
+}

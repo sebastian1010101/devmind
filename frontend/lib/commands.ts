@@ -23,7 +23,7 @@ export type ParsedCommand =
   | { type: "question"; question: string }
   | { type: "unknown"; raw: string };
 
-const MODES: Mode[] = ["ask", "guide"];
+const MODES: Mode[] = ["ask", "guide", "study"];
 
 function isMode(value: string): value is Mode {
   return (MODES as string[]).includes(value);
@@ -73,7 +73,7 @@ export const HELP_TEXT = [
   "/guide <módulo>       abre um módulo (por exemplo, devmind)",
   "/guide <módulo> <tema>  abre um tema dentro do módulo",
   "/sources              mostra as fontes da última resposta",
-  "/mode [ask|guide]     mostra ou alterna o modo",
+  "/mode [ask|guide|study] mostra ou alterna o modo",
   "/clear                limpa a conversa",
   "/about                mostra informações do projeto",
   "/help                 mostra esta lista",
@@ -89,6 +89,7 @@ export const ABOUT_TEXT = [
   "",
   "Chat: perguntas com fontes citadas.",
   "Guia: navegação por módulo, tema e documento.",
+  "Estudo: cartões com IA, autoavaliação e repetição espaçada.",
   "",
   "Construído com Next.js, TypeScript, Tailwind CSS e React Three Fiber.",
 ].join("\n");

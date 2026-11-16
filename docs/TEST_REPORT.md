@@ -1,5 +1,27 @@
 # Relatório de verificação
 
+## Active Recall implementado em 12/11/2026
+
+O modo Estudo acrescenta flashcards com evidência RAG, avaliação por conceitos, SQLite, autoavaliação, calendário determinista, sessão diária idempotente e progresso. A validação final passou com 143 testes locais e uma integração RAG optativa omitida, incluindo 59 novos testes de Active Recall. ESLint, TypeScript, build Webpack e dry-run do corpus passaram.
+
+Uma prova controlada com Pinecone e OpenAI gerou um cartão e avaliou três respostas sintéticas, verificando replay, calendário, persistência e limpeza do namespace. O Chrome verificou geração, falha e recuperação de resposta, avaliação, fontes, autoavaliação e progresso em desktop e celular com provedores simulados. A revisão detectou uma imprecisão na explicação real; a implementação final usa explicação extrativa, verificada também por replay. O relatório registra falsos positivos possíveis da guarda conservadora; não se afirma validação pedagógica completa. [Entrega e limites](ACTIVE_RECALL_REPORT.md), [operação](ACTIVE_RECALL.md), [evidência real](../evaluation/learning-live-2026-11-12.json), [navegador](../evaluation/learning-browser-2026-11-12.json).
+
+O Turbopack voltou a falhar ao abrir uma porta interna, inclusive na repetição escalada. A produção foi validada com `npm run build -- --webpack`. As notas anteriores ficam preservadas abaixo.
+
+## Atualização verificada em 12/11/2026
+
+A integração real com Pinecone e OpenAI foi executada nesta entrega. O teste sintético passou e duas execuções com o corpus autoral verificaram autenticação, esquema de embeddings, ingestão, recuperação, geração, citações, abstensão, reingestão com 17 IDs e limpeza do namespace isolado. O validador também confirmou duas respostas de `POST /ask` por ASGI com os clientes reais.
+
+Na execução definitiva, Hit@1/3/5 foi 7/7, a decisão de responder ou abster foi correta em 11/11 casos, a atribuição estrutural foi 7/7 e a precisão das referências etiquetadas foi 8/8. Houve zero erros. A revisão qualitativa do assistente sobre os sete documentos e respostas está registrada separadamente das métricas automáticas. [Relatório atual](RAG_EVALUATION.md), [Evidência real](../evaluation/results-live-2026-11-12.json)
+
+As verificações locais ampliadas passaram com 84 testes e uma integração omitida nessa execução, ESLint, TypeScript, build de produção com Webpack e dry-run de 503 documentos e 3841 fragmentos. A integração real optativa passou separadamente com um teste. O desenho da próxima funcionalidade está no plano de Active Recall. [Plano](ACTIVE_RECALL_PLAN.md)
+
+O build padrão com Turbopack foi tentado e falhou com `Operation not permitted` ao abrir uma porta interna, inclusive fora do sandbox. O comando verificado para este ambiente continua sendo `npm run build -- --webpack`. `uv pip check` confirmou os 34 pacotes instalados compatíveis, com Python 3.14.4.
+
+## Registro histórico de 10/11/2026
+
+As seções seguintes preservam o registro anterior, inclusive os bloqueios e pendências existentes naquela data. O estado vigente é o da atualização acima.
+
 Execução local em 10 de novembro de 2026. As credenciais estavam configuradas localmente. O ensaio com provedores reais exige autorização de consumo e ficou pendente.
 
 ## Testes executados

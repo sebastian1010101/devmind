@@ -150,3 +150,36 @@ def test_missing_key_is_checked_before_network(clients, monkeypatch):
     assert exc.value.code == "missing_credentials"
     index.search_records.assert_not_called()
     generate.assert_not_called()
+
+
+def test_provider_usage_survives_invalid_generation(clients):
+    index, generate = clients
+    index.search_records.return_value.result.hits = [hit("a.md")]
+    index.search_records.return_value.usage = SimpleNamespace(read_units=1, embed_total_tokens=8)
+    response = completion("invalid json")
+    response.usage = SimpleNamespace(
+        prompt_tokens=100, completion_tokens=12, total_tokens=112,
+        prompt_tokens_details=SimpleNamespace(cached_tokens=0),
+    )
+    response.model = "resolved-model"
+    generate.return_value = response
+    trace = rag.RunTrace()
+    with pytest.raises(ServiceError):
+        rag.answer_question("Pergunta", trace=trace)
+    assert trace.pinecone_usage == {"read_units": 1, "embed_total_tokens": 8}
+    assert trace.openai_usage == {"prompt_tokens": 100, "completion_tokens": 12, "total_tokens": 112, "cached_tokens": 0}
+    assert trace.generation_model == "resolved-model"
+
+
+@pytest.mark.parametrize("status,code,public_status", [
+    (401, "provider_config", 503), (403, "provider_config", 503), (404, "provider_config", 503),
+    (402, "provider_limit", 503), (500, "provider_error", 502),
+])
+def test_provider_failures_are_sanitized(clients, caplog, status, code, public_status):
+    index, generate = clients
+    index.search_records.side_effect = ApiError("private provider body", status)
+    with pytest.raises(ServiceError) as exc:
+        rag.answer_question("Pergunta")
+    assert (exc.value.code, exc.value.status) == (code, public_status)
+    assert "private provider body" not in str(exc.value) + caplog.text
+    generate.assert_not_called()

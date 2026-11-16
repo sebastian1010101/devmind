@@ -3,7 +3,7 @@
 import os
 from typing import Annotated, Literal
 
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import Depends, FastAPI, HTTPException, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
@@ -11,6 +11,8 @@ from pydantic import BaseModel, StringConstraints
 
 from config import Question, TopK
 from guide import guide_as_list, read_guide_document
+from learning_api import get_store, router as learning_router
+from local_access import local_demo_access
 from providers import ServiceError
 from rag import answer_question
 from stats import compute_stats
@@ -25,6 +27,7 @@ app.add_middleware(
     allow_methods=["GET", "POST"],
     allow_headers=["Content-Type"],
 )
+app.include_router(learning_router)
 
 Scope = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1, max_length=100)]
 
@@ -55,8 +58,13 @@ class AskResponse(BaseModel):
 def invalid_request(_request: Request, _exc: RequestValidationError):
     # A resposta padrão inclui a entrada que falhou. Não devolvemos a pergunta ou o corpo.
     return JSONResponse(status_code=422, content={
-        "detail": "Informe uma pergunta de 1 a 1200 caracteres. Se usar top-k, informe um inteiro de 1 a 20.",
+        "detail": "Entrada inválida. Use textos de 1 a 1200 caracteres, IDs de solicitação UUID, 1 a 3 cartões e top-k de 1 a 20.",
     })
+
+
+@app.exception_handler(ServiceError)
+def service_error(_request: Request, exc: ServiceError):
+    return JSONResponse(status_code=exc.status, content={"detail": str(exc), "code": exc.code})
 
 
 @app.get("/health")
@@ -82,8 +90,9 @@ def guide_document(source: str = "") -> dict[str, str]:
     return {"markdown": markdown}
 
 
-@app.post("/ask", response_model=AskResponse)
+@app.post("/ask", response_model=AskResponse, dependencies=[Depends(local_demo_access)])
 def ask(request: AskRequest):
+    get_store().charge_chat()
     try:
         return answer_question(
             request.question, top_k=request.top_k, module=request.module, topic=request.topic, source=request.source,

@@ -2,6 +2,8 @@
 
 DevMind é um assistente de estudos de programação. Em vez de procurar manualmente em várias anotações, você faz uma pergunta em linguagem natural e recebe uma explicação com o arquivo, a seção e um trecho de cada fonte citada. Quando a base não sustenta uma resposta, o chat sinaliza a falta de evidência.
 
+O modo **Estudo** transforma documentos recuperados em flashcards com IA. Você responde com suas palavras, confere feedback e fontes, indica como foi recordar e acompanha a próxima revisão. Cartões, tentativas, calendário e sessões diárias ficam em SQLite. É uma demo local de um estudante. [Active Recall: arquitetura, endpoints e demonstração](docs/ACTIVE_RECALL.md)
+
 ## O que você pode fazer
 
 - Conversar com o assistente em um chat responsivo, testar perguntas sugeridas e limpar o histórico da sessão.
@@ -9,6 +11,8 @@ DevMind é um assistente de estudos de programação. Em vez de procurar manualm
 - Navegar pelo Guia e restringir uma pergunta a um módulo, tema ou documento.
 - Indexar arquivos Markdown em lotes e atualizar a base sem multiplicar os mesmos fragmentos.
 - Medir recuperação, abstensão, atribuição de fontes, latência e erros com o mesmo pipeline do chat.
+- Gerar até três cartões por tema ou documento, praticar até cinco cartões na sessão diária e acompanhar progresso por tema.
+- Retomar respostas após falhas de provedor e ajustar a avaliação automática com sua própria percepção de recordação.
 
 ## Arquitetura
 
@@ -23,6 +27,11 @@ flowchart LR
     R -->|Pergunta e evidência limitada| AI[OpenAI]
     AI -->|Resposta e IDs de evidência| R
     R -->|Validação das citações| API
+    API --> LS[Active Recall]
+    LS --> R
+    LS --> AI
+    LS --> DB[(SQLite: cartões e progresso)]
+    LS --> CAL[Repetição espaçada determinista]
 ```
 
 Python 3.12, FastAPI, Pinecone com `llama-text-embed-v2`, OpenAI Chat Completions, pytest, Next.js, React, TypeScript e Tailwind CSS. A visualização em Three.js é decorativa.
@@ -45,7 +54,7 @@ Com autorização para consumo no projeto dos provedores, execute os comandos ab
 ```bash
 .venv/bin/python main.py
 .venv/bin/python ingest.py --module devmind
-.venv/bin/python -m uvicorn api:app --host 127.0.0.1 --port 8000
+.venv/bin/python -m uvicorn api:app --host 127.0.0.1 --port 8000 --no-proxy-headers
 ```
 
 Em outro terminal, execute `npm --prefix frontend run dev` e abra [localhost:3035](http://localhost:3035). A URL padrão do backend é `http://localhost:8000`. Para alterá-la, use `NEXT_PUBLIC_API_URL` em `frontend/.env.local`. Reinicie o servidor após alterar a configuração. Para a demo de produção, use os comandos verificados abaixo.
@@ -56,6 +65,8 @@ npm --prefix frontend run start -- --hostname 127.0.0.1 --port 3035
 ```
 
 Sem credenciais, os mesmos servidores permitem abrir a interface, consultar `/health`, `/stats` e navegar no Guia. A ação de perguntar retorna uma mensagem de configuração. Para uma consulta pelo terminal, use `.venv/bin/python search.py --debug`.
+
+No modo **Estudo**, selecione **Guias DevMind → Git**, quantidade **1** e o foco “Como retirar README.md do staging mantendo as edições?”. Gere, responda, avalie e selecione **Lembrei**. O painel **Progresso** mostra a próxima revisão. A base privada é criada automaticamente em `data/learning.sqlite3`; preserve esse diretório entre execuções. [Roteiro completo e recuperação após falhas](docs/ACTIVE_RECALL.md#executar-e-demonstrar)
 
 ### Configuração do backend
 
@@ -70,6 +81,9 @@ Sem credenciais, os mesmos servidores permitem abrir a interface, consultar `/he
 | `RAG_CONTEXT_CHARS` | `10000` | Limite em caracteres do JSON de evidências. |
 | `RAG_TIMEOUT_SECONDS` | `15` | Timeout por operação nos SDKs. |
 | `FRONTEND_ORIGIN` | localhost e 127.0.0.1 na porta 3035 | Origens CORS, separadas por vírgulas. |
+| `LEARNING_DB_PATH` | `data/learning.sqlite3` | Progresso privado do estudante local, com migração automática. |
+
+`/ask` e `/learning/*` exigem peer local, Host local e Origin autorizado. Há cotas persistentes de 50 perguntas de chat, 10 gerações e 50 avaliações por dia de São Paulo. Falhas contam na cota. Não publique a demo por proxy ou túnel: esses controles não são autenticação multiusuário.
 
 ### Atualizar a base
 
@@ -100,6 +114,7 @@ As capturas mostram o build local. A resposta de Git exibida no desktop usa um p
 ```bash
 .venv/bin/python -m pytest tests/ -q
 .venv/bin/python evaluation/evaluate.py
+.venv/bin/python evaluation/validate_learning.py
 npm --prefix frontend run lint
 (cd frontend && npx tsc --noEmit)
 npm --prefix frontend run build -- --webpack
@@ -109,8 +124,10 @@ A [execução simulada](evaluation/results-mock.json) verificou o comportamento 
 
 ## Limitações e próximos passos
 
-O histórico fica na página e cada pergunta é independente. A validação garante que uma citação existe no contexto enviado ao modelo. Aferir se cada afirmação é sustentada pelo trecho exige revisão humana ou uma metodologia adicional. O catálogo local e o índice remoto têm ciclos de atualização separados. A API foi preparada para execução local e ainda precisa de uma política de acesso e cotas antes de exposição pública.
+O histórico do chat fica na página e cada pergunta é independente. Active Recall persiste as tentativas e a evidência de cada cartão em SQLite. A validação garante que uma citação existe no contexto enviado ao modelo. Aferir se cada afirmação é sustentada pelo trecho exige revisão humana ou uma metodologia adicional. A avaliação da IA pode falhar, e a autoavaliação do estudante tem prioridade no calendário. O catálogo local e o índice remoto têm ciclos de atualização separados. A API está restrita à demo local; exposição pública exige autenticação, autorização por recurso e cotas por usuário.
 
-O primeiro passo após a validação com provedores é calibrar o limiar em perguntas rotuladas e revisar erros de fundamentação. Carga pela interface, feedback e painel de métricas ficam depois da validação do MVP.
+Os próximos passos são ampliar a avaliação pedagógica com respostas rotuladas por pessoas, calibrar o limiar e revisar erros de fundamentação. WhatsApp fica para uma etapa posterior; a seleção diária já é independente do canal.
 
 [Arquitetura](docs/ARCHITECTURE.md) · [Auditoria inicial](docs/AUDIT.md) · [Decisões](docs/DECISIONS.md) · [Testes e entrega](docs/TEST_REPORT.md)
+
+[Active Recall](docs/ACTIVE_RECALL.md) · [Evidências da entrega](docs/ACTIVE_RECALL_REPORT.md) · [Entrevista e CV AI Builder](docs/AI_BUILDER.md)

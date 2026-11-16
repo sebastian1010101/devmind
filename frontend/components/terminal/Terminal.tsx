@@ -11,6 +11,7 @@ import { CommandInput } from "./CommandInput";
 import { ModeSelector } from "./ModeSelector";
 import { TerminalEntry, type TerminalEntryData } from "./TerminalEntry";
 import { Guide } from "@/components/guide/Guide";
+import { Study } from "@/components/study/Study";
 
 let entryCounter = 0;
 function nextId() {
@@ -262,7 +263,7 @@ export function Terminal() {
   };
 
   const focusInput = (event: MouseEvent<HTMLDivElement>) => {
-    if (mode === "guide" || isInteractiveTarget(event.target)) return;
+    if (mode !== "ask" || isInteractiveTarget(event.target)) return;
     inputRef.current?.focus();
   };
 
@@ -307,7 +308,10 @@ export function Terminal() {
       </header>
 
       <div ref={logRef} className="flex-1 min-h-0 overflow-y-auto px-4 py-4 sm:px-6 flex flex-col gap-3 text-sm">
-        {mode === "guide" ? (
+        <div hidden={mode !== "study"}>
+          <Study active={mode === "study"} modules={guide.modules ?? []} />
+        </div>
+        {mode === "study" ? null : mode === "guide" ? (
           <Guide path={guidePath} onNavigate={setGuidePath} onAskAbout={handleAskAbout} />
         ) : entries.length === 0 ? (
           <div className="my-auto w-full py-5 sm:px-4">
@@ -338,7 +342,7 @@ export function Terminal() {
         )}
       </div>
 
-      <div className="p-3 sm:p-4">
+      <div className="p-3 sm:p-4" hidden={mode === "study"}>
         <div className="glass-panel-raised flex flex-col gap-2 rounded-xl border border-border-strong px-3 py-2">
           <CommandInput key={inputSession} ref={inputRef} onSubmit={handleSubmit} />
           <div className="flex flex-wrap items-center justify-between gap-2 border-t border-border pt-2 text-xs text-muted">
